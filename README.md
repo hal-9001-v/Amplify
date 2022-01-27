@@ -6,7 +6,7 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para r
 
 ## Funcionalidades públicas
 - Buscar una canción, artista o albúm en concreto
-- Reproducir cualquier canción
+- Reproducir/Descargar cualquier canción
 - Controlar la reproducción
 - Ver las valoraciones de las diferentes pistas
 - Crear o iniciar sesión en una cuenta
