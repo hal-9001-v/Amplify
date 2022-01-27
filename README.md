@@ -26,7 +26,8 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para r
 - Review: aporta una opinión sobre una canción por parte de un usuario concreto.
 
 ## Servicio interno
-El servicio de uso exclusivo interno es capaz de __permitir descargas__ dentro de la aplicación (canciones, playlists enteras...) además de realizar otros servicios básicos como el login de los diferentes usuarios.
+- Enviar una notificación cuando el servicio web suba una obra nueva que pueda resultar de interés. (Si el usuario tiene X canciones de X género valoradas o guardadas, recibirá un correo cuando se suba una canción de ese género concreto o similares. 
+- Al final de cada mes, el servicio web enviará por correo a los usuarios las estadísticas de escucha y descarga de ese mes, además de una lista de reproducción compuesta por algunas de sus canciones más esuchadas. 
   
 ## Trello
 > https://trello.com/b/UwQOWvWy/amplify-dad
