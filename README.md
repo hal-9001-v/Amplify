@@ -29,4 +29,4 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para r
 - Al final de cada mes, el servicio web enviará por correo a los usuarios las estadísticas de escucha y descarga de ese mes, además de una lista de reproducción compuesta por algunas de sus canciones más esuchadas. 
   
 ## Trello
-> https://trello.com/b/UwQOWvWy/amplify-dad
+> https://trello.com/b/dPt5uWWU/amplify
