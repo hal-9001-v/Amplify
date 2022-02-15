@@ -23,7 +23,6 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para r
 - Artista: recoge los álbumes que ha publicado un artista.
 - Album: engloba todas las canciones de un álbum y conoce al artista.
 - Playlist: conjunto determinado de canciones que puede haber creado un usuario.
-- Review: aporta una opinión sobre una canción por parte de un usuario concreto.
 
 ## Servicio interno
 - Enviar una notificación cuando el servicio web suba una obra nueva que pueda resultar de interés. (Si el usuario tiene X canciones de X género valoradas o guardadas, recibirá un correo cuando se suba una canción de ese género concreto o similares. 
