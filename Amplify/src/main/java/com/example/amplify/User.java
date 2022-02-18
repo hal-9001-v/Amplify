@@ -12,7 +12,7 @@ public class User {
     private long id;
 
     //Class attribs
-    String userName;
+    String username;
     String password;
     
 
@@ -38,16 +38,16 @@ public class User {
 
     public User(){}
 
-    public User(String userName, String password){
+    public User(String username, String password){
 
-        this.userName = userName;
+        this.username = username;
         this.password = password;
 
     }
 
     //Attrib Get&Set
-    public String getUserName(){return this.userName;}
-    public void setUserName(String name){this.userName = name;}
+    public String getUsername(){return this.username;}
+    public void setUsername(String name){this.username = name;}
     public String getPassword(){return this.password;}
     public void setPassword(String password){this.password = password;}
 
