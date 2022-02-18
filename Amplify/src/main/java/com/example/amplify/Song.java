@@ -22,7 +22,7 @@ public class Song {
     //BD Relations
     @Autowired
     @ManyToOne
-    private Artist author;
+    private Artist artist;
 
     @Autowired
     @OneToOne
@@ -47,8 +47,8 @@ public class Song {
 
 
     //FK Get&Set
-    public Artist getAuthor() {return author;}
-    public void setAuthor(Artist author){this.author = author;}
+    public Artist getArtist() {return artist;}
+    public void setArtist(Artist artist){this.artist = artist;}
 
     public Album getAlbum() {return album;}
     public void setAlbum(Album album){this.album = album;}

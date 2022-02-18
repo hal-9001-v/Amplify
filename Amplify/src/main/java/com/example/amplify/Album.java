@@ -2,7 +2,6 @@ package com.example.amplify;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -26,7 +25,7 @@ public class Album {
 
     @Autowired
     @ManyToOne
-    Artist author;
+    Artist artist;
 
 
     //Construct
@@ -49,8 +48,8 @@ public class Album {
     public ArrayList<Song> getSongs() {return songs;}
     public void setSongs(ArrayList<Song> songs){this.songs = songs;}
 
-    public Artist getAuthor() {return author;}
-    public void setAuthor(Artist author){this.author = author;}
+    public Artist getArtist() {return artist;}
+    public void setArtist(Artist artist){this.artist = artist;}
 
     //Methods
     public float calculateTotalLength(){

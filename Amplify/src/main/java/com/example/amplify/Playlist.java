@@ -23,7 +23,7 @@ public class Playlist {
 
     @Autowired
     @OneToOne
-    User owner;
+    User user;
 
 
     //Construct
@@ -47,8 +47,8 @@ public class Playlist {
     public ArrayList<Song> getSongs() {return songs;}
     public void setSongs(ArrayList<Song> songs){this.songs = songs;}
 
-    public User getOwner() {return this.owner;}
-    public void setOwner(User owner) {this.owner = owner;}
+    public User getUser() {return this.user;}
+    public void setUser(User user) {this.user = user;}
 
 
     //Methods

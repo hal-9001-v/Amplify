@@ -20,19 +20,19 @@ public class User {
     //Fav Playlists
     @Autowired
     @OneToMany
-    ArrayList<Playlist> favouritePlaylists;
+    ArrayList<Playlist> playlists;
     //Fav Artists
     @Autowired
     @OneToMany
-    ArrayList<Artist> favouriteArtists;
+    ArrayList<Artist> artists;
     //Fav songs
     @Autowired
     @OneToMany
-    ArrayList<Song> favouriteSongs;
+    ArrayList<Song> songs;
     //Fav album
     @Autowired
     @OneToMany
-    ArrayList<Album> favouriteAlbums;
+    ArrayList<Album> albums;
 
     //Construct
 
@@ -53,17 +53,17 @@ public class User {
 
     //FK Get&Set
 
-    public ArrayList<Song> getFavouriteSongs() {return favouriteSongs;}
-    public void setFavouriteSongs(ArrayList<Song> songs){this.favouriteSongs = songs;}
+    public ArrayList<Song> getSongs() {return songs;}
+    public void setSongs(ArrayList<Song> songs){this.songs = songs;}
 
-    public ArrayList<Album> getFavouriteAlbums() {return favouriteAlbums;}
-    public void setFavouriteAlbums(ArrayList<Album> albums){this.favouriteAlbums = albums;}
+    public ArrayList<Album> getAlbums() {return albums;}
+    public void setAlbums(ArrayList<Album> albums){this.albums = albums;}
 
-    public ArrayList<Artist> getFavouriteArtists() {return favouriteArtists;}
-    public void setFavouriteArtists(ArrayList<Artist> artists){this.favouriteArtists = artists;}
+    public ArrayList<Artist> getArtists() {return artists;}
+    public void setArtists(ArrayList<Artist> artists){this.artists = artists;}
 
-    public ArrayList<Playlist> getFavouritePlaylists() {return favouritePlaylists;}
-    public void setFavouritePlaylists(ArrayList<Playlist> playlists){this.favouritePlaylists = playlists;}
+    public ArrayList<Playlist> getPlaylists() {return playlists;}
+    public void setPlaylists(ArrayList<Playlist> playlists){this.playlists = playlists;}
 
 
     //Methods
