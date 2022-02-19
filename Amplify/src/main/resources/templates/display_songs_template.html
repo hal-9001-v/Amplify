@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+<p>Songs</p>
+<ul>
+    {{#songs}}
+    <li>
+        {{.name}} - <a href="album/{{album}}">{{album.name}}</a> - <a href="artist/{{artist}}">{{artist.name}}</a>
+        <form style=display:inline-block; action="addSong">
+            <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
+        </form>
+    </li>
+    {{/songs}}
+</ul>
+</body>
+</html>
