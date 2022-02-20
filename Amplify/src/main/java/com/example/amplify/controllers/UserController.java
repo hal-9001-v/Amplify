@@ -25,6 +25,7 @@ public class UserController {
     @GetMapping("/{username}")
     public String userPage(Model model, @PathVariable String username){
 
+        
         model.addAttribute("username", "username");
         return "user-page-template";
 

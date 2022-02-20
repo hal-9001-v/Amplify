@@ -3,6 +3,7 @@ package com.example.amplify.controllers;
 
 import com.example.amplify.model.User;
 import com.example.amplify.repositories.UserRepository;
+import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +15,21 @@ import java.util.Optional;
 @Controller
 public class LibraryController {
 
-    @Autowired
-    UserRepository userRepo;
 
+    @Autowired
+    UserServices userServices;
     @RequestMapping("/biblioteca")
     public String defaultLibrary(Model model){
-        long id = 1;
-        Optional<User> defaultUser = userRepo.findById(id);
-        if(defaultUser.isPresent()) model.addAttribute("username", defaultUser.get().getUsername());
-        else model.addAttribute("username", "AmplifyDefaultUser");
+
+        model.addAttribute("loggedIn", false);
+
         return "library_template";
+
     }
     @RequestMapping("/biblioteca_{username}")
     public String viewUserLibrary(Model model, @PathVariable String username){
         model.addAttribute("username", username);
+        model.addAttribute("loggedIn", true);
         return "library_template";
     }
 

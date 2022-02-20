@@ -20,8 +20,8 @@ public class LoginController {
 
     @PostConstruct
     public void init(){
-        for (int i = 0; i < 100; i++) {
-            userRepo.save(new User("AmplifyDefaultUser", "12345"));
+        for (int i = 0; i < 1; i++) {
+           // userRepo.save(new User("AmplifyDefaultUserFromDB", "12345"));
         }
     }
 
