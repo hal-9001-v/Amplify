@@ -11,7 +11,7 @@ public class User {
 
     //PK
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
 
     //Class attribs

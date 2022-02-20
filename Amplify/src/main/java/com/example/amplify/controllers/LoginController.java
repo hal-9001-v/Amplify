@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.PostConstruct;
+
 @Controller
 public class LoginController {
 
 
     @Autowired
     UserRepository userRepo;
+
+    @PostConstruct
+    public void init(){
+        for (int i = 0; i < 100; i++) {
+            userRepo.save(new User("AmplifyDefaultUser", "12345"));
+        }
+    }
 
     @GetMapping("/login")
     public String logIn(Model model){
@@ -28,7 +37,7 @@ public class LoginController {
     public String addUser(Model model, @RequestParam String username, @RequestParam String password){
 
         userRepo.save(new User(username, password));
-
+        model.addAttribute("username", password);
         return "main_template";
     }
 
