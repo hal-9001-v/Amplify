@@ -27,9 +27,9 @@
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="/login">
+    <form style=display:inline-block;  {{#loggedIn}} action="/biblioteca_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
-            Login / Registro <i class="fas fa-user-circle"></i>
+    {{#loggedIn}} {{username}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>
     </form>
     <form style=display:inline-block; action="/crear-playlist">
