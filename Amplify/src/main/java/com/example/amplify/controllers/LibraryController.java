@@ -1,8 +1,6 @@
 package com.example.amplify.controllers;
 
 
-import com.example.amplify.model.User;
-import com.example.amplify.repositories.UserRepository;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,41 +16,43 @@ public class LibraryController {
 
     @Autowired
     UserServices userServices;
+
     @RequestMapping("/biblioteca")
-    public String defaultLibrary(Model model){
+    public String defaultLibrary(Model model) {
 
         model.addAttribute("loggedIn", false);
 
         return "library_template";
 
     }
+
     @RequestMapping("/biblioteca_{username}")
-    public String viewUserLibrary(Model model, @PathVariable String username){
+    public String viewUserLibrary(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         model.addAttribute("loggedIn", true);
         return "library_template";
     }
 
     @RequestMapping("/biblioteca_{username}/playlists")
-    public String viewUserPlaylists(Model model, @PathVariable String username){
+    public String viewUserPlaylists(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "playlist_template";
     }
 
     @RequestMapping("/biblioteca_{username}/songs")
-    public String viewUserSongs(Model model, @PathVariable String username){
+    public String viewUserSongs(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "song_template";
     }
 
     @RequestMapping("/biblioteca_{username}/albums")
-    public String viewUserAlbums(Model model, @PathVariable String username){
+    public String viewUserAlbums(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "album_template";
     }
 
     @RequestMapping("/biblioteca_{username}/artists")
-    public String viewUserArtists(Model model, @PathVariable String username){
+    public String viewUserArtists(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "artis_template";
     }

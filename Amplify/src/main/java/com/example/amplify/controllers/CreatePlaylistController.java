@@ -15,16 +15,16 @@ public class CreatePlaylistController {
     UserRepository userRepo;
 
     @RequestMapping("/crear-playlist")
-    public String defaultLibrary(Model model){
+    public String defaultLibrary(Model model) {
         long id = 1;
         Optional<User> defaultUser = userRepo.findById(id);
-        if(defaultUser.isPresent()) model.addAttribute("username", defaultUser.get().getUsername());
+        if (defaultUser.isPresent()) model.addAttribute("username", defaultUser.get().getUsername());
         else model.addAttribute("username", "AmplifyDefaultUser");
         return "new_playlist_template";
     }
 
     @RequestMapping("/crear-playlist_{username}")
-    public String viewUserLibrary(Model model, @PathVariable String username){
+    public String viewUserLibrary(Model model, @PathVariable String username) {
 
         model.addAttribute("username", username);
         return "new_playlist_template";

@@ -15,27 +15,27 @@ public class User {
     private long id;
 
     //Class attribs
-    String username;
-    String password;
+    private String username;
+    private String password;
 
 
     //BD Relations
     //Fav Playlists
     @Autowired
     @OneToMany
-    List<Playlist> playlists;
+    private List<Playlist> playlists;
     //Fav Artists
     @Autowired
     @OneToMany
-    List<Artist> artists;
+    private List<Artist> artists;
     //Fav songs
     @Autowired
     @OneToMany
-    List<Song> songs;
+    private List<Song> songs;
     //Fav album
     @Autowired
     @OneToMany
-    List<Album> albums;
+    private List<Album> albums;
 
     //Construct
 

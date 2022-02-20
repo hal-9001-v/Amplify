@@ -10,12 +10,9 @@ import javax.annotation.PostConstruct;
 @Controller
 public class UserController {
 
-    //@Autowired
-    //private UserRepository userRepository;
-
 
     @PostConstruct
-    public void init(){
+    public void init() {
         for (int i = 0; i < 100; i++) {
             //repository.save(new User("dexaxi", "12345");
         }
@@ -23,22 +20,21 @@ public class UserController {
 
 
     @GetMapping("/{username}")
-    public String userPage(Model model, @PathVariable String username){
+    public String userPage(Model model, @PathVariable String username) {
 
-        
+
         model.addAttribute("username", "username");
         return "user-page-template";
 
     }
 
     @PostMapping("/user/registered")
-    public String nuevoUsuario(Model model, User user){
+    public String nuevoUsuario(Model model, User user) {
 
         //repository.save(user);
 
         return "user-registered-template";
     }
-
 
 
 }
