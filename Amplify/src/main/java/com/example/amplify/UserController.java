@@ -21,7 +21,7 @@ public class UserController {
         }
     }
 
-
+/*
     @GetMapping("/{username}")
     public String userPage(Model model, @PathVariable String username){
 
@@ -37,7 +37,7 @@ public class UserController {
 
         return "user-registered-template";
     }
-
+*/
 
 
 }

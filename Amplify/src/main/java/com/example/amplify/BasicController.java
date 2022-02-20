@@ -10,7 +10,12 @@ public class BasicController {
     @GetMapping("/hello")
     public String demo(Model model) {
         model.addAttribute("nombre", "Mundo");
-        return "demo_template";
+        return "main_template";
+    }
+
+    @GetMapping("/")
+    public String main(Model model) {
+        return "main_template";
     }
 
 }
