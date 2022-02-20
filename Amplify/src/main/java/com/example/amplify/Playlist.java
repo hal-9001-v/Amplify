@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Playlist {
 
     //PK
@@ -29,12 +30,11 @@ public class Playlist {
 
     //Construct
     public Playlist(){
-        length = calculateTotalLength();
+
     }
 
     public Playlist(String name){
         this.name = name;
-        length = calculateTotalLength();
 
     }
 
