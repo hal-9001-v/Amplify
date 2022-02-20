@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Playlist {
 
@@ -18,7 +19,7 @@ public class Playlist {
     //BD Relations
     @Autowired
     @ManyToMany
-    private ArrayList<Song> songs;
+    private List<Song> songs;
 
 
     @Autowired
@@ -44,8 +45,8 @@ public class Playlist {
     public void setName(String name){this.name = name;}
 
     //FK Get&Set
-    public ArrayList<Song> getSongs() {return songs;}
-    public void setSongs(ArrayList<Song> songs){this.songs = songs;}
+    public List<Song> getSongs() {return songs;}
+    public void setSongs(List<Song> songs){this.songs = songs;}
 
     public User getUser() {return this.user;}
     public void setUser(User user) {this.user = user;}
