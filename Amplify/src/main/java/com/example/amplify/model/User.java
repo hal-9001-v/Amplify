@@ -1,4 +1,4 @@
-package com.example.amplify;
+package com.example.amplify.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

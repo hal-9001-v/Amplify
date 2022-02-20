@@ -1,17 +1,19 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-    <title>Amplify</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="Amplify - Web application dedicated to copyright-free music"/>
     <meta name="authors" content="https://github.com/hal-9001-v/Amplify"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+    <title>Amplify</title>
+
+    <!-- My styles firstly -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="../static/css/styles.css">
 
 </head>
 
@@ -21,7 +23,7 @@
 </div>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; action="main_template.html">
+    <form style=display:inline-block; action="/inicio">
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
@@ -31,7 +33,7 @@
 <form action="addUser">
     <h2>Login:</h2>
     <div>
-        <input type='text' name='userName' placeholder="Nombre"/>
+        <input type='text' name='username' placeholder="Nombre"/>
     </div>
     <br>
     <div>

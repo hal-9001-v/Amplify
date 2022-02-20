@@ -1,21 +1,18 @@
-package com.example.amplify;
+package com.example.amplify.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BasicController {
+public class BaseController {
 
-    @GetMapping("/hello")
-    public String demo(Model model) {
-        model.addAttribute("nombre", "Mundo");
-        return "main_template";
-    }
 
-    @GetMapping("/")
+    @RequestMapping( {"/", "/inicio"} )
     public String main(Model model) {
         return "main_template";
     }
+
 
 }

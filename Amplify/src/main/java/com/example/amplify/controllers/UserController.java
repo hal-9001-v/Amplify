@@ -1,6 +1,6 @@
-package com.example.amplify;
+package com.example.amplify.controllers;
 
-
+import com.example.amplify.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class UserController {
         }
     }
 
-/*
+
     @GetMapping("/{username}")
     public String userPage(Model model, @PathVariable String username){
 
@@ -37,7 +37,7 @@ public class UserController {
 
         return "user-registered-template";
     }
-*/
+
 
 
 }
