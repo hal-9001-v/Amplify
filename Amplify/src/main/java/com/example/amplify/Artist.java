@@ -20,11 +20,11 @@ public class Artist {
     //BD Relations
     @Autowired
     @OneToMany
-    ArrayList<Song> songs;
+    List<Song> songs;
 
     @Autowired
     @OneToMany
-    ArrayList<Album> albums;
+    List<Album> albums;
 
 
     //Construct
@@ -39,10 +39,10 @@ public class Artist {
     public void setName(String name){this.name = name;}
 
     //FK Get&Set
-    public ArrayList<Song> getSongs() {return songs;}
+    public List<Song> getSongs() {return songs;}
     public void setSongs(ArrayList<Song> songs){this.songs = songs;}
 
-    public ArrayList<Album> getAlbums() {return albums;}
+    public List<Album> getAlbums() {return albums;}
     public void setAlbum(ArrayList<Album> albums){this.albums = albums;}
 
     //Methods
