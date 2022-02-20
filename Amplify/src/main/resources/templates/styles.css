@@ -1,0 +1,124 @@
+body {
+    background-color: #191414;
+    margin: 5%;
+    font-family: "HoloLens MDL2 Assets", monospace;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    font-family: "HoloLens MDL2 Assets", monospace;
+    font-weight: lighter;
+    border-bottom: 3px solid #dba50d;
+    font-size: 6em;
+}
+
+h2 {
+    font-family: "HoloLens MDL2 Assets", monospace;
+    color: #FF5733;
+    font-size: 4em;
+}
+
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    line-height: 1.5;
+}
+
+a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    color: #FF5733;
+}
+
+input {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    line-height: 1.5;
+}
+
+input[type=button], input[type=submit] {
+    color: black;
+    background-color: #f2f2f2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    margin-right: 0.5em;
+    margin-top: 0.75rem;
+    text-align: center;
+    border: 4px solid #FF5733;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+hr {
+    border: 0;
+    border-top: 5px solid #FF5733;
+    border-radius: 5px;
+}
+
+.main_button {
+    color: black;
+    background-color: #f2f2f2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 3em;
+    margin-right: 0.5em;
+    margin-top: 0.75rem;
+    text-align: center;
+    border: 4px solid #FF5733;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.main_button:hover {
+    background-color: #FF5733;
+    color: white;
+}
+
+.user_button {
+    color: black;
+    background-color: #f2f2f2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 3em;
+    margin-right: 0.5em;
+    margin-top: 0.75rem;
+    text-align: center;
+    border: 4px solid #dba50d;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.user_button:hover {
+    background-color: #dba50d;
+    color: white;
+}
+
+.add_song {
+    color: black;
+    background-color: #f2f2f2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    margin-right: 0.5em;
+    margin-top: 0.75rem;
+    text-align: center;
+    border: 3px solid #FF5733;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.add_song:hover {
+    background-color: #FF5733;
+    color: white;
+}
