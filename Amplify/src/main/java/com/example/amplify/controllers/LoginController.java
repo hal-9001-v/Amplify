@@ -58,7 +58,7 @@ public class LoginController {
                 session.setAttribute(UserSessionKey, userList.get(0));
 
                 logger.info("Logged successfully!");
-                return "main_template";
+                return "/inicio";
             }
             logger.info("Incorrect Password for user!");
         }
@@ -81,7 +81,7 @@ public class LoginController {
             userRepo.save(user);
 
             logger.info("Signed successfully!");
-            return "main_template";
+            return "/inicio";
         }
 
         logger.info("Failed to SignIn!");
