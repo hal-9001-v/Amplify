@@ -3,6 +3,7 @@ package com.example.amplify.controllers;
 import com.example.amplify.model.Playlist;
 import com.example.amplify.model.User;
 import com.example.amplify.repositories.PlaylistRepository;
+import com.example.amplify.repositories.UserRepository;
 import com.example.amplify.services.PlaylistServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,13 @@ public class PlaylistController {
     @Autowired
     UserServices userServices;
 
+    @Autowired
+    UserRepository userRepo;
+
     @RequestMapping("/crear-playlist")
     public String sendToLogin(Model model, HttpSession session) {
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
         if(user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
@@ -46,7 +50,7 @@ public class PlaylistController {
     @RequestMapping("/crear-playlist/{username}")
     public String viewCreatePlaylistWindow(Model model, @PathVariable String username, HttpSession session) {
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
         if(user == null) model.addAttribute("loggedIn", false);
 
         else {
@@ -59,7 +63,7 @@ public class PlaylistController {
     @RequestMapping("/playlist/{username}/addPlaylist")
     public String createPlaylist(Model model, @PathVariable String username, @RequestParam String playlistName, HttpSession session){
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
         if(user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
@@ -70,8 +74,8 @@ public class PlaylistController {
 
             //Create playlist
             Playlist newPLaylist = new Playlist();
-            newPLaylist = playlistServices.addPlaylist(playlistName, user);
-            //userServices.AddPlaylist(newPLaylist, user);
+            newPLaylist = playlistServices.createPlaylist(playlistName, user);
+            userServices.addPlaylist(newPLaylist, user);
 
             model.addAttribute("playlist", newPLaylist);
 
@@ -84,7 +88,7 @@ public class PlaylistController {
     @RequestMapping("/playlist/{playlistName}" )
     public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session){
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
         if(user == null) {
             model.addAttribute("loggedIn", false);
         }

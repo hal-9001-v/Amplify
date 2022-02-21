@@ -26,7 +26,7 @@ public class ArtistController {
     UserServices userServices;
 
     @RequestMapping("/artist/{artistName}")
-    public String viewAlbum(Model model, @PathVariable String artistName, HttpSession session){
+    public String viewArtist(Model model, @PathVariable String artistName, HttpSession session){
 
         Artist artist = artistServices.findByName(artistName).get(0);
         model.addAttribute("artist", artist);
@@ -38,7 +38,7 @@ public class ArtistController {
         model.addAttribute("albums", albumList);
 
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
 
         if(user == null) model.addAttribute("loggedIn", false);
         else {

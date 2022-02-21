@@ -38,7 +38,7 @@ public class AlbumController {
         model.addAttribute("songs", songList);
 
         User user = new User();
-        user = userServices.checkLogin(session, user);
+        user = userServices.checkLogin(session);
 
         if(user == null) model.addAttribute("loggedIn", false);
         else {

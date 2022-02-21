@@ -1,5 +1,7 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -21,20 +23,21 @@ public class User {
 
     //BD Relations
     //Fav Playlists
-    @Autowired
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Playlist> playlists;
+
     //Fav Artists
-    @Autowired
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Artist> artists;
     //Fav songs
-    @Autowired
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Song> songs;
     //Fav album
-    @Autowired
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 
     //Construct
@@ -71,6 +74,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public long getId() {return this.id;}
 
     //FK Get&Set
 
@@ -78,7 +82,7 @@ public class User {
         return songs;
     }
 
-    public void setSongs(ArrayList<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 
@@ -86,7 +90,7 @@ public class User {
         return albums;
     }
 
-    public void setAlbums(ArrayList<Album> albums) {
+    public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 
@@ -94,7 +98,7 @@ public class User {
         return artists;
     }
 
-    public void setArtists(ArrayList<Artist> artists) {
+    public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }
 
@@ -102,7 +106,7 @@ public class User {
         return playlists;
     }
 
-    public void setPlaylists(ArrayList<Playlist> playlists) {
+    public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
 

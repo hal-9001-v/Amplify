@@ -25,21 +25,33 @@ public class PlaylistServices {
         return playlistRepo.findByLength(length);
     }
 
-    public Playlist addPlaylist(String name, User user){
+    public Playlist createPlaylist(String name, User user){
 
         Playlist newPlaylist = new Playlist(name);
         newPlaylist.setUser(user);
 
+        for (Playlist p: playlistRepo.findAll()) {
+            if(p.getName().equals(newPlaylist.getName()))
+
+                return p;
+        }
         playlistRepo.save(newPlaylist);
 
         return newPlaylist;
     }
 
     public void addSong(Song song, Playlist playlist){
+
             List<Song>  playlistSongs = playlist.getSongs();
+
+            for (Song s: playlistSongs) {
+            if(s.getTitle().equals(song.getTitle())) return;
+            }
+
             playlistSongs.add(song);
             playlist.setSongs(playlistSongs);
             playlistRepo.save(playlist);
+
     }
 
 }
