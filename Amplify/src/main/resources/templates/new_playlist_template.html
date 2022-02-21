@@ -17,19 +17,8 @@
 </head>
 
 <body>
-<div>
-    <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
-</div>
-
-<div style="text-align: center;">
-    <form style=display:inline-block;  {{#loggedIn}} action="/inicio/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
-        <button class="button main_button">
-            Inicio <i class="fas fa-home"></i>
-        </button>
-    </form>
-</div>
-
-<form action ="/playlist/{{username}}/addPlaylist", method="post">
+{{>header_basic_template}}
+<form action="/playlist/{{username}}/addPlaylist" , method="post">
     <h2>Nueva lista de reproducción:</h2>
     <div>
         <input type='text' name='playlistName' placeholder="Nombre de la playlist"/>
