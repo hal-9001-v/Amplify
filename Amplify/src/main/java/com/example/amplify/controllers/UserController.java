@@ -19,7 +19,6 @@ public class UserController {
     }
 
 
-  /*  @GetMapping("/{username}")
     public String userPage(Model model, @PathVariable String username) {
 
 
@@ -34,7 +33,7 @@ public class UserController {
         //repository.save(user);
 
         return "user-registered-template";
-    }*/
+    }
 
 
 }

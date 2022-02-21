@@ -30,7 +30,7 @@
     </form>
 </div>
 
-<form action="addUser">
+<form action="checkLogin", method="post">
     <h2>Login:</h2>
     <div>
         <input type='text' name='username' placeholder="Nombre"/>
@@ -40,8 +40,13 @@
         <input type='text' name='password'placeholder="Contraseña"/>
     </div>
     <br>
+
     <div>
-        <input type='submit' value='Enviar'/>
+        <input type='submit' name = "signIn" value='signIn'/>
+    </div>
+
+    <div>
+        <input type='submit' name ="login" value='login'/>
     </div>
 </form>
 
