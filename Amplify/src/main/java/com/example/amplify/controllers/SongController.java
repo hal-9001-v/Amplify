@@ -1,27 +1,15 @@
 package com.example.amplify.controllers;
 
-import com.example.amplify.model.Album;
-import com.example.amplify.model.Artist;
-import com.example.amplify.model.Song;
-import com.example.amplify.model.User;
-import com.example.amplify.repositories.AlbumRepository;
-import com.example.amplify.repositories.ArtistRepository;
-import com.example.amplify.repositories.SongRepository;
-import com.example.amplify.repositories.UserRepository;
-import com.example.amplify.services.AlbumServices;
-import com.example.amplify.services.ArtistServices;
-import com.example.amplify.services.SongServices;
-import com.example.amplify.services.UserServices;
+import com.example.amplify.model.*;
+import com.example.amplify.repositories.*;
+import com.example.amplify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 public class SongController {
@@ -35,6 +23,8 @@ public class SongController {
 
     @Autowired
     AlbumRepository albumRepository;
+    @Autowired
+    PlaylistRepository playlistRepository;
 
     @Autowired
     SongServices songServices;
@@ -45,17 +35,22 @@ public class SongController {
     ArtistServices artistServices;
     @Autowired
     AlbumServices albumServices;
-
+    @Autowired
+    PlaylistServices playlistServices;
     @PostConstruct
     public void init() {
 
-        /*userRepo.deleteAll();
-        songRepo.deleteAll();
-        artistRepository.deleteAll();
-        albumRepository.deleteAll();*/
+       // userRepo.deleteAll();
+        //songRepo.deleteAll();
+        //artistRepository.deleteAll();
+      //  albumRepository.deleteAll();
+       // playlistRepository.deleteAll();
 
-      // User user = new User("dexaxi","123");
-       /*Artist artist = new Artist("Porta");
+
+
+
+       User user = new User("dexaxi","123");
+       Artist artist = new Artist("Porta");
        Album album = new Album("DB - Rap");
         artistRepository.save(artist);
         albumRepository.save(album);
@@ -66,13 +61,34 @@ public class SongController {
             s.setArtist(artist);
             songRepo.save(s);
 
-        }*/
+        }
 
-      //  user.setSongs((ArrayList<Song>) songServices.findAll());
-       // userRepo.save(user);
+        user.setSongs((ArrayList<Song>) songServices.findAll());
+        userRepo.save(user);
 
-        //Artist artist = artistServices.findByName("Porta").get(0);
-        //Album album = albumServices.findByName("DB - Rap").get(0);
+       artist = artistServices.findByName("Porta").get(0);
+        album = albumServices.findByName("DB - Rap").get(0);
+        user = userServices.findByUsername("dexaxi").get(0);
+        Playlist playlist = new Playlist("Noescuestiondeedades");
+        playlist.setUser(user);
+        Playlist playlist1 = new Playlist("Hevuelto");
+        playlist1.setUser(user);
+        ArrayList<Playlist> playlistlist = new ArrayList<Playlist>();
+        playlistlist.add(playlist);
+        playlistlist.add(playlist1);
+        user.setPlaylists(playlistlist);
+        ArrayList<Song> songList = new ArrayList<>();
+        ArrayList<Song> songList1 = new ArrayList<>();
+        for (int i = 0; i < songServices.findAll().size()/4; i++) {
+            songList.add(songServices.findAll().get(i));
+            songList1.add(songServices.findAll().get(i+25));
+
+        }
+        playlist.setSongs(songList);
+        playlist1.setSongs(songList1);
+        playlistRepository.save(playlist);
+        playlistRepository.save(playlist1);
+
 
     }
 
