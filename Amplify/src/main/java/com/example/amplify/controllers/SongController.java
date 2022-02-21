@@ -47,11 +47,9 @@ public class SongController {
        // playlistRepository.deleteAll();
 
 
-
-
        /*User user = new User("dexaxi","123");
        Artist artist = new Artist("Porta");
-       Album album = new Album("DB - Rap");
+       Album album = new Album("DB-Rap");
         artistRepository.save(artist);
         albumRepository.save(album);
 
@@ -66,8 +64,8 @@ public class SongController {
         user.setSongs((ArrayList<Song>) songServices.findAll());
         userRepo.save(user);
 
-       artist = artistServices.findByName("Porta").get(0);
-        album = albumServices.findByName("DB - Rap").get(0);
+        artist = artistServices.findByName("Porta").get(0);
+        album = albumServices.findByName("DB-Rap").get(0);
         user = userServices.findByUsername("dexaxi").get(0);
         Playlist playlist = new Playlist("Noescuestiondeedades");
         playlist.setUser(user);
@@ -86,10 +84,18 @@ public class SongController {
         }
         playlist.setSongs(songList);
         playlist1.setSongs(songList1);
+        album.setSongs(songList1);
+        album.setArtist(artist);
+        albumRepository.save(album);
+        ArrayList<Album> albumList = new ArrayList<Album>();
+        ArrayList<Artist> artistList = new ArrayList<Artist>();
+        albumList.add(album);
+        artistList.add(artist);
+        user.setAlbums(albumList);
+        user.setArtists(artistList);
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
-
-           */
+        userRepo.save(user);*/
     }
 
 

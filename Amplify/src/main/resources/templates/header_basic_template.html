@@ -6,7 +6,7 @@
 </div>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; {{#loggedIn}} action="/inicio/{{username}}"> {{/loggedIn}} {{^loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/inicio/{{sessionusername}}"> {{/loggedIn}} {{^loggedIn}}
         action="/inicio"> {{/loggedIn}}
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>

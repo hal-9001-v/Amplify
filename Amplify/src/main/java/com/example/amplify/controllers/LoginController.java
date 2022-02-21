@@ -47,9 +47,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "login")
-    public String logInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String userName, @RequestParam(value = "password", required = true) String password) {
+    public String logInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
 
-        List<User> userList = userServices.findByUsername(userName);
+        List<User> userList = userServices.findByUsername(sessionusername);
 
         if (userList.isEmpty() == false) {
 
@@ -69,13 +69,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "signIn")
-    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String userName, @RequestParam(value = "password", required = true) String password) {
+    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
 
-        List<User> userList = userServices.findByUsername(userName);
+        List<User> userList = userServices.findByUsername(sessionusername);
 
         if (userList.isEmpty()) {
 
-            User user = new User(userName, password);
+            User user = new User(sessionusername, password);
             session.setAttribute(UserSessionKey, user);
 
             userRepo.save(user);
@@ -89,13 +89,5 @@ public class LoginController {
         return "login_template";
     }
 
-
-    @GetMapping("/addUser")
-    public String addUser(Model model, HttpSession session, @RequestParam String username, @RequestParam String password) {
-
-
-        model.addAttribute("username", password);
-        return "main_template";
-    }
 
 }

@@ -106,7 +106,6 @@ public class User {
         this.playlists = playlists;
     }
 
-
     //Methods
 
 
