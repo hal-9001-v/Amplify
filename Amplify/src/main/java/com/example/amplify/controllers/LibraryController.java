@@ -49,7 +49,6 @@ public class LibraryController {
         model.addAttribute("username", username);
         model.addAttribute("loggedIn", true);
         List<Song> favouriteSongs = userServices.findByUsername(username).get(0).getSongs();
-
         if(!favouriteSongs.isEmpty()) {
             model.addAttribute("songs", favouriteSongs);
         }
