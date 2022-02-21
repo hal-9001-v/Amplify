@@ -18,13 +18,11 @@ public class Playlist {
     private float length;
 
     //BD Relations
-    @Autowired
-    @ManyToMany
+    @OneToMany
     private List<Song> songs;
 
 
-    @Autowired
-    @OneToOne
+    @ManyToOne
     private User user;
 
 
@@ -51,6 +49,7 @@ public class Playlist {
     public void setName(String name) {
         this.name = name;
     }
+    public long getId() {return this.id;}
 
     //FK Get&Set
     public List<Song> getSongs() {

@@ -18,12 +18,10 @@ public class Artist {
     private String name;
 
     //BD Relations
-    @Autowired
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
     private List<Song> songs;
 
-    @Autowired
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
     private List<Album> albums;
 
 
@@ -43,13 +41,14 @@ public class Artist {
     public void setName(String name) {
         this.name = name;
     }
+    public long getId() {return this.id;}
 
     //FK Get&Set
     public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(ArrayList<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 
@@ -57,7 +56,7 @@ public class Artist {
         return albums;
     }
 
-    public void setAlbum(ArrayList<Album> albums) {
+    public void setAlbum(List<Album> albums) {
         this.albums = albums;
     }
 

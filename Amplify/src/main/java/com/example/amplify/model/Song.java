@@ -21,12 +21,10 @@ public class Song {
 
 
     //BD Relations
-    @Autowired
     @ManyToOne
     private Artist artist;
 
-    @Autowired
-    @OneToOne
+    @ManyToOne
     private Album album;
 
 
@@ -53,6 +51,7 @@ public class Song {
     public Float getLength() {
         return length;
     }
+    public long getId() {return this.id;}
 
 
     //FK Get&Set
