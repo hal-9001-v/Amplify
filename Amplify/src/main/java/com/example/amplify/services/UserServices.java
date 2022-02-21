@@ -20,6 +20,6 @@ public class UserServices {
     public List<User> findByPassword(String password) {
         return userRepo.findByPassword(password);
     }
-
+    public List<User> findAll(){return userRepo.findAll();}
 
 }

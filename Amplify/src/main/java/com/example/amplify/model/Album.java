@@ -33,12 +33,10 @@ public class Album {
     //Construct
     public Album() {
 
-        //length = calculateTotalLength();
     }
 
     public Album(String name) {
         this.name = name;
-        length = calculateTotalLength();
 
     }
 

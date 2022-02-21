@@ -39,19 +39,31 @@ public class LibraryController {
         return "playlist_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/songs")
-    public String viewUserSongs(Model model, @PathVariable String username) {
+    @RequestMapping("/biblioteca_{username}/canciones")
+    public String showSongs(Model model, @PathVariable("username") String username){
         model.addAttribute("username", username);
-        return "song_template";
+        model.addAttribute("loggedIn", true);
+        if(!userServices.findByUsername(username).get(0).getSongs().isEmpty()) {
+            model.addAttribute("songs", userServices.findByUsername(username).get(0).getSongs());
+            for (int i = 0; i < userServices.findByUsername(username).get(0).getSongs().size(); i++) {
+                System.out.printf(userServices.findByUsername(username).get(0).getSongs().get(i).getTitle());
+                
+            }
+        }
+        
+        return "display_songs_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/albums")
+
+
+    @RequestMapping("/biblioteca_{username}/albumes")
     public String viewUserAlbums(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
+
         return "album_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/artists")
+    @RequestMapping("/biblioteca_{username}/artistas")
     public String viewUserArtists(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "artis_template";

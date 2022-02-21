@@ -20,4 +20,6 @@ public class SongServices {
         return songRepo.findByLength(length);
     }
 
+    public List<Song> findAll(){return songRepo.findAll();}
+
 }
