@@ -33,7 +33,7 @@ public class BaseController {
             model.addAttribute("loggedIn", true);
             model.addAttribute("username", user.getUsername());
         }
-        model.addAttribute("songs",requestRecommendedSongs());
+        model.addAttribute("songs",songServices.requestRecommendedSongs());
 
         return "main_template";
 
@@ -50,31 +50,13 @@ public class BaseController {
             model.addAttribute("username", user.getUsername());
         }
 
-        model.addAttribute("songs",requestRecommendedSongs());
+        model.addAttribute("songs",songServices.requestRecommendedSongs());
 
         return "main_template";
 
     }
 
-    private List<Song> requestRecommendedSongs(){
-        List<Song> allSongs = songServices.findAll();
-        ArrayList<Song> requestedSongs = new ArrayList<Song>();
-        int listSize = 10;
-        for (int i = 0; i <listSize; i++) {
-            double random =  Math.random() * listSize;
-            Song unitSong = allSongs.get((int)random);
 
-            for (Song s:requestedSongs) {
-                if(s.getTitle().equals(unitSong.getTitle()))
-                {
-                    break;
-                }
-            }
-            requestedSongs.add(unitSong);
-        }
-
-        return requestedSongs;
-    }
 
     }
 
