@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class SongServices {
     @Autowired
-    SongRepository songRepo;
+    private SongRepository songRepo;
 
-    List<Song> findByTitle(String title) {
+    public List<Song> findByTitle(String title) {
         return songRepo.findByTitle(title);
     }
 
-    List<Song> findByLength(float length) {
+    public List<Song> findByLength(float length) {
         return songRepo.findByLength(length);
     }
 

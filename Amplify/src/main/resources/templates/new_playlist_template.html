@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -21,14 +22,14 @@
 </div>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; action="/inicio">
+    <form style=display:inline-block;  {{#loggedIn}} action="/inicio_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
 </div>
 
-<form action="addPlaylist">
+<form action ="/playlist_{{username}}/addPlaylist", method="post">
     <h2>Nueva lista de reproducción:</h2>
     <div>
         <input type='text' name='playlistName' placeholder="Nombre de la playlist"/>

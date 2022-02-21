@@ -12,13 +12,13 @@ import java.util.List;
 public class PlaylistServices {
 
     @Autowired
-    PlaylistRepository playlistRepo;
+    private PlaylistRepository playlistRepo;
 
-    List<Playlist> findByName(String name) {
+    public List<Playlist> findByName(String name) {
         return playlistRepo.findByName(name);
     }
 
-    List<Playlist> findByLength(float length) {
+    public List<Playlist> findByLength(float length) {
         return playlistRepo.findByLength(length);
     }
 

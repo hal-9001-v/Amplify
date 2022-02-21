@@ -12,9 +12,9 @@ import java.util.List;
 public class ArtistServices {
 
     @Autowired
-    ArtistRepository artistRepo;
+    private ArtistRepository artistRepo;
 
-    List<Artist> findByName(String name) {
+    public List<Artist> findByName(String name) {
         return artistRepo.findByName(name);
     }
 
