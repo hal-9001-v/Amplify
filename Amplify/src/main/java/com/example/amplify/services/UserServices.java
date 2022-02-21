@@ -3,6 +3,7 @@ package com.example.amplify.services;
 import com.example.amplify.model.User;
 import com.example.amplify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public class UserServices {
         return userRepo.findByPassword(password);
     }
     public List<User> findAll(){return userRepo.findAll();}
+
+    public List<User> findAllByUsername(String username, Pageable page) {
+
+        return userRepo.findAllByUsername(username, page);
+
+    }
 
 }
