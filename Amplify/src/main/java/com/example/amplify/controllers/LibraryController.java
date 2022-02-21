@@ -1,6 +1,8 @@
 package com.example.amplify.controllers;
 
 
+import com.example.amplify.model.Album;
+import com.example.amplify.model.Song;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -43,12 +46,9 @@ public class LibraryController {
     public String showSongs(Model model, @PathVariable("username") String username){
         model.addAttribute("username", username);
         model.addAttribute("loggedIn", true);
-        if(!userServices.findByUsername(username).get(0).getSongs().isEmpty()) {
-            model.addAttribute("songs", userServices.findByUsername(username).get(0).getSongs());
-            for (int i = 0; i < userServices.findByUsername(username).get(0).getSongs().size(); i++) {
-                System.out.printf(userServices.findByUsername(username).get(0).getSongs().get(i).getTitle());
-                
-            }
+        List<Song> favouriteSongs = userServices.findByUsername(username).get(0).getSongs();
+        if(!favouriteSongs.isEmpty()) {
+            model.addAttribute("songs", favouriteSongs);
         }
         
         return "display_songs_template";
@@ -59,7 +59,10 @@ public class LibraryController {
     @RequestMapping("/biblioteca_{username}/albumes")
     public String viewUserAlbums(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
-
+        List<Album> favouriteAlbums = userServices.findByUsername(username).get(0).getAlbums();
+        if(!favouriteAlbums.isEmpty()) {
+            model.addAttribute("album", favouriteAlbums);
+        }
         return "album_template";
     }
 

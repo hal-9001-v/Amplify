@@ -22,22 +22,22 @@
 </div>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; action="main_template.html">
+    <form style=display:inline-block; {{#loggedIn}} action="/inicio_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="main_template.html">
+    <form style=display:inline-block;  {{#loggedIn}} action="/biblioteca_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
-            Login / Registro <i class="fas fa-user-circle"></i>
+            {{#loggedIn}} {{username}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="https://google.com">
+    <form style=display:inline-block; {{#loggedIn}} action="/crear-playlist_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             Nueva playlist <i class="far fa-file-audio"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="https://google.com">
+    <form style=display:inline-block; {{#loggedIn}} action="/biblioteca_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             Mi biblioteca <i class="fas fa-archive"></i>
         </button>
@@ -56,7 +56,7 @@
 
     {{#songs}}
     <li>
-        {{-index}} - {{.name}} - <a href="album/{{album}}">{{album.name}}</a> - <a href="artist/{{artist}}">{{artist.name}}</a>
+        {{-index}} - {{.name}} - <a href="album/{{.album.name}}">{{.album.name}}</a> - <a href="artist/{{.artist.name}}">{{.artist.name}}</a>
         <form style=display:inline-block; action="addSong">
             <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
         </form>
