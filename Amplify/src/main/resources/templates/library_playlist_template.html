@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -15,18 +15,8 @@
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
 </head>
-
 <body>
-{{>header_template}}
-<div>
-    <h2>
-        - {{name}}
-        <form style=display:inline-block; action="addAlbum">
-            <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
-        </form>
-    </h2>
-    {{>display_songs_template}}
-</div>
-
+{{>library_template}}
+{{>display_playlists_template}}
 </body>
 </html>
