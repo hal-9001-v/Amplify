@@ -49,6 +49,12 @@ public class User {
 
     }
 
+    public Boolean isPassword(String password){
+
+        return this.password.equals(password);
+
+    }
+
     //Attrib Get&Set
     public String getUsername() {
         return this.username;
