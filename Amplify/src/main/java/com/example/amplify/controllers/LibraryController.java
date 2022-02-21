@@ -31,20 +31,20 @@ public class LibraryController {
 
     }
 
-    @RequestMapping("/biblioteca_{username}")
+    @RequestMapping("/biblioteca/{username}")
     public String viewUserLibrary(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         model.addAttribute("loggedIn", true);
         return "library_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/playlists")
+    @RequestMapping("/biblioteca/{username}/playlists")
     public String viewUserPlaylists(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "playlist_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/canciones")
+    @RequestMapping("/biblioteca/{username}/canciones")
     public String showSongs(Model model, @PathVariable("username") String username){
         model.addAttribute("username", username);
         model.addAttribute("loggedIn", true);
@@ -59,7 +59,7 @@ public class LibraryController {
 
 
 
-    @RequestMapping("/biblioteca_{username}/albumes")
+    @RequestMapping("/biblioteca/{username}/albumes")
     public String viewUserAlbums(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         List<Album> favouriteAlbums = userServices.findByUsername(username).get(0).getAlbums();
@@ -69,7 +69,7 @@ public class LibraryController {
         return "album_template";
     }
 
-    @RequestMapping("/biblioteca_{username}/artistas")
+    @RequestMapping("/biblioteca/{username}/artistas")
     public String viewUserArtists(Model model, @PathVariable String username) {
         model.addAttribute("username", username);
         return "artis_template";

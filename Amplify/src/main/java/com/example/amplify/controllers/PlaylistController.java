@@ -28,14 +28,14 @@ public class PlaylistController {
         return "login_template";
     }
 
-    @RequestMapping("/crear-playlist_{username}")
+    @RequestMapping("/crear-playlist/{username}")
     public String viewCreatePlaylistWindow(Model model, @PathVariable String username) {
         model.addAttribute("loggedIn", true);
         model.addAttribute("username", username);
         return "new_playlist_template";
     }
 
-    @RequestMapping("/playlist_{username}/addPlaylist")
+    @RequestMapping("/playlist/{username}/addPlaylist")
     public String createPlaylist(Model model, @PathVariable String username, @RequestParam String playlistName){
         model.addAttribute("loggedIn", true);
         model.addAttribute("username", username);

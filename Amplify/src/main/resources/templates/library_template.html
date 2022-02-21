@@ -21,22 +21,22 @@
     <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
 </div>
 <div style="text-align: center;">
-    <form style=display:inline-block; {{#loggedIn}} action="/inicio_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/inicio/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block;  {{#loggedIn}} action="/biblioteca_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+    <form style=display:inline-block;  {{#loggedIn}} action="/biblioteca/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             {{#loggedIn}} {{username}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>
     </form>
-    <form style=display:inline-block; {{#loggedIn}} action="/crear-playlist_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/crear-playlist/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             Nueva playlist <i class="far fa-file-audio"></i>
         </button>
     </form>
-    <form style=display:inline-block; {{#loggedIn}} action="/biblioteca_{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/biblioteca/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             Mi biblioteca <i class="fas fa-archive"></i>
         </button>
@@ -50,22 +50,22 @@
 </h2>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; action="/biblioteca_{{username}}/playlists">
+    <form style=display:inline-block; action="/biblioteca/{{username}}/playlists">
         <button class="button user_button">
             Playlists <i class="fas fa-file-audio"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="/biblioteca_{{username}}/canciones">
+    <form style=display:inline-block; action="/biblioteca/{{username}}/canciones">
         <button class="button user_button">
             Canciones <i class="fas fa-music"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="/biblioteca_{{username}}/albumes">
+    <form style=display:inline-block; action="/biblioteca/{{username}}/albumes">
         <button class="button user_button">
             Álbumes <i class="fas fa-clipboard-list"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="/biblioteca_{{username}}/artistas">
+    <form style=display:inline-block; action="/biblioteca/{{username}}/artistas">
         <button class="button user_button">
             Artistas <i class="fas fa-grin-alt"></i>
         </button>

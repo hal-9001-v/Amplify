@@ -12,12 +12,11 @@ import javax.servlet.http.HttpSession;
 public class BaseController {
 
 
-    @RequestMapping({"/", "/inicio"})
+    @RequestMapping({"/", "/inicio", })
     public String main(Model model, HttpSession session) {
         model.addAttribute("loggedIn", false);
 
         User user = (User) session.getAttribute(LoginController.UserSessionKey);
-
         if (user != null) {
 
             model.addAttribute("loggedIn", true);
@@ -28,4 +27,21 @@ public class BaseController {
 
     }
 
-}
+    @RequestMapping({ "inicio/{username}"})
+    public String main_user(Model model, HttpSession session, @PathVariable String username) {
+        model.addAttribute("loggedIn", false);
+
+        User user = (User) session.getAttribute(LoginController.UserSessionKey);
+        if (user != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("username", user.getUsername());
+        }
+
+        return "main_template";
+
+    }
+
+    }
+
+
