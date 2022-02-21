@@ -19,6 +19,12 @@ h2 {
     font-size: 4em;
 }
 
+h3 {
+    font-family: "HoloLens MDL2 Assets", monospace;
+    color: white;
+    font-size: 2em;
+}
+
 p {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 2em;
