@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Amplify - Web application dedicated to copyright-free music"/>
+    <meta name="authors" content="https://github.com/hal-9001-v/Amplify"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title>Amplify</title>
+
+    <!-- My styles firstly -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+{{>header_template}}
+<ul>
+    {{#playlists}}
+    <li>
+        {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.name}}">{{user.name}}</a>
+        <form style=display:inline-block; action="newSongForPlaylist">
+            <button class="button add_song_pl"><i class="fas fa-plus-circle"></i> Añadir a esta playlist</button>
+        </form>
+    </li>
+    {{/playlists}}
+</ul>
+</body>
+</html>
