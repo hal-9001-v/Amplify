@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,8 +46,13 @@ public class PlaylistServices {
 
             List<Song>  playlistSongs = playlist.getSongs();
 
-            for (Song s: playlistSongs) {
-            if(s.getTitle().equals(song.getTitle())) return;
+            if(playlist.getSongs() !=null) {
+                for (Song s : playlistSongs) {
+                    if (s.getTitle().equals(song.getTitle())) return;
+                }
+            }
+            else {
+                playlistSongs = new ArrayList<Song>();
             }
 
             playlistSongs.add(song);

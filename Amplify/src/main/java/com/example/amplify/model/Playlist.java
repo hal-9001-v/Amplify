@@ -18,7 +18,7 @@ public class Playlist {
     private float length;
 
     //BD Relations
-    @OneToMany
+    @ManyToMany
     private List<Song> songs;
 
     @ManyToMany(cascade = CascadeType.ALL,  mappedBy = "playlists")

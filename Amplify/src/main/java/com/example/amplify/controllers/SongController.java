@@ -47,7 +47,7 @@ public class SongController {
        // playlistRepository.deleteAll();
 
 
-    /* User user = new User("dexaxi","123");
+     /*User user = new User("dexaxi","123");
        Artist artist = new Artist("Porta");
        Album album = new Album("DB-Rap");
         artistRepository.save(artist);

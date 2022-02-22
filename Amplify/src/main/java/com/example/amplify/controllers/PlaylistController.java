@@ -1,10 +1,12 @@
 package com.example.amplify.controllers;
 
 import com.example.amplify.model.Playlist;
+import com.example.amplify.model.Song;
 import com.example.amplify.model.User;
 import com.example.amplify.repositories.PlaylistRepository;
 import com.example.amplify.repositories.UserRepository;
 import com.example.amplify.services.PlaylistServices;
+import com.example.amplify.services.SongServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class PlaylistController {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    SongServices songServices;
 
     @RequestMapping("/crear-playlist")
     public String sendToLogin(Model model, HttpSession session) {
@@ -98,8 +103,8 @@ public class PlaylistController {
         }
         Playlist requestedPlaylist = playlistServices.findByName(playlistName).get(0);
         model.addAttribute("playlist", requestedPlaylist);
+        model.addAttribute("songs", requestedPlaylist.getSongs());
         return "playlist_template";
-
 
     }
 
@@ -126,21 +131,41 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadir/{songtitle}")
-    public String addToPlaylist(Model model, HttpSession session, @PathVariable String songtitle){
+    public String addToPlaylistScreen(Model model, HttpSession session, @PathVariable String songtitle){
 
         User user =  userServices.checkLogin(session);
         if(user == null) {
             model.addAttribute("loggedIn", false);
+            return "login_template";
         }
-        else {
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("sessionusername", user.getUsername());
 
-        }
-        
 
+        model.addAttribute("loggedIn", true);
+        model.addAttribute("sessionusername", user.getUsername());
+        List<Playlist> playliststList = userServices.findByUsername(user.getUsername()).get(0).getPlaylists();
+        model.addAttribute("playlists", playliststList);
+        model.addAttribute("songtitle", songtitle);
         return "display_owned_playlists_template";
     }
+
+    @RequestMapping("/playlist/anadir/{songtitle}/{playlistname}")
+    public String addToPlaylist(Model model, HttpSession session, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname)
+    {
+        User user =  userServices.checkLogin(session);
+        if(user == null) {
+            model.addAttribute("loggedIn", false);
+            return "login_template";
+        }
+
+        model.addAttribute("loggedIn", true);
+        model.addAttribute("sessionusername", user.getUsername());
+        Song songToAdd = songServices.findByTitle(songtitle).get(0);
+        Playlist playlistToAddTo = playlistServices.findByName(playlistname).get(0);
+        playlistServices.addSong(songToAdd, playlistToAddTo);
+
+        return "main_template";
+    }
+
 
 
 }

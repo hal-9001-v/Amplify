@@ -22,8 +22,8 @@
 <ul>
     {{#playlists}}
     <li>
-        {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.name}}">{{user.name}}</a>
-        <form style=display:inline-block; action="newSongForPlaylist">
+        {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.username}}">{{user.username}}</a>
+        <form style=display:inline-block; action="/playlist/anadir/{{songtitle}}/{{name}}">
             <button class="button add_song_pl"><i class="fas fa-plus-circle"></i> Añadir a esta playlist</button>
         </form>
     </li>
