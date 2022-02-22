@@ -40,11 +40,10 @@ public class PlaylistController {
     public String sendToLogin(Model model, HttpSession session) {
         User user = new User();
         user = userServices.checkLogin(session);
-        if(user == null) {
+        if (user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
-        }
-        else {
+        } else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
         }
@@ -56,7 +55,7 @@ public class PlaylistController {
     public String viewCreatePlaylistWindow(Model model, @PathVariable String username, HttpSession session) {
         User user = new User();
         user = userServices.checkLogin(session);
-        if(user == null) model.addAttribute("loggedIn", false);
+        if (user == null) model.addAttribute("loggedIn", false);
 
         else {
             model.addAttribute("loggedIn", true);
@@ -67,14 +66,13 @@ public class PlaylistController {
 
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
-    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session){
+    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
         User user = new User();
         user = userServices.checkLogin(session);
-        if(user == null) {
+        if (user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
-        }
-        else {
+        } else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
 
@@ -91,13 +89,12 @@ public class PlaylistController {
     }
 
 
-    @RequestMapping("/playlist/{playlistName}" )
-    public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session){
-        User user =  userServices.checkLogin(session);
-        if(user == null) {
+    @RequestMapping("/playlist/{playlistName}")
+    public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session) {
+        User user = userServices.checkLogin(session);
+        if (user == null) {
             model.addAttribute("loggedIn", false);
-        }
-        else {
+        } else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
 
@@ -109,21 +106,20 @@ public class PlaylistController {
 
     }
 
-    
+
     @RequestMapping("/playlist/{playlistName}/eliminarPlaylist")
-    public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session){
-        User user =  userServices.checkLogin(session);
-        if(user == null) {
+    public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session) {
+        User user = userServices.checkLogin(session);
+        if (user == null) {
             model.addAttribute("loggedIn", false);
-        }
-        else {
+        } else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
 
         }
 
-        List <Playlist> list = playlistServices.findByName(playlistName);
-        if(!list.isEmpty()) {
+        List<Playlist> list = playlistServices.findByName(playlistName);
+        if (!list.isEmpty()) {
             Playlist deletablePlaylist = list.get(0);
             playlistRepo.delete(playlistServices.findByName(deletablePlaylist.getName()).get(0));
         }
@@ -132,10 +128,10 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadir/{songtitle}")
-    public String addToPlaylistScreen(Model model, HttpSession session, @PathVariable String songtitle){
+    public String addToPlaylistScreen(Model model, HttpSession session, @PathVariable String songtitle) {
 
-        User user =  userServices.checkLogin(session);
-        if(user == null) {
+        User user = userServices.checkLogin(session);
+        if (user == null) {
             model.addAttribute("loggedIn", false);
             return "login_template";
         }
@@ -150,12 +146,10 @@ public class PlaylistController {
     }
 
 
-
     @RequestMapping("/playlist/anadir/{songtitle}/{playlistname}")
-    public String addToPlaylist(Model model, HttpSession session, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname)
-    {
-        User user =  userServices.checkLogin(session);
-        if(user == null) {
+    public String addToPlaylist(Model model, HttpSession session, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname) {
+        User user = userServices.checkLogin(session);
+        if (user == null) {
             model.addAttribute("loggedIn", false);
             return "login_template";
         }
@@ -168,7 +162,4 @@ public class PlaylistController {
 
         return "main_template";
     }
-
-
-
 }

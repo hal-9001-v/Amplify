@@ -1,6 +1,5 @@
 package com.example.amplify.controllers;
 
-
 import com.example.amplify.model.Album;
 import com.example.amplify.model.Artist;
 import com.example.amplify.model.Song;
@@ -26,7 +25,7 @@ public class ArtistController {
     UserServices userServices;
 
     @RequestMapping("/artista/{artistName}")
-    public String viewArtist(Model model, @PathVariable String artistName, HttpSession session){
+    public String viewArtist(Model model, @PathVariable String artistName, HttpSession session) {
 
         Artist artist = artistServices.findByName(artistName).get(0);
         model.addAttribute("artist", artist);
@@ -40,7 +39,7 @@ public class ArtistController {
         User user = new User();
         user = userServices.checkLogin(session);
 
-        if(user == null) model.addAttribute("loggedIn", false);
+        if (user == null) model.addAttribute("loggedIn", false);
         else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
@@ -49,6 +48,4 @@ public class ArtistController {
 
         return "artist_template";
     }
-
-
 }

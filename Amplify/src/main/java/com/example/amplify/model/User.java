@@ -20,8 +20,8 @@ public class User {
     private String username;
     private String password;
 
-
     //BD Relations
+
     //Fav Playlists
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -31,17 +31,18 @@ public class User {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Artist> artists;
+
     //Fav songs
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Song> songs;
+
     //Fav album
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 
     //Construct
-
     public User() {
     }
 
@@ -52,7 +53,7 @@ public class User {
 
     }
 
-    public Boolean isPassword(String password){
+    public Boolean isPassword(String password) {
 
         return this.password.equals(password);
 
@@ -74,10 +75,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public long getId() {return this.id;}
+
+    public long getId() {
+        return this.id;
+    }
 
     //FK Get&Set
-
     public List<Song> getSongs() {
         return songs;
     }
@@ -109,8 +112,4 @@ public class User {
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
-
-    //Methods
-
-
 }

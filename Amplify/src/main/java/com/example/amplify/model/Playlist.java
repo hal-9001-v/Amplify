@@ -23,7 +23,7 @@ public class Playlist {
     @ManyToMany
     private List<Song> songs;
 
-    @ManyToMany (cascade = CascadeType.PERSIST, mappedBy = "playlists")
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "playlists")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> users;
 
@@ -41,7 +41,6 @@ public class Playlist {
 
     }
 
-
     //Attrib Get&Set
     public float GetLength() {
         return this.length;
@@ -54,7 +53,10 @@ public class Playlist {
     public void setName(String name) {
         this.name = name;
     }
-    public long getId() {return this.id;}
+
+    public long getId() {
+        return this.id;
+    }
 
     //FK Get&Set
     public List<Song> getSongs() {
@@ -103,6 +105,5 @@ public class Playlist {
         addLength(s.getLength());
 
     }
-
 }
 

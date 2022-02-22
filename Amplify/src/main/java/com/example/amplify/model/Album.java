@@ -27,7 +27,6 @@ public class Album {
     @ManyToOne(cascade = CascadeType.ALL)
     Artist artist;
 
-
     //Construct
     public Album() {
 
@@ -50,7 +49,11 @@ public class Album {
     public void setName(String name) {
         this.name = name;
     }
-    public long getId() {return this.id;}
+
+    public long getId() {
+        return this.id;
+    }
+
     //FK Get&Set
     public List<Song> getSongs() {
         return songs;
@@ -77,6 +80,4 @@ public class Album {
         }
         return length;
     }
-
-
 }

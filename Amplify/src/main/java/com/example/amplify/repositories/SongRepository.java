@@ -9,5 +9,4 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findByTitle(String title);
 
     List<Song> findByLength(float length);
-
 }

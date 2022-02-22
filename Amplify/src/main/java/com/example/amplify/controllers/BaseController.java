@@ -25,7 +25,7 @@ public class BaseController {
     UserServices userServices;
 
 
-    @RequestMapping({"/", "/inicio", })
+    @RequestMapping({"/", "/inicio",})
     public String main(Model model, HttpSession session) {
         model.addAttribute("loggedIn", false);
 
@@ -36,13 +36,13 @@ public class BaseController {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
         }
-        model.addAttribute("songs",songServices.requestRecommendedSongs());
+        model.addAttribute("songs", songServices.requestRecommendedSongs());
 
         return "main_template";
 
     }
 
-    @RequestMapping({ "inicio/{username}"})
+    @RequestMapping({"inicio/{username}"})
     public String main_user(Model model, HttpSession session, @PathVariable String username) {
         model.addAttribute("loggedIn", false);
 
@@ -54,14 +54,11 @@ public class BaseController {
             model.addAttribute("sessionusername", user.getUsername());
         }
 
-        model.addAttribute("songs",songServices.requestRecommendedSongs());
+        model.addAttribute("songs", songServices.requestRecommendedSongs());
 
         return "main_template";
 
     }
-
-
-
-    }
+}
 
 

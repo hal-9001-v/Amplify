@@ -18,10 +18,10 @@ public class Artist {
     private String name;
 
     //BD Relations
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     private List<Song> songs;
 
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     private List<Album> albums;
 
 
@@ -41,7 +41,10 @@ public class Artist {
     public void setName(String name) {
         this.name = name;
     }
-    public long getId() {return this.id;}
+
+    public long getId() {
+        return this.id;
+    }
 
     //FK Get&Set
     public List<Song> getSongs() {

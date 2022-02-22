@@ -13,12 +13,10 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     //Class attribs
     private String title;
     private float length;
     // private Sound song;
-
 
     //BD Relations
     @ManyToOne
@@ -29,7 +27,6 @@ public class Song {
 
 
     //Construct
-
     public Song() {
         this.length = calculateLength();
     }
@@ -51,8 +48,10 @@ public class Song {
     public Float getLength() {
         return length;
     }
-    public long getId() {return this.id;}
 
+    public long getId() {
+        return this.id;
+    }
 
     //FK Get&Set
     public Artist getArtist() {
@@ -71,14 +70,10 @@ public class Song {
         this.album = album;
     }
 
-
     //Methods
-
     private float calculateLength() {
         //TO DO
         //return Sound.length();
         return 1;
     }
-
-
 }

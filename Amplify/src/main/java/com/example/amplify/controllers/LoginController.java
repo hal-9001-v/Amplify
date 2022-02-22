@@ -88,6 +88,4 @@ public class LoginController {
 
         return "login_template";
     }
-
-
 }

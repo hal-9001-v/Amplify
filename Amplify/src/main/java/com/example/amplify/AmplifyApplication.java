@@ -11,5 +11,4 @@ public class AmplifyApplication {
         SpringApplication.run(AmplifyApplication.class, args);
     }
 
-
 }
