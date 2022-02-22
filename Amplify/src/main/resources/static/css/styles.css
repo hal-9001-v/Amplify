@@ -112,7 +112,7 @@ hr {
     background-color: #f2f2f2;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1em;
-    margin-right: 0.5em;
+    margin-right: 0.25em;
     margin-top: 0.75rem;
     text-align: center;
     border: 3px solid #FF5733;
@@ -126,5 +126,27 @@ hr {
 
 .add_song:hover {
     background-color: #FF5733;
+    color: white;
+}
+
+.add_song_pl {
+    color: black;
+    background-color: #f2f2f2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    margin-right: 0.25em;
+    margin-top: 0.75rem;
+    text-align: center;
+    border: 3px solid #dba50d;
+    padding: 5px 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.add_song_pl:hover {
+    background-color: #dba50d;
     color: white;
 }
