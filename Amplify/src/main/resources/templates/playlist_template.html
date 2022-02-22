@@ -22,6 +22,8 @@
 <div>
     <h2>
         - {{playlist.name}}
+        {{#loggedIn}}
+
         <form style=display:inline-block; action="/playlist/{{playlist.name}}/eliminarPlaylist">
             <button class="button add_song"><i class="fas fa-heart"></i></button>
         </form>
@@ -31,7 +33,10 @@
         <form style=display:inline-block; action="">
             <button class="button add_song"><i class="	fas fa-trash-alt"></i></button>
         </form>
+        {{/loggedIn}}
     </h2>
+
+
     {{>display_songs_template}}
 </div>
 

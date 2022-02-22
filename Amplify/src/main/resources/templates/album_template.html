@@ -22,12 +22,14 @@
 <div>
     <h2>
         - {{album.name}}
+        {{#loggedIn}}
         <form style=display:inline-block; action="/bilbioteca/{{username}}/album/{{album.name}}/fav">
             <button class="button add_song"><i class="fas fa-heart"></i></button>
         </form>
         <form style=display:inline-block; action="">
             <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
         </form>
+        {{/loggedIn}}
     </h2>
     {{>display_songs_template}}
 </div>

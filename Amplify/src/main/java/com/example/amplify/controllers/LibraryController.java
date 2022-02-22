@@ -226,7 +226,7 @@ public class LibraryController {
         return "main_template";
 
     }
-
+    
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/quitardefav")
     public String removeFromFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
         model.addAttribute("loggedIn", false);

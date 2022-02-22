@@ -65,7 +65,7 @@ public class PlaylistController {
         return "new_playlist_template";
     }
 
-    @RequestMapping("/playlist/{username}/addPlaylist")
+    @RequestMapping("/playlist/{username}/anadirPlaylist")
     public String createPlaylist(Model model, @PathVariable String username, @RequestParam String playlistName, HttpSession session){
         User user = new User();
         user = userServices.checkLogin(session);

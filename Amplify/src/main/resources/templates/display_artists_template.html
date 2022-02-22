@@ -5,13 +5,15 @@
     <ul>
         {{#artists}}
         <li>
-            {{-index}} - <a href="/artist/{{name}}">{{name}}</a>
+            {{-index}} - <a href="/artista/{{name}}">{{name}}</a>
+            {{#loggedIn}}
             <form style=display:inline-block; action="/bilbioteca/{{username}}/artista/{{name}}/fav">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
             </form>
             <form style=display:inline-block; action="">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
             </form>
+            {{/loggedIn}}
         </li>
         {{/artists}}
     </ul>

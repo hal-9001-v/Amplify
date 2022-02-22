@@ -32,12 +32,15 @@
 <div>
     <h2>
         - {{artist.name}}
+        {{#loggedIn}}
         <form style=display:inline-block; action="/bilbioteca/{{username}}/artista/{{artist.name}}/fav">
             <button class="button add_song"><i class="fas fa-heart"></i></button>
         </form>
         <form style=display:inline-block; action="">
             <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
         </form>
+        {{/loggedIn}}
+
     </h2>
 
     <div class="row">
