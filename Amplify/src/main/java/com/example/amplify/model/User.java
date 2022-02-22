@@ -23,7 +23,7 @@ public class User {
 
     //BD Relations
     //Fav Playlists
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "user")
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Playlist> playlists;
 

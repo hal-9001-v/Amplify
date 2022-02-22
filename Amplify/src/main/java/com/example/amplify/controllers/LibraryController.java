@@ -1,10 +1,8 @@
 package com.example.amplify.controllers;
 
 
-import com.example.amplify.model.Album;
-import com.example.amplify.model.Artist;
-import com.example.amplify.model.Song;
-import com.example.amplify.model.User;
+import com.example.amplify.model.*;
+import com.example.amplify.services.PlaylistServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,8 @@ public class LibraryController {
     @Autowired
     UserServices userServices;
 
+    @Autowired
+    PlaylistServices playlistServices;
 
 
     @RequestMapping("/biblioteca")
@@ -56,7 +56,7 @@ public class LibraryController {
     }
 
     @RequestMapping("/biblioteca/{username}/playlists")
-    public String viewUserPlaylists(Model model, @PathVariable String username, HttpSession session) {
+    public String viewUserPlaylists(Model model, @PathVariable("username") String username, HttpSession session) {
         model.addAttribute("loggedIn", false);
         User loginUser = new User();
         loginUser = userServices.checkLogin(session);
@@ -135,4 +135,46 @@ public class LibraryController {
         }
         return "library_artists_template";
     }
+
+
+    @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/fav")
+    public String addToFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username", username);
+
+        Playlist addablePlaylist = playlistServices.findByName(playlistName).get(0);
+        System.out.println(addablePlaylist.getName());
+        userServices.addPlaylist(addablePlaylist, loginUser);
+
+
+        return "library_playlist_template";
+
+    }
+/*
+    @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/quitardefav")
+    public String removeFromFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username", username);
+        Playlist removeablePlaylist = playlistServices.findByName(playlistName).get(0);
+        userServices.removePlaylist(removeablePlaylist, loginUser);
+
+
+        return "library_playlist_template";
+
+    }*/
+
 }

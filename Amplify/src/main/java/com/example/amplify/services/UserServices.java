@@ -21,6 +21,9 @@ public class UserServices {
     @Autowired
     private PlaylistRepository playlistRepo;
 
+    @Autowired
+    PlaylistServices playlistServices;
+
     public List<User> findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
@@ -28,7 +31,10 @@ public class UserServices {
     public List<User> findByPassword(String password) {
         return userRepo.findByPassword(password);
     }
-    public List<User> findAll(){return userRepo.findAll();}
+
+    public List<User> findAll() {
+        return userRepo.findAll();
+    }
 
     public List<User> findAllByUsername(String username, Pageable page) {
 
@@ -36,12 +42,16 @@ public class UserServices {
 
     }
 
-    public void addSong(Song song, User user){
+    public void addSong(Song song, User user) {
 
         List<Song> allUserSongs = user.getSongs();
 
-        for (Song s: user.getSongs()) {
-            if(s.getTitle().equals(song.getTitle())) return;
+        if(user.getSongs() != null) {
+            for (Song s : user.getSongs()) {
+                if (s.getTitle().equals(song.getTitle())) return;
+            }
+        } else {
+            allUserSongs = new ArrayList<Song>();
         }
 
         allUserSongs.add(song);
@@ -50,12 +60,16 @@ public class UserServices {
 
     }
 
-    public void addPlaylist(Playlist playlist, User user){
+    public void addPlaylist(Playlist playlist, User user) {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
 
-        for (Playlist p: user.getPlaylists()) {
-            if(p.getName().equals(playlist.getName())) return;
+        if (user.getPlaylists() != null) {
+            for (Playlist p : user.getPlaylists()) {
+                if (p.getName().equals(playlist.getName())) return;
+            }
+        } else {
+            allUserPlaylists = new ArrayList<Playlist>();
         }
 
         allUserPlaylists.add(playlist);
@@ -64,51 +78,58 @@ public class UserServices {
 
     }
 
-    public void addArtist(Artist artist, User user){
-        List<Artist> alUserArtists = user.getArtists();
+    public void addArtist(Artist artist, User user) {
+        List<Artist> allUserArtists = user.getArtists();
 
-        for (Artist a: user.getArtists()) {
-            if(a.getName().equals(artist.getName())) return;
+        if(user.getArtists() != null) {
+            for (Artist a : user.getArtists()) {
+                if (a.getName().equals(artist.getName())) return;
+            }
+        } else {
+            allUserArtists = new ArrayList<Artist>();
         }
-
-        alUserArtists.add(artist);
-        user.setArtists(alUserArtists);
+        allUserArtists.add(artist);
+        user.setArtists(allUserArtists);
         userRepo.save(user);
 
 
     }
-    public void addAlbum(Album album, User user){
-        List<Album> allUSerAlbums = user.getAlbums();
 
-        for (Album a: user.getAlbums()) {
-            if(a.getName().equals(album.getName())) return;
+    public void addAlbum(Album album, User user) {
+        List<Album> allUserAlbums = user.getAlbums();
+
+        if(user.getAlbums() !=null) {
+            for (Album a : user.getAlbums()) {
+                if (a.getName().equals(album.getName())) return;
+            }
+        } else {
+            allUserAlbums = new ArrayList<Album>();
         }
 
-        allUSerAlbums.add(album);
-        user.setAlbums(allUSerAlbums);
+        allUserAlbums.add(album);
+        user.setAlbums(allUserAlbums);
         userRepo.save(user);
 
     }
 
-    public void removePlaylist(Playlist playlist, User user){
+    public void removePlaylist(Playlist playlist, User user) {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
-
-        for (Playlist p: user.getPlaylists()) {
-
+        for (Playlist p : allUserPlaylists) {
+            if (p.getName().equals(playlist.getName())) {
+                allUserPlaylists.remove(playlist);
+                user.setPlaylists(allUserPlaylists);
+                userRepo.save(user);
+            }
         }
-
-        allUserPlaylists.add(playlist);
-        user.setPlaylists(allUserPlaylists);
-        userRepo.save(user);
-
 
     }
 
 
-    public User checkLogin(HttpSession session){
+    public User checkLogin(HttpSession session) {
         User user = (User) session.getAttribute(LoginController.UserSessionKey);
         if (user != null) {
+            //System.out.println(user.getUsername());
             return user;
         }
         return null;

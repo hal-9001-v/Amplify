@@ -21,8 +21,10 @@ public class Playlist {
     @OneToMany
     private List<Song> songs;
 
+    @ManyToMany(cascade = CascadeType.ALL,  mappedBy = "playlists")
+    private List<User> users;
 
-    @ManyToOne
+    @OneToOne
     private User user;
 
 
@@ -58,6 +60,14 @@ public class Playlist {
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> songs) {
+        this.users = users;
     }
 
     public User getUser() {

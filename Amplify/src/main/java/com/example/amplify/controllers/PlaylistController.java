@@ -87,8 +87,7 @@ public class PlaylistController {
 
     @RequestMapping("/playlist/{playlistName}" )
     public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session){
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user =  userServices.checkLogin(session);
         if(user == null) {
             model.addAttribute("loggedIn", false);
         }
@@ -104,34 +103,28 @@ public class PlaylistController {
 
     }
 
+    
+    @RequestMapping("/playlist/{playlistName}/eliminarPlaylist")
+    public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session){
+        User user =  userServices.checkLogin(session);
+        if(user == null) {
+            model.addAttribute("loggedIn", false);
+        }
+        else {
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", user.getUsername());
 
-    @RequestMapping("/playlist/{playlistName}/deletePlaylist")
-    public String deletePlaylist(Model model, @PathVariable String playlistName){
-        model.addAttribute("loggedIn", false);
+        }
+
         List <Playlist> list = playlistServices.findByName(playlistName);
         if(list.size() > 0) {
             Playlist deletablePlaylist = list.get(0);
-            playlistRepo.delete(deletablePlaylist);
+            playlistRepo.delete(playlistServices.findByName(deletablePlaylist.getName()).get(0));
         }
 
-
         return "main_template";
     }
 
-/*
-    @RequestMapping("/playlist/{playlistName}/añadiraFav")
-    public String addToFav(Model model, @PathVariable String playlistName){
 
-        return "main_template";
-
-    }
-
-    @RequestMapping("/playlist/{playlistName}/añadiraFav")
-    public String removeFromFav(Model model, @PathVariable String playlistName){
-
-
-        return "main_template";
-
-    }*/
 
 }
