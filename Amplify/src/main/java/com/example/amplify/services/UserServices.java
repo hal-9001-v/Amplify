@@ -117,15 +117,86 @@ public class UserServices {
     public void removePlaylist(Playlist playlist, User user) {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
-        for (Playlist p : allUserPlaylists) {
-            if (p.getName().equals(playlist.getName())) {
-                allUserPlaylists.remove(playlist);
-                user.setPlaylists(allUserPlaylists);
-                userRepo.save(user);
+        Playlist removedPlaylist = null;
+        if(user.getPlaylists() != null) {
+            for (Playlist p : allUserPlaylists) {
+                if (p.getName().equals(playlist.getName())) {
+
+                    removedPlaylist = p;
+
+                }
             }
+
         }
+        if(removedPlaylist == null) return;
+        allUserPlaylists.remove(removedPlaylist);
+        user.setPlaylists(allUserPlaylists);
+        userRepo.save(user);
 
     }
+    public void removeAlbum(Album album, User user) {
+
+        List<Album> allUserAlbums = user.getAlbums();
+        Album removedAlbum = null;
+        if(user.getAlbums() != null) {
+            for (Album a : allUserAlbums) {
+                if (a.getName().equals(album.getName())) {
+
+                    removedAlbum = a;
+
+                }
+            }
+
+        }
+        if(removedAlbum == null) return;
+        allUserAlbums.remove(removedAlbum);
+        user.setAlbums(allUserAlbums);
+        userRepo.save(user);
+
+    }
+
+    public void removeArtist(Artist artist, User user) {
+
+        List<Artist>allUserArtists = user.getArtists();
+        Artist removedArtist = null;
+        if(user.getArtists() != null) {
+            for (Artist a : allUserArtists) {
+                if (a.getName().equals(artist.getName())) {
+
+                    removedArtist= a;
+
+                }
+            }
+
+        }
+        if(removedArtist== null) return;
+        allUserArtists.remove(removedArtist);
+        user.setArtists(allUserArtists);
+        userRepo.save(user);
+
+    }
+
+    public void removeSong(Song song, User user) {
+
+        List<Song> allUserSongs = user.getSongs();
+        Song removedSong = null;
+        if(user.getSongs() != null) {
+            for (Song s : allUserSongs) {
+                if (s.getTitle().equals(song.getTitle())) {
+
+                    removedSong= s;
+
+                }
+            }
+
+        }
+        if(removedSong == null) return;
+        allUserSongs.remove(removedSong);
+        user.setSongs(allUserSongs);
+        userRepo.save(user);
+
+    }
+
 
 
     public User checkLogin(HttpSession session) {

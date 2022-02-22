@@ -117,10 +117,12 @@ public class LibraryController {
         }
 
         model.addAttribute("username", username);
+
         List<Album> favouriteAlbums = userServices.findByUsername(username).get(0).getAlbums();
         if(!favouriteAlbums.isEmpty()) {
             model.addAttribute("albums", favouriteAlbums);
         }
+
         return "library_albums_template";
     }
 
@@ -226,9 +228,9 @@ public class LibraryController {
         return "main_template";
 
     }
-    
+
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/quitardefav")
-    public String removeFromFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
+    public String removePlaylistFromFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
         model.addAttribute("loggedIn", false);
         User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
@@ -245,5 +247,63 @@ public class LibraryController {
         return "library_playlist_template";
 
     }
+
+    @RequestMapping("/bilbioteca/{username}/album/{albumname}/quitardefav")
+    public String removeAlbumFromFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("albumname") String albumname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username", username);
+        Album removeableAlbum = albumServices.findByName(albumname).get(0);
+        userServices.removeAlbum(removeableAlbum, loginUser);
+
+
+        return "library_playlist_template";
+
+    }
+
+    @RequestMapping("/bilbioteca/{username}/artista/{artistname}/quitardefav")
+    public String removeArtistFromFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("artistname") String artistname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username", username);
+        Artist removeableArtist = artistServices.findByName(artistname).get(0);
+        userServices.removeArtist(removeableArtist, loginUser);
+
+        return "library_playlist_template";
+
+    }
+
+    @RequestMapping("/bilbioteca/{username}/cancion/{songname}/quitardefav")
+    public String removeSongFromFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("songname") String songname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username", username);
+        Song removeableSong = songServices.findByTitle(songname).get(0);
+        userServices.removeSong(removeableSong, loginUser);
+
+
+        return "library_playlist_template";
+
+    }
+
+
 
 }

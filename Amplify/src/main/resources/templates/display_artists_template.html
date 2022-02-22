@@ -7,10 +7,10 @@
         <li>
             {{-index}} - <a href="/artista/{{name}}">{{name}}</a>
             {{#loggedIn}}
-            <form style=display:inline-block; action="/bilbioteca/{{username}}/artista/{{name}}/fav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{name}}/fav">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
             </form>
-            <form style=display:inline-block; action="">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{name}}/quitardefav">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
             </form>
             {{/loggedIn}}

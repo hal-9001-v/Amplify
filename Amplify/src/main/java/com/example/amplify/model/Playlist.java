@@ -1,5 +1,7 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -21,7 +23,8 @@ public class Playlist {
     @ManyToMany
     private List<Song> songs;
 
-    @ManyToMany(cascade = CascadeType.ALL,  mappedBy = "playlists")
+    @ManyToMany (cascade = CascadeType.PERSIST, mappedBy = "playlists")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> users;
 
     @OneToOne

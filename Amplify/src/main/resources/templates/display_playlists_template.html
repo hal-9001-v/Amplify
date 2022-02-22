@@ -7,12 +7,17 @@
         <li>
             {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.username}}" ,
                                                                                  method="post">{{user.username}}</a>
-            <form style=display:inline-block; action="/bilbioteca/{{user.username}}/playlist/{{name}}/fav">
+            {{#loggedIn}}
+
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/fav">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
             </form>
-            <form style=display:inline-block; action="">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/quitardefav">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
             </form>
+
+            {{/loggedIn}}
+
         </li>
         {{/playlists}}
     </ul>

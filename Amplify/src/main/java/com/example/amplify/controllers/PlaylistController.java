@@ -65,8 +65,9 @@ public class PlaylistController {
         return "new_playlist_template";
     }
 
-    @RequestMapping("/playlist/{username}/anadirPlaylist")
-    public String createPlaylist(Model model, @PathVariable String username, @RequestParam String playlistName, HttpSession session){
+
+    @RequestMapping("/playlist/anadirNuevaPlaylist")
+    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session){
         User user = new User();
         user = userServices.checkLogin(session);
         if(user == null) {
@@ -84,7 +85,7 @@ public class PlaylistController {
 
             model.addAttribute("playlist", newPLaylist);
 
-            return "playlist_template";
+            return "main_template";
         }
 
     }
@@ -122,7 +123,7 @@ public class PlaylistController {
         }
 
         List <Playlist> list = playlistServices.findByName(playlistName);
-        if(list.size() > 0) {
+        if(!list.isEmpty()) {
             Playlist deletablePlaylist = list.get(0);
             playlistRepo.delete(playlistServices.findByName(deletablePlaylist.getName()).get(0));
         }
@@ -147,6 +148,8 @@ public class PlaylistController {
         model.addAttribute("songtitle", songtitle);
         return "display_owned_playlists_template";
     }
+
+
 
     @RequestMapping("/playlist/anadir/{songtitle}/{playlistname}")
     public String addToPlaylist(Model model, HttpSession session, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname)
