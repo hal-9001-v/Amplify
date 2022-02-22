@@ -125,6 +125,22 @@ public class PlaylistController {
         return "main_template";
     }
 
+    @RequestMapping("/playlist/anadir/{songtitle}")
+    public String addToPlaylist(Model model, HttpSession session, @PathVariable String songtitle){
+
+        User user =  userServices.checkLogin(session);
+        if(user == null) {
+            model.addAttribute("loggedIn", false);
+        }
+        else {
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", user.getUsername());
+
+        }
+        
+
+        return "display_owned_playlists_template";
+    }
 
 
 }

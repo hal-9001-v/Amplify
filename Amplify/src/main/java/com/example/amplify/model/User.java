@@ -28,15 +28,15 @@ public class User {
     private List<Playlist> playlists;
 
     //Fav Artists
-    @OneToMany
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Artist> artists;
     //Fav songs
-    @OneToMany
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Song> songs;
     //Fav album
-    @OneToMany
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 

@@ -44,6 +44,7 @@ public class AlbumController {
         else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
+            model.addAttribute("username", user.getUsername());
         }
 
         return "album_template";

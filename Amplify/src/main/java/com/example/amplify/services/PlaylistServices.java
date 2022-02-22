@@ -29,13 +29,13 @@ public class PlaylistServices {
 
         Playlist newPlaylist = new Playlist(name);
         newPlaylist.setUser(user);
-        System.out.println(newPlaylist.getUser().getUsername());
 
         for (Playlist p: playlistRepo.findAll()) {
-            if(p.getName().equals(newPlaylist.getName()))
-
+            if(p.getName().equals(newPlaylist.getName())) {
                 return p;
+            }
         }
+
         playlistRepo.save(newPlaylist);
 
         return newPlaylist;

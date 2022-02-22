@@ -66,7 +66,9 @@ public class UserServices {
 
         if (user.getPlaylists() != null) {
             for (Playlist p : user.getPlaylists()) {
-                if (p.getName().equals(playlist.getName())) return;
+                if (p.getName().equals(playlist.getName())) {
+                    return;
+                }
             }
         } else {
             allUserPlaylists = new ArrayList<Playlist>();

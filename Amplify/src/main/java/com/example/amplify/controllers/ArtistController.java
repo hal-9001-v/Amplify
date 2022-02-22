@@ -44,6 +44,7 @@ public class ArtistController {
         else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
+            model.addAttribute("username", user.getUsername());
         }
 
         return "artist_template";

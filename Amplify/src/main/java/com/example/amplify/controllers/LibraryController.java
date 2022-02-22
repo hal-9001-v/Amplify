@@ -2,8 +2,8 @@ package com.example.amplify.controllers;
 
 
 import com.example.amplify.model.*;
-import com.example.amplify.services.PlaylistServices;
-import com.example.amplify.services.UserServices;
+import com.example.amplify.repositories.AlbumRepository;
+import com.example.amplify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +23,14 @@ public class LibraryController {
     @Autowired
     PlaylistServices playlistServices;
 
+    @Autowired
+    AlbumServices albumServices;
+
+    @Autowired
+    ArtistServices artistServices;
+
+    @Autowired
+    SongServices songServices;
 
     @RequestMapping("/biblioteca")
     public String defaultLibrary(Model model, HttpSession session) {
@@ -138,7 +146,7 @@ public class LibraryController {
 
 
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/fav")
-    public String addToFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
+    public String addPlaylistToFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
         model.addAttribute("loggedIn", false);
         User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
@@ -154,10 +162,71 @@ public class LibraryController {
         userServices.addPlaylist(addablePlaylist, loginUser);
 
 
-        return "library_playlist_template";
+        return "main_template";
 
     }
-/*
+
+
+    @RequestMapping("/bilbioteca/{username}/album/{albumname}/fav")
+    public String addAlbumToFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("albumname") String albumname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+            model.addAttribute("username",username);
+
+        Album addableAlbum = albumServices.findByName(albumname).get(0);
+        System.out.println(addableAlbum.getName());
+        userServices.addAlbum(addableAlbum, loginUser);
+
+
+        return "main_template";
+
+    }
+    @RequestMapping("/bilbioteca/{username}/artista/{artistname}/fav")
+    public String addArtistToFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("artistname") String artistname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username",username);
+
+        Artist addableArtist = artistServices.findByName(artistname).get(0);
+        System.out.println(addableArtist.getName());
+        userServices.addArtist(addableArtist, loginUser);
+
+        return "main_template";
+
+    }
+
+    @RequestMapping("/bilbioteca/{username}/cancion/{songname}/fav")
+    public String addSongToFav(Model model, HttpSession session,@PathVariable("username") String username, @PathVariable("songname") String songname){
+        model.addAttribute("loggedIn", false);
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
+
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("sessionusername", loginUser.getUsername());
+        }
+
+        model.addAttribute("username",username);
+
+        Song addableSong = songServices.findByTitle(songname).get(0);
+        System.out.println(addableSong.getTitle());
+        userServices.addSong(addableSong, loginUser);
+
+        return "main_template";
+
+    }
+
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/quitardefav")
     public String removeFromFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName){
         model.addAttribute("loggedIn", false);
@@ -175,6 +244,6 @@ public class LibraryController {
 
         return "library_playlist_template";
 
-    }*/
+    }
 
 }
