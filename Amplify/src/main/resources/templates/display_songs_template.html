@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <body>
-<ul>
-    {{#songs}}
-    <li>
-        {{-index}} - {{title}} - <a href="/album/{{album.name}}">{{album.name}}</a> - <a href="/artist/{{artist.name}}">{{artist.name}}</a>
-    {{#loggedIn}}
-        <form style=display:inline-block; action="/bilbioteca/{{username}}/cancion/{{title}}/fav">
-            <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
-        </form>
-        <form style=display:inline-block; action="/playlist/anadir/{{title}}">
-            <button class="button add_song_pl"><i class="fas fa-edit"></i> Añadir a playlist</button>
-        </form>
-    {{/loggedIn}}
-
-    </li>
-    {{/songs}}
-</ul>
+<h3>
+    <ul>
+        {{#songs}}
+        <li>
+            {{-index}} - {{title}} - <a href="/album/{{album.name}}">{{album.name}}</a> - <a
+                href="/artist/{{artist.name}}">{{artist.name}}</a>
+            {{#loggedIn}}
+            <form style=display:inline-block; action="/bilbioteca/{{username}}/cancion/{{title}}/fav">
+                <button class="button add_song"><i class="fas fa-heart"></i></button>
+            </form>
+            <form style=display:inline-block; action="">
+                <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+            </form>
+            <form style=display:inline-block; action="/playlist/anadir/{{title}}">
+                <button class="button add_song_pl"><i class="fas fa-edit"></i> Añadir a playlist</button>
+            </form>
+            {{/loggedIn}}
+        </li>
+        {{/songs}}
+    </ul>
+</h3>
 </body>
 </html>

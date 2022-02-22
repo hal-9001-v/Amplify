@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <body>
-<ul>
-    {{#albums}}
-    <li>
-        {{-index}} - <a href="/album/{{name}}">{{name}}</a> - <a href="/artist/{{artist.name}}">{{artist.name}}</a>
-        <form style=display:inline-block; action="/bilbioteca/{{username}}/album/{{name}}/fav">
-            <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
-        </form>
-    </li>
-    {{/albums}}
-</ul>
+<h3>
+    <ul>
+        {{#albums}}
+        <li>
+            {{-index}} - <a href="/album/{{name}}">{{name}}</a> - <a href="/artist/{{artist.name}}">{{artist.name}}</a>
+            <form style=display:inline-block; action="/bilbioteca/{{username}}/album/{{name}}/fav">
+                <button class="button add_song"><i class="fas fa-heart"></i></button>
+            </form>
+            <form style=display:inline-block; action="">
+                <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+            </form>
+        </li>
+        {{/albums}}
+    </ul>
+</h3>
 </body>
 </html>
