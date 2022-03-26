@@ -14,15 +14,12 @@ public class MailServices {
     private JavaMailSender sender;
     public void send(Mail m){
         SimpleMailMessage message = new SimpleMailMessage();
-        String body = "hello";
 
         message.setTo(m.getAddressee());
-        message.setFrom("dexaxi12@gmail.com");
         message.setText(m.getBody());
         message.setSubject(m.getSubject());
-
+        System.out.println("Sent message: " + m.getBody() + " to" + m.getAddressee());
         sender.send(message);
-        System.out.println("Sent Message " + body+  " to " + m.getAddressee());
     }
 
     }

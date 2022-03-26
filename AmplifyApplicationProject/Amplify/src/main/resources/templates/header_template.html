@@ -15,7 +15,7 @@
             {{#loggedIn}} {{sessionusername}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>
     </form>
-    <form style=display:inline-block; {{#loggedIn}} action="/crear-playlist/{{sessionusername}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/redirect/email/recomendaciones"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
         <button class="button user_button">
             Nueva playlist <i class="far fa-file-audio"></i>
         </button>

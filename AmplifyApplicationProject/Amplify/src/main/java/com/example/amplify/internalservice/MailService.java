@@ -3,6 +3,8 @@ package com.example.amplify.internalservice;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
@@ -14,19 +16,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@RestController
+@Service
+@EnableAsync
 public class MailService {
 
     @Async
     public void sendRecommendationsMail(String username, String mailAddress, List<String> songRecommendationNames, List<URI> recommendationURIs) throws URISyntaxException, IOException {
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8080/email/recommendations");
+        URI url = new URI("http://localhost:8443/email/recomendaciones");
 
         List<String> mailContent = new ArrayList<String>();
 
-        String body = composeMail(username, mailAddress, songRecommendationNames, recommendationURIs,
-                "recommendationsHeader.txt", "recommendationsFooter.txt");
+        String header =
+                "Desde Amplify nos encanta cuidar de nuestros usuarios, así que nos hemos propuesto que descubráis música nueva cada semana :)\n" +
+                "\n" +
+                "¡Estas son tus recomendaciones semanales basadas en tus gustos!\n" +
+                "\n";
+        String footer =
+                "\n" +
+                "\n" +
+                "¡Eso es todo por esta semana!\n" +
+                "\n" +
+                "¡La próxima más y mejor! :P\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "AmplifyDB desarrollada por:\n" +
+                "    https://twitter.com/dexaxitu\n" +
+                "    https://twitter.com/VicenteMAguile1\n" +
+                "    https://twitter.com/Javiex73\n" +
+                "\n" +
+                "Todos los derechos reservados.";
+
+
+       String body = composeMail(songRecommendationNames, recommendationURIs,
+             header,  footer);
         postMail(username, mailAddress, resttemp, url, mailContent, body);
 
     }
@@ -36,12 +62,29 @@ public class MailService {
 
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8080/email/estadisticas");
+        URI url = new URI("http://localhost:8443/email/estadisticas");
 
-        List<String> mailContent = new ArrayList<String>();
+        List<String> mailContent = new ArrayList<String>(3);
 
-        String body = composeMail(username, mailAddress, statisticsList, statisticsURIs,
-                "statisticsHeader.txt", "satisticsFooter.txt");
+        String header = "¡Wow! ¡Qué gustazo tienes, fiera!\n" +
+                "\n" +
+                "¡Estas son tus estadísticas de uso de Amplify! ¡Esperamos que nos sigas visitando frecuentemente!\n" +
+                "\n";
+        String footer =
+                "¡Madre mía, menudos hitazos!\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "AmplifyDB desarrollada por:\n" +
+                "    https://twitter.com/dexaxitu\n" +
+                "    https://twitter.com/VicenteMAguile1\n" +
+                "    https://twitter.com/Javiex73\n" +
+                "\n" +
+                "Todos los derechos reservados.";
+
+
+        String body = composeMail(statisticsList, statisticsURIs,
+                header,  footer);
 
         postMail(username, mailAddress, resttemp, url, mailContent, body);
 
@@ -63,30 +106,20 @@ public class MailService {
     }
 
 
-    private String composeMail(String username, String mailAddress, List<String> stringList, List<URI> uriList, String headerName, String endingName) throws IOException {
+    private String composeMail(List<String> stringList, List<URI> uriList, String headerText, String footerText) throws IOException {
 
         String body = "";
-        //read header file
-        File file1 = new File(
-                String.valueOf(getClass().getClassLoader().getResource(headerName)));
-        BufferedReader br1
-                = new BufferedReader(new FileReader(file1));
-        //Add header to body
-        while ((body += br1.readLine()) != null);
+        //add header
+
+        body+= headerText + "\n";
 
         //Add recommendation names
         for (int i = 0; i < stringList.size(); i++) {
-            body += "\n" + i + 1 + " " + stringList.get(i) + " - " + uriList.get(i);
+            body += "\n" + (i + 1) + ". " + stringList.get(i) + " - " + uriList.get(i);
         }
 
-        //Read end file
-        File file2 = new File(
-                String.valueOf(getClass().getClassLoader().getResource(endingName)));
-        BufferedReader br2
-                = new BufferedReader(new FileReader(file2));
-        //Add end to body
-        while ((body += br2.readLine()) != null);
-
+        //add footer
+        body+= footerText+ "\n";
 
         return body;
     }
