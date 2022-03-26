@@ -1,11 +1,10 @@
-package com.example.amplify.internalservice;
+package com.example.amplify.internalService;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 
@@ -24,7 +23,7 @@ public class MailService {
     public void sendRecommendationsMail(String username, String mailAddress, List<String> songRecommendationNames, List<URI> recommendationURIs) throws URISyntaxException, IOException {
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8443/email/recomendaciones");
+        URI url = new URI("http://localhost:8080/email/recomendaciones");
 
         List<String> mailContent = new ArrayList<String>();
 
@@ -62,7 +61,7 @@ public class MailService {
 
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8443/email/estadisticas");
+        URI url = new URI("http://localhost:8080/email/estadisticas");
 
         List<String> mailContent = new ArrayList<String>(3);
 

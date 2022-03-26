@@ -1,8 +1,7 @@
 package com.example.amplify.controllers;
 
 
-import com.example.amplify.internalservice.MailService;
-import com.example.amplify.model.Playlist;
+import com.example.amplify.internalService.MailService;
 import com.example.amplify.model.Song;
 import com.example.amplify.model.User;
 import com.example.amplify.services.PlaylistServices;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
