@@ -34,18 +34,15 @@ public class LibraryController {
     @RequestMapping("/biblioteca")
     public String defaultLibrary(Model model, HttpSession session) {
         model.addAttribute("loggedIn", false);
-        User loginUser = new User();
-        loginUser = userServices.checkLogin(session);
-        if (loginUser != null) {
 
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
             model.addAttribute("username", loginUser.getUsername());
         }
 
-
         return "library_template";
-
     }
 
     @RequestMapping("/biblioteca/{username}")
@@ -54,7 +51,6 @@ public class LibraryController {
         User loginUser = new User();
         loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
         }
@@ -68,12 +64,9 @@ public class LibraryController {
         User loginUser = new User();
         loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
-
         }
-
 
         model.addAttribute("username", username);
         model.addAttribute("playlists", userServices.findByUsername(username).get(0).getPlaylists());
@@ -84,10 +77,9 @@ public class LibraryController {
     public String showSongs(Model model, @PathVariable("username") String username, HttpSession session) {
 
         model.addAttribute("loggedIn", false);
-        User loginUser = new User();
-        loginUser = userServices.checkLogin(session);
-        if (loginUser != null) {
 
+        User loginUser = userServices.checkLogin(session);
+        if (loginUser != null) {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
         }
@@ -106,8 +98,8 @@ public class LibraryController {
     public String viewUserAlbums(Model model, @PathVariable String username, HttpSession session) {
 
         model.addAttribute("loggedIn", false);
-        User loginUser = new User();
-        loginUser = userServices.checkLogin(session);
+
+        User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
 
             model.addAttribute("loggedIn", true);
@@ -127,9 +119,10 @@ public class LibraryController {
 
     @RequestMapping("/biblioteca/{username}/artistas")
     public String viewUserArtists(Model model, @PathVariable String username, HttpSession session) {
+
         model.addAttribute("loggedIn", false);
-        User loginUser = new User();
-        loginUser = userServices.checkLogin(session);
+
+        User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
 
             model.addAttribute("loggedIn", true);
@@ -147,7 +140,9 @@ public class LibraryController {
 
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/fav")
     public String addPlaylistToFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("playlistName") String playlistName) {
+
         model.addAttribute("loggedIn", false);
+
         User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
 
@@ -161,15 +156,15 @@ public class LibraryController {
         System.out.println(addablePlaylist.getName());
         userServices.addPlaylist(addablePlaylist, loginUser);
 
-
         return "main_template";
-
     }
 
 
     @RequestMapping("/bilbioteca/{username}/album/{albumname}/fav")
     public String addAlbumToFav(Model model, HttpSession session, @PathVariable("username") String username, @PathVariable("albumname") String albumname) {
+
         model.addAttribute("loggedIn", false);
+
         User loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
 
@@ -183,9 +178,7 @@ public class LibraryController {
         System.out.println(addableAlbum.getName());
         userServices.addAlbum(addableAlbum, loginUser);
 
-
         return "main_template";
-
     }
 
     @RequestMapping("/bilbioteca/{username}/artista/{artistname}/fav")
@@ -205,7 +198,6 @@ public class LibraryController {
         userServices.addArtist(addableArtist, loginUser);
 
         return "main_template";
-
     }
 
     @RequestMapping("/bilbioteca/{username}/cancion/{songname}/fav")
@@ -225,7 +217,6 @@ public class LibraryController {
         userServices.addSong(addableSong, loginUser);
 
         return "main_template";
-
     }
 
     @RequestMapping("/bilbioteca/{username}/playlist/{playlistName}/quitardefav")
@@ -261,9 +252,7 @@ public class LibraryController {
         Album removeableAlbum = albumServices.findByName(albumname).get(0);
         userServices.removeAlbum(removeableAlbum, loginUser);
 
-
         return "library_playlist_template";
-
     }
 
     @RequestMapping("/bilbioteca/{username}/artista/{artistname}/quitardefav")
@@ -281,7 +270,6 @@ public class LibraryController {
         userServices.removeArtist(removeableArtist, loginUser);
 
         return "library_playlist_template";
-
     }
 
     @RequestMapping("/bilbioteca/{username}/cancion/{songname}/quitardefav")
@@ -300,6 +288,5 @@ public class LibraryController {
 
 
         return "library_playlist_template";
-
     }
 }

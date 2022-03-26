@@ -20,7 +20,6 @@ public class ArtistController {
 
     @Autowired
     ArtistServices artistServices;
-
     @Autowired
     UserServices userServices;
 
@@ -36,8 +35,7 @@ public class ArtistController {
         List<Album> albumList = artist.getAlbums();
         model.addAttribute("albums", albumList);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
 
         if (user == null) model.addAttribute("loggedIn", false);
         else {

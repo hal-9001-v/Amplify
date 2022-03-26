@@ -46,7 +46,7 @@ public class UserServices {
 
         List<Song> allUserSongs = user.getSongs();
 
-        if(user.getSongs() != null) {
+        if (user.getSongs() != null) {
             for (Song s : user.getSongs()) {
                 if (s.getTitle().equals(song.getTitle())) return;
             }
@@ -83,7 +83,7 @@ public class UserServices {
     public void addArtist(Artist artist, User user) {
         List<Artist> allUserArtists = user.getArtists();
 
-        if(user.getArtists() != null) {
+        if (user.getArtists() != null) {
             for (Artist a : user.getArtists()) {
                 if (a.getName().equals(artist.getName())) return;
             }
@@ -100,7 +100,7 @@ public class UserServices {
     public void addAlbum(Album album, User user) {
         List<Album> allUserAlbums = user.getAlbums();
 
-        if(user.getAlbums() !=null) {
+        if (user.getAlbums() != null) {
             for (Album a : user.getAlbums()) {
                 if (a.getName().equals(album.getName())) return;
             }
@@ -118,7 +118,7 @@ public class UserServices {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
         Playlist removedPlaylist = null;
-        if(user.getPlaylists() != null) {
+        if (user.getPlaylists() != null) {
             for (Playlist p : allUserPlaylists) {
                 if (p.getName().equals(playlist.getName())) {
 
@@ -128,17 +128,18 @@ public class UserServices {
             }
 
         }
-        if(removedPlaylist == null) return;
+        if (removedPlaylist == null) return;
         allUserPlaylists.remove(removedPlaylist);
         user.setPlaylists(allUserPlaylists);
         userRepo.save(user);
 
     }
+
     public void removeAlbum(Album album, User user) {
 
         List<Album> allUserAlbums = user.getAlbums();
         Album removedAlbum = null;
-        if(user.getAlbums() != null) {
+        if (user.getAlbums() != null) {
             for (Album a : allUserAlbums) {
                 if (a.getName().equals(album.getName())) {
 
@@ -148,7 +149,7 @@ public class UserServices {
             }
 
         }
-        if(removedAlbum == null) return;
+        if (removedAlbum == null) return;
         allUserAlbums.remove(removedAlbum);
         user.setAlbums(allUserAlbums);
         userRepo.save(user);
@@ -157,19 +158,19 @@ public class UserServices {
 
     public void removeArtist(Artist artist, User user) {
 
-        List<Artist>allUserArtists = user.getArtists();
+        List<Artist> allUserArtists = user.getArtists();
         Artist removedArtist = null;
-        if(user.getArtists() != null) {
+        if (user.getArtists() != null) {
             for (Artist a : allUserArtists) {
                 if (a.getName().equals(artist.getName())) {
 
-                    removedArtist= a;
+                    removedArtist = a;
 
                 }
             }
 
         }
-        if(removedArtist== null) return;
+        if (removedArtist == null) return;
         allUserArtists.remove(removedArtist);
         user.setArtists(allUserArtists);
         userRepo.save(user);
@@ -180,32 +181,23 @@ public class UserServices {
 
         List<Song> allUserSongs = user.getSongs();
         Song removedSong = null;
-        if(user.getSongs() != null) {
+        if (user.getSongs() != null) {
             for (Song s : allUserSongs) {
                 if (s.getTitle().equals(song.getTitle())) {
-
-                    removedSong= s;
-
+                    removedSong = s;
                 }
             }
 
         }
-        if(removedSong == null) return;
+        if (removedSong == null) return;
         allUserSongs.remove(removedSong);
         user.setSongs(allUserSongs);
         userRepo.save(user);
 
     }
 
-
-
     public User checkLogin(HttpSession session) {
         User user = (User) session.getAttribute(LoginController.UserSessionKey);
-        if (user != null) {
-            //System.out.println(user.getUsername());
-            return user;
-        }
-        return null;
+        return user;
     }
-
 }

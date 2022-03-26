@@ -42,10 +42,10 @@ public class LoginController {
 
     @GetMapping("/login")
     public String logInPage(Model model, HttpSession session) {
-
         return "login_template";
     }
 
+    /*
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "login")
     public String logInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
 
@@ -88,4 +88,5 @@ public class LoginController {
 
         return "login_template";
     }
+    */
 }

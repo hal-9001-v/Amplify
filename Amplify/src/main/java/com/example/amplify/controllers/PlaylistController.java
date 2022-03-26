@@ -22,24 +22,22 @@ import java.util.List;
 public class PlaylistController {
 
     @Autowired
+    UserRepository userRepo;
+    @Autowired
     PlaylistRepository playlistRepo;
 
     @Autowired
     PlaylistServices playlistServices;
-
     @Autowired
     UserServices userServices;
-
-    @Autowired
-    UserRepository userRepo;
-
     @Autowired
     SongServices songServices;
 
     @RequestMapping("/crear-playlist")
     public String sendToLogin(Model model, HttpSession session) {
-        User user = new User();
-        user = userServices.checkLogin(session);
+
+        User user = userServices.checkLogin(session);
+
         if (user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
@@ -53,22 +51,22 @@ public class PlaylistController {
 
     @RequestMapping("/crear-playlist/{username}")
     public String viewCreatePlaylistWindow(Model model, @PathVariable String username, HttpSession session) {
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
         if (user == null) model.addAttribute("loggedIn", false);
 
         else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
         }
+
         return "new_playlist_template";
     }
 
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
     public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
+
         if (user == null) {
             model.addAttribute("loggedIn", false);
             return "main_template";
@@ -86,19 +84,20 @@ public class PlaylistController {
             return "main_template";
         }
 
+        return "new_playlist_template";
     }
-
 
     @RequestMapping("/playlist/{playlistName}")
     public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session) {
+
         User user = userServices.checkLogin(session);
         if (user == null) {
             model.addAttribute("loggedIn", false);
         } else {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
-
         }
+
         Playlist requestedPlaylist = playlistServices.findByName(playlistName).get(0);
         model.addAttribute("playlist", requestedPlaylist);
         model.addAttribute("songs", requestedPlaylist.getSongs());

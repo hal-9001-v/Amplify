@@ -27,10 +27,10 @@ public class BaseController {
 
     @RequestMapping({"/", "/inicio",})
     public String main(Model model, HttpSession session) {
+
         model.addAttribute("loggedIn", false);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
         if (user != null) {
 
             model.addAttribute("loggedIn", true);
@@ -44,12 +44,11 @@ public class BaseController {
 
     @RequestMapping({"inicio/{username}"})
     public String main_user(Model model, HttpSession session, @PathVariable String username) {
+
         model.addAttribute("loggedIn", false);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
         if (user != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
         }

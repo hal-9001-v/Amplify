@@ -1,15 +1,11 @@
 package com.example.amplify.controllers;
 
-import com.example.amplify.model.*;
 import com.example.amplify.repositories.*;
 import com.example.amplify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-
 
 @Controller
 public class SongController {
@@ -20,7 +16,6 @@ public class SongController {
     UserRepository userRepo;
     @Autowired
     ArtistRepository artistRepository;
-
     @Autowired
     AlbumRepository albumRepository;
     @Autowired
@@ -28,7 +23,6 @@ public class SongController {
 
     @Autowired
     SongServices songServices;
-
     @Autowired
     UserServices userServices;
     @Autowired
@@ -59,7 +53,6 @@ public class SongController {
             s.setAlbum(album);
             s.setArtist(artist);
             songRepo.save(s);
-
         }
 
         user.setSongs((ArrayList<Song>) songServices.findAll());
@@ -81,8 +74,8 @@ public class SongController {
         for (int i = 0; i < songServices.findAll().size() / 4; i++) {
             songList.add(songServices.findAll().get(i));
             songList1.add(songServices.findAll().get(i + 25));
-
         }
+
         playlist.setSongs(songList);
         playlist1.setSongs(songList1);
         album.setSongs(songList1);
@@ -104,6 +97,5 @@ public class SongController {
         Playlist laquesea = dexaxi.getPlaylists().get(0);
         userServices.addPlaylist(laquesea, Vicente);*/
     }
-
 
 }

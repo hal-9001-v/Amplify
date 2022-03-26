@@ -23,7 +23,6 @@ public class AlbumController {
 
     @Autowired
     AlbumServices albumServices;
-
     @Autowired
     UserServices userServices;
 
@@ -36,8 +35,7 @@ public class AlbumController {
         List<Song> songList = album.getSongs();
         model.addAttribute("songs", songList);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
 
         if (user == null) model.addAttribute("loggedIn", false);
         else {
