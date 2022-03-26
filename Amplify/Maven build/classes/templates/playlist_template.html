@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Amplify - Web application dedicated to copyright-free music"/>
+    <meta name="authors" content="https://github.com/hal-9001-v/Amplify"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title>Amplify</title>
+
+    <!-- My styles firstly -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div>
+    <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
+</div>
+
+<div style="text-align: center;">
+    <form style=display:inline-block; {{#loggedIn}} action="/inicio/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/inicio">   {{/loggedIn}}
+        <button class="button main_button">
+            Inicio <i class="fas fa-home"></i>
+        </button>
+    </form>
+    <form style=display:inline-block;  {{#loggedIn}} action="/biblioteca/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+        <button class="button user_button">
+            {{#loggedIn}} {{username}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
+        </button>
+    </form>
+    <form style=display:inline-block; {{#loggedIn}} action="/crear-playlist/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+        <button class="button user_button">
+            Nueva playlist <i class="far fa-file-audio"></i>
+        </button>
+    </form>
+    <form style=display:inline-block; {{#loggedIn}} action="/biblioteca/{{username}}"> {{/loggedIn}}  {{^loggedIn}} action="/login">   {{/loggedIn}}
+        <button class="button user_button">
+            Mi biblioteca <i class="fas fa-archive"></i>
+        </button>
+    </form>
+</div>
+
+<hr/>
+
+<div>
+    <h2>
+        - {{playlist.name}}
+        <form style=display:inline-block; action="/playlist/{{playlist.name}}/deletePlaylist">
+            <button class="button add_song"><i class="fas fa-times-circle"></i></button>
+        </form>
+
+    </h2>
+
+    {{#playlist.songs}}
+    <li>
+        {{-index}} - {{.name}} - <a href="/album/{{.album.name}}">{{.album.name}}</a> - <a href="/artist/{{.artist.name}}">{{.artist.name}}</a>
+        <form style=display:inline-block; action="addSong">
+            <button class="button add_song"><i class="fas fa-plus-circle"></i></button>
+        </form>
+    </li>
+    {{/playlist.songs}}
+
+</div>
+
+</body>
+</html>
