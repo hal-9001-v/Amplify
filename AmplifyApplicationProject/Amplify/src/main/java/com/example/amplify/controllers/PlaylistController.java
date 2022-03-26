@@ -169,6 +169,26 @@ public class PlaylistController {
         return "main_template";
     }
 
+    @RequestMapping("/playlist/{playlistname}/quitar/{songtitle}")
+    public String removeFromPlaylist(Model model, HttpSession session, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle)
+    {
+        User user =  userServices.checkLogin(session);
+        if(user == null) {
+            model.addAttribute("loggedIn", false);
+            return "login_template";
+        }
+
+        model.addAttribute("loggedIn", true);
+        model.addAttribute("sessionusername", user.getUsername());
+        Song songToRemove = songServices.findByTitle(songtitle).get(0);
+        Playlist playlistToRemoveFrom= playlistServices.findByName(playlistname).get(0);
+        System.out.print("Hello hello hello");
+        playlistServices.removeSong(songToRemove, playlistToRemoveFrom);
+
+        return "main_template";
+    }
+
+
 
 
 }

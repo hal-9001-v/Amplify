@@ -61,4 +61,23 @@ public class PlaylistServices {
 
     }
 
+    public void removeSong(Song song, Playlist playlist){
+
+        List<Song> allPlaylistSongs = playlist.getSongs();
+        Song removedSong = null;
+        if(playlist.getSongs() != null) {
+            for (Song s : allPlaylistSongs) {
+                if (s.getTitle().equals(song.getTitle())) {
+                    removedSong= s;
+                }
+            }
+
+        }
+        if(removedSong == null) return;
+        allPlaylistSongs.remove(removedSong);
+        playlist.setSongs(allPlaylistSongs);
+        playlistRepo.save(playlist);
+
+    }
+
 }

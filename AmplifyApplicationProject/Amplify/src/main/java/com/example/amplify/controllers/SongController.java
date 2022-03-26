@@ -47,7 +47,7 @@ public class SongController {
        // playlistRepository.deleteAll();
 
 
-     /*User user = new User("dexaxi","123");
+     User user = new User("dexaxi","123");
        Artist artist = new Artist("Porta");
        Album album = new Album("DB-Rap");
         artistRepository.save(artist);
@@ -96,7 +96,7 @@ public class SongController {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
-        */
+
 
        /* User Vicente = userServices.findByUsername("Vicente").get(0);
         User dexaxi = userServices.findByUsername("dexaxi").get(0);
