@@ -18,7 +18,7 @@ public class MailServices {
         message.setTo(m.getAddressee());
         message.setText(m.getBody());
         message.setSubject(m.getSubject());
-        System.out.println("Sent message: " + m.getBody() + " to" + m.getAddressee());
+        System.out.println("Sent message: " + m.getBody() + " to " + m.getAddressee());
         sender.send(message);
     }
 
