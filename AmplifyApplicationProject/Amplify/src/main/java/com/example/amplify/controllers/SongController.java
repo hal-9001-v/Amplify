@@ -37,19 +37,22 @@ public class SongController {
     AlbumServices albumServices;
     @Autowired
     PlaylistServices playlistServices;
+
     @PostConstruct
     public void init() {
 
-       // userRepo.deleteAll();
-        //songRepo.deleteAll();
-        //artistRepository.deleteAll();
-      //  albumRepository.deleteAll();
-       // playlistRepository.deleteAll();
+        /*
+        userRepo.deleteAll();
+        songRepo.deleteAll();
+        artistRepository.deleteAll();
+        albumRepository.deleteAll();
+        playlistRepository.deleteAll();
+         */
 
-
-     User user = new User("dexaxi","123");
-       Artist artist = new Artist("Porta");
-       Album album = new Album("DB-Rap");
+        /*
+        User user = new User("dexaxi", "123");
+        Artist artist = new Artist("Porta");
+        Album album = new Album("DB-Rap");
         artistRepository.save(artist);
         albumRepository.save(album);
 
@@ -77,9 +80,9 @@ public class SongController {
         user.setPlaylists(playlistlist);
         ArrayList<Song> songList = new ArrayList<>();
         ArrayList<Song> songList1 = new ArrayList<>();
-        for (int i = 0; i < songServices.findAll().size()/4; i++) {
+        for (int i = 0; i < songServices.findAll().size() / 4; i++) {
             songList.add(songServices.findAll().get(i));
-            songList1.add(songServices.findAll().get(i+25));
+            songList1.add(songServices.findAll().get(i + 25));
 
         }
         playlist.setSongs(songList);
@@ -96,14 +99,13 @@ public class SongController {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
+        */
 
-
-       /* User Vicente = userServices.findByUsername("Vicente").get(0);
+        /*
+        User Vicente = userServices.findByUsername("Vicente").get(0);
         User dexaxi = userServices.findByUsername("dexaxi").get(0);
         Playlist laquesea = dexaxi.getPlaylists().get(0);
-        userServices.addPlaylist(laquesea, Vicente);*/
+        userServices.addPlaylist(laquesea, Vicente);
+         */
     }
-
-
-
 }
