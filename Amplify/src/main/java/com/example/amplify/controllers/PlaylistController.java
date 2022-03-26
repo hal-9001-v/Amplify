@@ -84,7 +84,6 @@ public class PlaylistController {
             return "main_template";
         }
 
-        return "new_playlist_template";
     }
 
     @RequestMapping("/playlist/{playlistName}")
