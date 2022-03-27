@@ -69,12 +69,9 @@ public class LibraryController {
         User loginUser = new User();
         loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
-
         }
-
 
         model.addAttribute("username", username);
         model.addAttribute("playlists", userServices.findByUsername(username).get(0).getPlaylists());

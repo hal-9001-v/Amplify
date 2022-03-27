@@ -51,6 +51,7 @@ public class DatabaseLoader {
         playlistRepository.deleteAll();
          */
 
+
         User user = new User("dexaxi", passwordEncoder.encode("123"), "USER");
         Artist artist = new Artist("Porta");
         Album album = new Album("DB-Rap");
@@ -69,7 +70,6 @@ public class DatabaseLoader {
 
         artist = artistServices.findByName("Porta").get(0);
         album = albumServices.findByName("DB-Rap").get(0);
-        user = userServices.findByUsername("dexaxi").get(0);
 
         Playlist playlist = new Playlist("Noescuestiondeedades");
         playlist.setUser(user);
@@ -100,5 +100,6 @@ public class DatabaseLoader {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
+
     }
 }
