@@ -20,19 +20,16 @@ public class BaseController {
 
     @Autowired
     SongServices songServices;
-
     @Autowired
     UserServices userServices;
 
-
     @RequestMapping({"/", "/inicio",})
     public String main(Model model, HttpSession session) {
+
         model.addAttribute("loggedIn", false);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        User user = userServices.checkLogin(session);
         if (user != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", user.getUsername());
         }

@@ -19,10 +19,10 @@
 
 <body>
 {{>header_basic_template}}
-<form action="checkLogin" , method="post">
+<form action="/login"  method="post">
     <h2>Login:</h2>
     <div>
-        <input type='text' name='sessionusername' placeholder="Nombre"/>
+        <input type='text' name='username' placeholder="Nombre"/>
     </div>
     <br>
     <div>
@@ -31,11 +31,11 @@
     <br>
 
     <div>
-        <input type='submit' name="signIn" value='signIn'/>
+        <input type='submit' name="signIn" value='SignIn'/>
     </div>
 
     <div>
-        <input type='submit' name="login" value='login'/>
+        <input type='submit' name="login" value='LogIn'/>
     </div>
 </form>
 

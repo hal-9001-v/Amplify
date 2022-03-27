@@ -18,15 +18,18 @@ public class User {
 
     //Class attribs
     private String username;
-    private String password;
+    private String encodedPassword;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
 
 
     //BD Relations
+
     //Fav Playlists
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Playlist> playlists;
-
     //Fav Artists
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -41,21 +44,17 @@ public class User {
     private List<Album> albums;
 
     //Construct
-
     public User() {
     }
 
-    public User(String username, String password) {
-
+    public User(String username, String password, String roles) {
         this.username = username;
-        this.password = password;
-
+        this.encodedPassword = password;
+        this.roles = List.of(roles);
     }
 
-    public Boolean isPassword(String password){
-
-        return this.password.equals(password);
-
+    public Boolean isPassword(String password) {
+        return this.encodedPassword.equals(password);
     }
 
     //Attrib Get&Set
@@ -67,17 +66,27 @@ public class User {
         this.username = name;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getEncodedPassword() {
+        return this.encodedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncodedPassword(String password) {
+        this.encodedPassword = password;
     }
-    public long getId() {return this.id;}
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public long getId() {
+        return this.id;
+    }
 
     //FK Get&Set
-
     public List<Song> getSongs() {
         return songs;
     }
@@ -109,8 +118,4 @@ public class User {
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
-
-    //Methods
-
-
 }

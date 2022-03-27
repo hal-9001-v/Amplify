@@ -46,13 +46,12 @@ public class LoginController {
     }
 
     /*
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "login")
-    public String logInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST, params = "login")
+    public String logInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password) {
 
-        List<User> userList = userServices.findByUsername(sessionusername);
+        List<User> userList = userServices.findByUsername(username);
 
-        if (userList.isEmpty() == false) {
-
+        if (!userList.isEmpty()) {
             if (userList.get(0).isPassword(password)) {
 
                 session.setAttribute(UserSessionKey, userList.get(0));
@@ -68,8 +67,8 @@ public class LoginController {
         return "login_template";
     }
 
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "signIn")
-    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST, params = "signIn")
+    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password) {
 
         List<User> userList = userServices.findByUsername(sessionusername);
 

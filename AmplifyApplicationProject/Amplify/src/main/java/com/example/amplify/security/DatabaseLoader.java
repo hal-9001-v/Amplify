@@ -1,9 +1,10 @@
-package com.example.amplify.controllers;
+package com.example.amplify.security;
 
 import com.example.amplify.model.*;
 import com.example.amplify.repositories.*;
 import com.example.amplify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 
 @Controller
-public class SongController {
+public class DatabaseLoader {
 
     @Autowired
     SongRepository songRepo;
@@ -20,7 +21,6 @@ public class SongController {
     UserRepository userRepo;
     @Autowired
     ArtistRepository artistRepository;
-
     @Autowired
     AlbumRepository albumRepository;
     @Autowired
@@ -28,7 +28,6 @@ public class SongController {
 
     @Autowired
     SongServices songServices;
-
     @Autowired
     UserServices userServices;
     @Autowired
@@ -37,6 +36,9 @@ public class SongController {
     AlbumServices albumServices;
     @Autowired
     PlaylistServices playlistServices;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() {
@@ -49,8 +51,7 @@ public class SongController {
         playlistRepository.deleteAll();
          */
 
-        /*
-        User user = new User("dexaxi", "123");
+        User user = new User("dexaxi", passwordEncoder.encode("123"), "USER");
         Artist artist = new Artist("Porta");
         Album album = new Album("DB-Rap");
         artistRepository.save(artist);
@@ -61,7 +62,6 @@ public class SongController {
             s.setAlbum(album);
             s.setArtist(artist);
             songRepo.save(s);
-
         }
 
         user.setSongs((ArrayList<Song>) songServices.findAll());
@@ -70,6 +70,7 @@ public class SongController {
         artist = artistServices.findByName("Porta").get(0);
         album = albumServices.findByName("DB-Rap").get(0);
         user = userServices.findByUsername("dexaxi").get(0);
+
         Playlist playlist = new Playlist("Noescuestiondeedades");
         playlist.setUser(user);
         Playlist playlist1 = new Playlist("Hevuelto");
@@ -99,13 +100,5 @@ public class SongController {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
-        */
-
-        /*
-        User Vicente = userServices.findByUsername("Vicente").get(0);
-        User dexaxi = userServices.findByUsername("dexaxi").get(0);
-        Playlist laquesea = dexaxi.getPlaylists().get(0);
-        userServices.addPlaylist(laquesea, Vicente);
-         */
     }
 }
