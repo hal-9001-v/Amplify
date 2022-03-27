@@ -5,6 +5,7 @@ import com.example.amplify.model.*;
 import com.example.amplify.repositories.AlbumRepository;
 import com.example.amplify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LibraryController {
@@ -35,18 +37,15 @@ public class LibraryController {
     @RequestMapping("/biblioteca")
     public String defaultLibrary(Model model, HttpSession session) {
         model.addAttribute("loggedIn", false);
-        User loginUser = new User();
-        loginUser = userServices.checkLogin(session);
-        if (loginUser != null) {
+        User loginUser = userServices.checkLogin(session);
 
+        if (loginUser != null) {
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
             model.addAttribute("username", loginUser.getUsername());
         }
 
-
         return "library_template";
-
     }
 
     @RequestMapping("/biblioteca/{username}")
@@ -74,7 +73,11 @@ public class LibraryController {
         }
 
         model.addAttribute("username", username);
-        model.addAttribute("playlists", userServices.findByUsername(username).get(0).getPlaylists());
+        User user = userServices.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("playlists", user.getPlaylists());
+
         return "library_playlist_template";
     }
 
@@ -91,15 +94,18 @@ public class LibraryController {
         }
 
         model.addAttribute("username", username);
-        List<Song> favouriteSongs = userServices.findByUsername(username).get(0).getSongs();
+
+        User user = userServices.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Song> favouriteSongs = user.getSongs();
+
         if(!favouriteSongs.isEmpty()) {
             model.addAttribute("songs", favouriteSongs);
         }
 
         return "library_songs_template";
     }
-
-
 
     @RequestMapping("/biblioteca/{username}/albumes")
     public String viewUserAlbums(Model model, @PathVariable String username, HttpSession session) {
@@ -108,14 +114,16 @@ public class LibraryController {
         User loginUser = new User();
         loginUser = userServices.checkLogin(session);
         if (loginUser != null) {
-
             model.addAttribute("loggedIn", true);
             model.addAttribute("sessionusername", loginUser.getUsername());
         }
 
         model.addAttribute("username", username);
 
-        List<Album> favouriteAlbums = userServices.findByUsername(username).get(0).getAlbums();
+        User user = userServices.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Album> favouriteAlbums = user.getAlbums();
         if(!favouriteAlbums.isEmpty()) {
             model.addAttribute("albums", favouriteAlbums);
         }
@@ -136,7 +144,11 @@ public class LibraryController {
         }
 
         model.addAttribute("username", username);
-        List<Artist> favouriteArtists = userServices.findByUsername(username).get(0).getArtists();
+
+        User user = userServices.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Artist> favouriteArtists = user.getArtists();
         if(!favouriteArtists.isEmpty()) {
             model.addAttribute("artists", favouriteArtists);
         }

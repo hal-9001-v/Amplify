@@ -10,9 +10,9 @@
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block; action="/login">
+    <form style=display:inline-block; {{#loggedIn}} action="/login">  {{/loggedIn}}  {{^loggedIn}} action="/iniio" {{/loggedIn}}
         <button class="button user_button">
-            {{#loggedIn}} {{sessionusername}} {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
+            {{#loggedIn}} Cerrar sesión {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>
     </form>
     <form style=display:inline-block; action="/crear-playlist">

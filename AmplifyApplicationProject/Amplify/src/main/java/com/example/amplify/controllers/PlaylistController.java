@@ -9,6 +9,7 @@ import com.example.amplify.services.PlaylistServices;
 import com.example.amplify.services.SongServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,7 +102,10 @@ public class PlaylistController {
         model.addAttribute("loggedIn", true);
         model.addAttribute("sessionusername", user.getUsername());
 
-        List<Playlist> playliststList = userServices.findByUsername(user.getUsername()).get(0).getPlaylists();
+        User searchUser = userServices.findByUsername(user.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Playlist> playliststList = searchUser.getPlaylists();
         model.addAttribute("playlists", playliststList);
         model.addAttribute("songtitle", songtitle);
         return "display_owned_playlists_template";

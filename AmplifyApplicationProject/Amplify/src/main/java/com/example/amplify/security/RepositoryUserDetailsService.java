@@ -2,6 +2,8 @@ package com.example.amplify.security;
 
 import com.example.amplify.model.User;
 import com.example.amplify.repositories.UserRepository;
+import com.example.amplify.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +17,13 @@ import java.util.List;
 @Service
 public class RepositoryUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    @Autowired
+    private UserServices userServices;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username)
+        User user = userServices.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         List<GrantedAuthority> roles = new ArrayList<>();

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
-
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
@@ -51,7 +50,7 @@ public class DatabaseLoader {
         playlistRepository.deleteAll();
          */
 
-
+        /*
         User user = new User("dexaxi", passwordEncoder.encode("123"), "USER");
         Artist artist = new Artist("Porta");
         Album album = new Album("DB-Rap");
@@ -100,6 +99,8 @@ public class DatabaseLoader {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
+
+         */
 
     }
 }

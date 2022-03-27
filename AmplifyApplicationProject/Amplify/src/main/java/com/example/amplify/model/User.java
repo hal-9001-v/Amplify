@@ -23,7 +23,6 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-
     //BD Relations
 
     //Fav Playlists
@@ -80,10 +79,6 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
-    }
-
-    public long getId() {
-        return this.id;
     }
 
     //FK Get&Set
