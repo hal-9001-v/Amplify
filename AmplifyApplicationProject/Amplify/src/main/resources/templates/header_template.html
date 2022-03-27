@@ -10,7 +10,7 @@
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block; {{#loggedIn}} action="/login">  {{/loggedIn}}  {{^loggedIn}} action="/iniio" {{/loggedIn}}
+    <form style=display:inline-block;  {{#loggedIn}} action="/logout"> {{/loggedIn}} {{^loggedIn}} action="/logout" {{/loggedIn}}
         <button class="button user_button">
             {{#loggedIn}} Cerrar sesión {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
         </button>

@@ -21,8 +21,10 @@
 {{>header_template}}
 <div style="margin-bottom: 5em">
     <h2>
-        Bienvenido a Amplify!
+        Bienvenido a Amplify! <br>
+        {{#loggedIn}} Usuario: {{sessionusername}} {{/loggedIn}}
     </h2>
+
     <p>
         Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para reproducir y disfrutar de la
         música; aunque con algunas características adicionales, siendo las principales, basarse en contenido libre de

@@ -5,6 +5,9 @@ import com.example.amplify.repositories.SongRepository;
 import com.example.amplify.services.SongServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,30 +29,36 @@ public class BaseController {
     @RequestMapping({"/", "/inicio",})
     public String main(Model model, HttpSession session) {
 
-        model.addAttribute("loggedIn", false);
+        String username = "";
+        boolean logged = false;
+        Object principalUser = UserServices.checkLogged();
 
-        User user = userServices.checkLogin(session);
-        if (user != null) {
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("sessionusername", user.getUsername());
+        if (principalUser instanceof UserDetails) {
+            username = ((UserDetails) principalUser).getUsername();
+            logged = true;
         }
+
+        model.addAttribute("loggedIn", logged);
+        model.addAttribute("sessionusername", username);
         model.addAttribute("songs", songServices.requestRecommendedSongs());
 
         return "main_template";
-
     }
 
     @RequestMapping({"inicio/{username}"})
     public String main_user(Model model, HttpSession session, @PathVariable String username) {
-        model.addAttribute("loggedIn", false);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
-        if (user != null) {
+        //String username = "";
+        boolean logged = false;
+        Object principalUser = UserServices.checkLogged();
 
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("sessionusername", user.getUsername());
+        if (principalUser instanceof UserDetails) {
+            username = ((UserDetails) principalUser).getUsername();
+            logged = true;
         }
+
+        model.addAttribute("loggedIn", logged);
+        model.addAttribute("sessionusername", username);
 
         model.addAttribute("songs", songServices.requestRecommendedSongs());
 
