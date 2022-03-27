@@ -19,8 +19,8 @@
 
 <body>
 {{>header_basic_template}}
-<form action="/login" method="post">
-    <h2>Login:</h2>
+<form action="/registerUser" method="post">
+    <h2>Registrase:</h2>
     <div>
         <input type='text' name='username' placeholder="Nombre"/>
     </div>
@@ -30,11 +30,11 @@
     </div>
     <br>
     <div>
-        <input class="button main_button" type='submit' name="login" value='Login'/>
+        <input class="button main_button" type='submit' name="signIn" value='Nuevo usuario'/>
     </div>
 </form>
 <div>
-    <p><a href="/register"> Nuevo usuario </a></p>
+    <p> Ya tienes un usuario? <a href="/login"> Iniciar sesión </a></p>
 </div>
 </body>
 </html>

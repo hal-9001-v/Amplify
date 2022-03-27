@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -16,25 +16,21 @@
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
 </head>
-
 <body>
-{{>header_basic_template}}
-<form action="/login" method="post">
-    <h2>Login:</h2>
-    <div>
-        <input type='text' name='username' placeholder="Nombre"/>
-    </div>
-    <br>
-    <div>
-        <input type='password' name='password' placeholder="Contraseña"/>
-    </div>
-    <br>
-    <div>
-        <input class="button main_button" type='submit' name="login" value='Login'/>
-    </div>
-</form>
 <div>
-    <p><a href="/register"> Nuevo usuario </a></p>
+    <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
 </div>
+<div style="text-align: center;">
+    <p> El nombre de usuario o la contraseña proporcionados no son válidos <i class="fas fa-tired"></i> </p>
+</div>
+
+<div style="text-align: center;">
+    <form style=display:inline-block; action="/register">
+        <button class="button main_button">
+            Probar con otro usuario y/o contraseña <i class="fas fa-user-circle"></i>
+        </button>
+    </form>
+</div>
+
 </body>
 </html>

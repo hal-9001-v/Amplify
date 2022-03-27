@@ -6,20 +6,13 @@ import com.example.amplify.services.UserServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
-import java.security.SecureRandom;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -45,60 +38,29 @@ public class LoginController {
         return "login_template";
     }
 
+    @GetMapping("/register")
+    public String signInPage(Model model, HttpSession session) {
+        return "login_register_template";
+    }
+
     @GetMapping("/errorLogin")
     public String errorLogInPage(Model model, HttpSession session) {
         return "errorLogin_template";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, params = "signIn")
+    @PostMapping(value = "/registerUser")
     public String SignInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password) {
-        User user = new User(username, passwordEncoder.encode(password), "USER");
-        session.setAttribute(UserSessionKey, user);
-        userRepo.save(user);
-        logger.info("Signed successfully!");
-        return "/inicio";
-    }
-/*
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "login")
-    public String logInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
 
-        List<User> userList = userServices.findByUsername(sessionusername);
+        Optional<User> checkUser = userServices.findByUsername(username);
 
-        if (userList.isEmpty() == false) {
-
-            if (userList.get(0).isPassword(password)) {
-
-                session.setAttribute(UserSessionKey, userList.get(0));
-
-                logger.info("Logged successfully!");
-                return "/inicio";
-            }
-            logger.info("Incorrect Password for user!");
-        }
-
-        logger.info("Failed to log!");
-
-        return "login_template";
-    }
-
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, params = "signIn")
-    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "sessionusername", required = true) String sessionusername, @RequestParam(value = "password", required = true) String password) {
-
-        List<User> userList = userServices.findByUsername(sessionusername);
-
-        if (userList.isEmpty()) {
-
-            User user = new User(sessionusername, password);
-            session.setAttribute(UserSessionKey, user);
-
+        if (checkUser.isPresent() || username.isEmpty() || password.isEmpty()) {
+            logger.info("Failed to SignIn!");
+            return "errorRegister_template";
+        } else {
+            User user = new User(username, passwordEncoder.encode(password), "USER");
             userRepo.save(user);
-
-            logger.info("Signed successfully!");
-            return "/inicio";
         }
-
-        logger.info("Failed to SignIn!");
-
+        logger.info("Signed successfully!");
         return "login_template";
-    }*/
+    }
 }

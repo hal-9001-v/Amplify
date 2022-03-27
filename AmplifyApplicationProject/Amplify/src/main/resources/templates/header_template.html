@@ -10,9 +10,11 @@
             Inicio <i class="fas fa-home"></i>
         </button>
     </form>
-    <form style=display:inline-block;  {{#loggedIn}} action="/logout"> {{/loggedIn}} {{^loggedIn}} action="/logout" {{/loggedIn}}
+    <form style=display:inline-block; {{#loggedIn}} action="/logout"> {{/loggedIn}} {{^loggedIn}} action="/login">
+        {{/loggedIn}}
         <button class="button user_button">
-            {{#loggedIn}} Cerrar sesión {{/loggedIn}}  {{^loggedIn}} Login / Registro {{/loggedIn}} <i class="fas fa-user-circle"></i>
+            {{#loggedIn}} Cerrar sesión {{/loggedIn}} {{^loggedIn}} Login / Registro {{/loggedIn}} <i
+                class="fas fa-user-circle"></i>
         </button>
     </form>
     <form style=display:inline-block; action="/crear-playlist">
@@ -20,7 +22,7 @@
             Nueva playlist <i class="far fa-file-audio"></i>
         </button>
     </form>
-    <form style=display:inline-block;  action="/biblioteca">
+    <form style=display:inline-block; action="/biblioteca">
         <button class="button user_button">
             Mi biblioteca <i class="fas fa-archive"></i>
         </button>
