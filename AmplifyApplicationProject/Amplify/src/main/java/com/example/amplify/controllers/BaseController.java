@@ -27,46 +27,42 @@ public class BaseController {
     UserServices userServices;
 
     @RequestMapping({"/", "/inicio",})
-    public String main(Model model, HttpSession session) {
+    public String main(Model model) {
 
         String username = "";
         boolean logged = false;
-        Object principalUser = UserServices.checkLogged();
+        Object sessionUser = UserServices.checkLogged();
 
-        if (principalUser instanceof UserDetails) {
-            username = ((UserDetails) principalUser).getUsername();
+        if (sessionUser instanceof UserDetails) {
+            username = ((UserDetails) sessionUser).getUsername();
             logged = true;
         }
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", username);
-        model.addAttribute("songs", songServices.requestRecommendedSongs());
 
+        model.addAttribute("songs", songServices.requestRecommendedSongs());
         return "main_template";
     }
 
     @RequestMapping({"inicio/{username}"})
     public String main_user(Model model, HttpSession session, @PathVariable String username) {
 
-        //String username = "";
         boolean logged = false;
-        Object principalUser = UserServices.checkLogged();
+        Object sessionUser = UserServices.checkLogged();
 
-        if (principalUser instanceof UserDetails) {
-            username = ((UserDetails) principalUser).getUsername();
+        if (sessionUser instanceof UserDetails) {
+            username = ((UserDetails) sessionUser).getUsername();
             logged = true;
         }
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", username);
-
         model.addAttribute("songs", songServices.requestRecommendedSongs());
 
         return "main_template";
 
     }
-
-
 }
 
 

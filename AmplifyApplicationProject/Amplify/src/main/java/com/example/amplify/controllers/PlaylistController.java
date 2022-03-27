@@ -9,6 +9,7 @@ import com.example.amplify.services.PlaylistServices;
 import com.example.amplify.services.SongServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,31 +36,47 @@ public class PlaylistController {
     SongServices songServices;
 
     @RequestMapping("/crear-playlist")
-    public String sendToLogin(Model model, HttpSession session) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+    public String viewCreatePlaylistWindow(Model model) {
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
         return "new_playlist_template";
     }
-
-    @RequestMapping("/crear-playlist/{username}")
-    public String viewCreatePlaylistWindow(Model model, @PathVariable String username, HttpSession session) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
-        model.addAttribute("sessionusername", user.getUsername());
-        return "new_playlist_template";
-    }
-
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
     public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
 
         //Create playlist
-        Playlist newPLaylist = new Playlist();
-        newPLaylist = playlistServices.createPlaylist(playlistName, user);
+        Playlist newPLaylist = playlistServices.createPlaylist(playlistName, user);
         userServices.addPlaylist(newPLaylist, user);
 
         model.addAttribute("playlist", newPLaylist);
@@ -67,11 +84,23 @@ public class PlaylistController {
         return "main_template";
     }
 
-
     @RequestMapping("/playlist/{playlistName}")
-    public String viewPlaylistNoUser(Model model, @PathVariable("playlistName") String playlistName, HttpSession session) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+    public String viewPlaylist(Model model, @PathVariable("playlistName") String playlistName) {
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
 
         Playlist requestedPlaylist = playlistServices.findByName(playlistName).get(0);
@@ -80,11 +109,23 @@ public class PlaylistController {
         return "playlist_template";
     }
 
-
     @RequestMapping("/playlist/{playlistName}/eliminarPlaylist")
     public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
 
         List<Playlist> list = playlistServices.findByName(playlistName);
@@ -97,25 +138,47 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadir/{songtitle}")
-    public String addToPlaylistScreen(Model model, HttpSession session, @PathVariable String songtitle) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
-        model.addAttribute("sessionusername", user.getUsername());
+    public String addToPlaylistScreen(Model model, @PathVariable String songtitle) {
 
-        User searchUser = userServices.findByUsername(user.getUsername())
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        List<Playlist> playliststList = searchUser.getPlaylists();
+        model.addAttribute("loggedIn", logged);
+        model.addAttribute("sessionusername", user.getUsername());
+
+        List<Playlist> playliststList = user.getPlaylists();
         model.addAttribute("playlists", playliststList);
         model.addAttribute("songtitle", songtitle);
         return "display_owned_playlists_template";
     }
 
-
     @RequestMapping("/playlist/anadir/{songtitle}/{playlistname}")
-    public String addToPlaylist(Model model, HttpSession session, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+    public String addToPlaylist(Model model, @PathVariable("songtitle") String songtitle, @PathVariable("playlistname") String playlistname) {
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
 
         Song songToAdd = songServices.findByTitle(songtitle).get(0);
@@ -126,13 +189,25 @@ public class PlaylistController {
 
     @RequestMapping("/playlist/{playlistname}/quitar/{songtitle}")
     public String removeFromPlaylist(Model model, HttpSession session, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle) {
-        User user = userServices.checkLogin(session);
-        model.addAttribute("loggedIn", true);
+
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
+
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
+        }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
 
         Song songToRemove = songServices.findByTitle(songtitle).get(0);
         Playlist playlistToRemoveFrom = playlistServices.findByName(playlistname).get(0);
-        System.out.print("Hello hello hello");
         playlistServices.removeSong(songToRemove, playlistToRemoveFrom);
 
         return "main_template";

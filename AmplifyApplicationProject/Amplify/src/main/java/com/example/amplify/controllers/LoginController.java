@@ -19,11 +19,6 @@ public class LoginController {
 
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    public static String UserSessionKey = "userInfo";
-
-    private String nameFormKey;
-    private String passwordFormKey;
-
     @Autowired
     UserRepository userRepo;
 
@@ -34,30 +29,31 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String logInPage(Model model, HttpSession session) {
+    public String logInPage() {
         return "login_template";
     }
 
     @GetMapping("/register")
-    public String signInPage(Model model, HttpSession session) {
+    public String signInPage() {
         return "login_register_template";
     }
 
     @GetMapping("/errorLogin")
-    public String errorLogInPage(Model model, HttpSession session) {
+    public String errorLogInPage() {
         return "errorLogin_template";
     }
 
     @PostMapping(value = "/registerUser")
-    public String SignInUser(Model model, HttpSession session, @RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password) {
+    public String SignInUser(@RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password,
+                             @RequestParam(value = "email", required = true) String email) {
 
         Optional<User> checkUser = userServices.findByUsername(username);
 
-        if (checkUser.isPresent() || username.isEmpty() || password.isEmpty()) {
+        if (checkUser.isPresent() || username.isEmpty() || password.isEmpty() || email.isEmpty()) {
             logger.info("Failed to SignIn!");
             return "errorRegister_template";
         } else {
-            User user = new User(username, passwordEncoder.encode(password), "USER");
+            User user = new User(username, passwordEncoder.encode(password), email, "USER");
             userRepo.save(user);
         }
         logger.info("Signed successfully!");

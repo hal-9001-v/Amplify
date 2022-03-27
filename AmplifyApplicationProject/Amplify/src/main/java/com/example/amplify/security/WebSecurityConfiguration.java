@@ -41,9 +41,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/errorLogin").permitAll();
         http.authorizeRequests().antMatchers("/errorRegister_template").permitAll();
 
-        //http.authorizeRequests().antMatchers("/biblioteca/**").permitAll();
+        http.authorizeRequests().antMatchers("/biblioteca/{username}/**").permitAll();
         http.authorizeRequests().antMatchers("/album/**").permitAll();
         http.authorizeRequests().antMatchers("/artista/**").permitAll();
+        http.authorizeRequests().antMatchers("/playlist/**").permitAll();
 
         //Private pages
         http.authorizeRequests().anyRequest().hasAnyRole("USER");

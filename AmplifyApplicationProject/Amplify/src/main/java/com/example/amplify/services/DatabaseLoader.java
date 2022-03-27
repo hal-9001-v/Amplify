@@ -1,4 +1,4 @@
-package com.example.amplify.security;
+package com.example.amplify.services;
 
 import com.example.amplify.model.*;
 import com.example.amplify.repositories.*;
@@ -51,7 +51,7 @@ public class DatabaseLoader {
          */
 
         /*
-        User user = new User("dexaxi", passwordEncoder.encode("123"), "USER");
+        User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com","USER");
         Artist artist = new Artist("Porta");
         Album album = new Album("DB-Rap");
         artistRepository.save(artist);
@@ -99,8 +99,7 @@ public class DatabaseLoader {
         playlistRepository.save(playlist);
         playlistRepository.save(playlist1);
         userRepo.save(user);
-
-         */
+        */
 
     }
 }

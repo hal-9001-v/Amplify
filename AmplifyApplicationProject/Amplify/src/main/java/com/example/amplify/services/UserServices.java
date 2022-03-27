@@ -30,12 +30,16 @@ public class UserServices {
         return userRepo.findByUsername(username);
     }
 
-    public List<User> findAll() {
-        return userRepo.findAll();
-    }
-
     public List<User> findAllByUsername(String username, Pageable page) {
         return userRepo.findAllByUsername(username, page);
+    }
+
+    public List<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     public void addSong(Song song, User user) {
@@ -84,6 +88,7 @@ public class UserServices {
         } else {
             allUserArtists = new ArrayList<Artist>();
         }
+
         allUserArtists.add(artist);
         user.setArtists(allUserArtists);
         userRepo.save(user);
@@ -137,6 +142,7 @@ public class UserServices {
                 }
             }
         }
+
         if (removedAlbum == null) return;
         allUserAlbums.remove(removedAlbum);
         user.setAlbums(allUserAlbums);
@@ -180,14 +186,6 @@ public class UserServices {
         allUserSongs.remove(removedSong);
         user.setSongs(allUserSongs);
         userRepo.save(user);
-    }
-
-    public User checkLogin(HttpSession session) {
-        User user = (User) session.getAttribute(LoginController.UserSessionKey);
-        if (user != null) {
-            return user;
-        }
-        return null;
     }
 
     public static Object checkLogged() {

@@ -8,6 +8,8 @@ import com.example.amplify.model.User;
 import com.example.amplify.services.ArtistServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,7 @@ public class ArtistController {
     UserServices userServices;
 
     @RequestMapping("/artista/{artistName}")
-    public String viewArtist(Model model, @PathVariable String artistName, HttpSession session){
+    public String viewArtist(Model model, @PathVariable String artistName) {
 
         Artist artist = artistServices.findByName(artistName).get(0);
         model.addAttribute("artist", artist);
@@ -37,18 +39,23 @@ public class ArtistController {
         List<Album> albumList = artist.getAlbums();
         model.addAttribute("albums", albumList);
 
-        User user = new User();
-        user = userServices.checkLogin(session);
+        String sessionUsername = "";
+        boolean logged = false;
+        Object sessionUser = UserServices.checkLogged();
 
-        if(user == null) model.addAttribute("loggedIn", false);
-        else {
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("sessionusername", user.getUsername());
-            model.addAttribute("username", user.getUsername());
+        if (sessionUser instanceof UserDetails) {
+            sessionUsername = ((UserDetails) sessionUser).getUsername();
+            model.addAttribute("sessionusername", sessionUsername);
+            logged = true;
         }
+
+        User user = userServices.findByUsername(sessionUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("loggedIn", logged);
+        model.addAttribute("sessionusername", user.getUsername());
+        model.addAttribute("username", user.getUsername());
 
         return "artist_template";
     }
-
-
 }
