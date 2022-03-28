@@ -59,7 +59,6 @@ public class MailService {
     @Async
     public void sendStatisticsMail(String username, String mailAddress, List<String> statisticsList, List<URI> statisticsURIs )throws URISyntaxException, IOException{
 
-
         RestTemplate resttemp = new RestTemplate();
         URI url = new URI("http://localhost:8080/email/estadisticas");
 

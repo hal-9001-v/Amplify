@@ -68,15 +68,4 @@ public class Album {
         this.artist = artist;
     }
 
-    //Methods
-    public float calculateTotalLength() {
-
-        float length = 0;
-        for (int i = 0; i < songs.size(); i++) {
-            length += songs.get(i).getLength();
-        }
-        return length;
-    }
-
-
 }

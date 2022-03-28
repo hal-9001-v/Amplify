@@ -3,6 +3,7 @@ package com.example.amplify.model;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -13,12 +14,9 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     //Class attribs
     private String title;
-    private float length;
-    // private Sound song;
-
+    private String genre;
 
     //BD Relations
     @ManyToOne
@@ -29,14 +27,12 @@ public class Song {
 
 
     //Construct
-
     public Song() {
-        this.length = calculateLength();
     }
 
-    public Song(String title) {
-        this.length = calculateLength();
+    public Song(String title, String genre) {
         this.title = title;
+        this.genre = genre;
     }
 
     //Attrib Get&Set
@@ -48,11 +44,17 @@ public class Song {
         this.title = title;
     }
 
-    public Float getLength() {
-        return length;
+    public long getId() {
+        return this.id;
     }
-    public long getId() {return this.id;}
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     //FK Get&Set
     public Artist getArtist() {
@@ -70,15 +72,5 @@ public class Song {
     public void setAlbum(Album album) {
         this.album = album;
     }
-
-
-    //Methods
-
-    private float calculateLength() {
-        //TO DO
-        //return Sound.length();
-        return 1;
-    }
-
 
 }

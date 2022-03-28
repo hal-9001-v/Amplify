@@ -2,10 +2,8 @@ package com.example.amplify.model;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +18,8 @@ public class User {
     private String username;
     private String encodedPassword;
     private String email;
+
+    private int totalSongsDownloaded;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
@@ -47,10 +47,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String email, String roles) {
+    public User(String username, String password, String email, String... roles) {
         this.username = username;
         this.encodedPassword = password;
         this.email = email;
+        this.totalSongsDownloaded = 0;
         this.roles = List.of(roles);
     }
 
@@ -89,6 +90,14 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public int getTotalSongsDownloaded() {
+        return totalSongsDownloaded;
+    }
+
+    public void setTotalSongsDownloaded(int songsDowloaded) {
+        this.totalSongsDownloaded = songsDowloaded;
     }
 
     //FK Get&Set

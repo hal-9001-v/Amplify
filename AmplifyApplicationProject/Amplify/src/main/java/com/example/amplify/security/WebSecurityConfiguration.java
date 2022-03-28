@@ -37,7 +37,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/register").permitAll();
         http.authorizeRequests().antMatchers("/registerUser").permitAll();
-
         http.authorizeRequests().antMatchers("/errorLogin").permitAll();
         http.authorizeRequests().antMatchers("/errorRegister_template").permitAll();
 
@@ -47,6 +46,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/playlist/**").permitAll();
 
         //Private pages
+
+        //Admin pages
+        http.authorizeRequests().antMatchers("/statisticsMail").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/recommendationsMail").hasAnyRole("ADMIN");
+
+        http.authorizeRequests().antMatchers("/redirect/email/estadisticas").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/redirect/email/recomendaciones").hasAnyRole("ADMIN");
+
+        //User pages
         http.authorizeRequests().anyRequest().hasAnyRole("USER");
 
         //Login form

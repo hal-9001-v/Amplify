@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class MailExternalServiceController {
     MailService ms;
 
     @RequestMapping("/redirect/email/recomendaciones")
-    public String createPlaylist(Model model) throws URISyntaxException, IOException {
+    public String sendRecommendations(Model model, @RequestParam(value = "username", required = true) String username) throws URISyntaxException, IOException {
 
         User user = new User();
         Object sessionUser = UserServices.checkLogged();
@@ -66,6 +67,11 @@ public class MailExternalServiceController {
         }
         model.addAttribute("loggedIn", false);
         return "main_template";
+    }
+
+    @RequestMapping("/redirect/email/estadisticas")
+    public String sendStatistics(Model model, @RequestParam(value = "username", required = true) String username) throws URISyntaxException, IOException {
+        return "";
     }
 }
 

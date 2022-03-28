@@ -17,10 +17,6 @@ public class SongServices {
         return songRepo.findByTitle(title);
     }
 
-    public List<Song> findByLength(float length) {
-        return songRepo.findByLength(length);
-    }
-
     public List<Song> findAll(){return songRepo.findAll();}
 
     public List<Song> requestRecommendedSongs(){

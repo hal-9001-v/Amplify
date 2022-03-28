@@ -1,18 +1,15 @@
 package com.example.amplify.services;
 
-import com.example.amplify.controllers.LoginController;
 import com.example.amplify.model.*;
 import com.example.amplify.repositories.PlaylistRepository;
 import com.example.amplify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServices {
@@ -186,6 +183,67 @@ public class UserServices {
         allUserSongs.remove(removedSong);
         user.setSongs(allUserSongs);
         userRepo.save(user);
+    }
+
+    public String getFavouriteGenre(User user) {
+
+        List<Song> songList = findByUsername(user.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")).getSongs();
+
+        ArrayList<String> genres = new ArrayList<String>();
+
+        for (Song s : songList) {
+            genres.add(s.getGenre());
+        }
+
+        String g = maxOccurs(genres);
+
+        switch (g) {
+            case "GAMING":
+                return "Gaming";
+            case "DRIVING":
+                return "Musica para conducir";
+            case "SPORT":
+                return "Deporte";
+            case "PODCAST":
+                return "Podcast";
+            case "INTIMATE":
+                return "Intimo";
+            case "CHILL":
+                return "Chill";
+        }
+        return "No hay datos suficientes :(";
+    }
+
+    public String getFavouriteArtist(User user) {
+
+        List<Song> songList = findByUsername(user.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")).getSongs();
+
+        ArrayList<String> songArtists = new ArrayList<String>();
+
+        for (Song s : songList) {
+            songArtists.add(s.getArtist().getName());
+        }
+
+        return maxOccurs(songArtists);
+    }
+
+    public static <T> T maxOccurs(List<T> list) {
+        Map<T, Integer> map = new HashMap<>();
+
+        for (T t : list) {
+            Integer value = map.get(t);
+            map.put(t, value == null ? 1 : value + 1);
+        }
+
+        Map.Entry<T, Integer> max = null;
+
+        for (Map.Entry<T, Integer> i : map.entrySet()) {
+            if (max == null || i.getValue() > max.getValue())
+                max = i;
+        }
+        return max.getKey();
     }
 
     public static Object checkLogged() {

@@ -51,14 +51,14 @@ public class DatabaseLoader {
          */
 
         /*
-        User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com","USER");
+        User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com", "USER", "ADMIN");
         Artist artist = new Artist("Porta");
         Album album = new Album("DB-Rap");
         artistRepository.save(artist);
         albumRepository.save(album);
 
         for (int i = 0; i < 100; i++) {
-            Song s = new Song("Cancion" + i);
+            Song s = new Song("Cancion" + i, "CHILL");
             s.setAlbum(album);
             s.setArtist(artist);
             songRepo.save(s);

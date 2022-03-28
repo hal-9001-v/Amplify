@@ -1,12 +1,9 @@
 package com.example.amplify.controllers;
 
-import com.example.amplify.model.User;
 import com.example.amplify.repositories.SongRepository;
 import com.example.amplify.services.SongServices;
 import com.example.amplify.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +59,16 @@ public class BaseController {
 
         return "main_template";
 
+    }
+
+    @RequestMapping({"/statisticsMail"})
+    public String sendStatisticMails(Model model) {
+        return "mail_statistics_template";
+    }
+
+    @RequestMapping({"/recommendationsMail"})
+    public String sendRecommendationsMails(Model model) {
+        return "mail_recommendations_template";
     }
 }
 

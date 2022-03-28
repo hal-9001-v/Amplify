@@ -81,27 +81,8 @@ public class Playlist {
         this.user = user;
     }
 
-
-    //Methods
-    public float calculateTotalLength() {
-
-        float length = 0;
-        for (int i = 0; i < songs.size(); i++) {
-            length += songs.get(i).getLength();
-        }
-        return length;
-
-    }
-
-    public void addLength(float length) {
-        this.length += length;
-    }
-
     public void AddSong(Song s) {
-
         songs.add(s);
-        addLength(s.getLength());
-
     }
 
 }

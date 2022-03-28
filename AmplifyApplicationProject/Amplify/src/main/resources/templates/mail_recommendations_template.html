@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -16,33 +16,31 @@
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
 </head>
-
 <body>
-{{>header_template}}
-<div style="margin-bottom: 5em">
-    <h2>
-        Bienvenido a Amplify! <br>
-        {{#loggedIn}} Usuario: {{sessionusername}} {{/loggedIn}}
-    </h2>
-
-    <p>
-        Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para reproducir y disfrutar de la
-        música; aunque con algunas características adicionales, siendo las principales, basarse en contenido libre de
-        derechos de autor (copyright) y tener las diferentes canciones clasificadas según su uso: Streaming, relajación,
-        podcast, deporte...
-    </p>
+<div>
+    <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
 </div>
 
-<div>
-    <h2>
-        - Canciones recomendadas
-    </h2>
+<div style="text-align: center;">
+    <form style=display:inline-block; action="/">
+        <button class="button main_button">
+             HOME <i class="fas fa-user-circle"></i>
+        </button>
+    </form>
 </div>
 
-<h3> {{>display_songs_template}} </h3>
-
+<form action="/redirect/email/recomendaciones" method="post">
+    <h2>Enviar recomendaciones</h2>
+    <div>
+        <input type='text' name='username' placeholder="Usuario"/>
+    </div>
+    <br>
+    <div>
+        <input class="button main_button" type='submit' name="login" value='Aceptar'/>
+    </div>
+</form>
 <div>
-    <p><a href="/statisticsMail"> Enviar correos </a></p>
+    <p><a href="/statisticsMail"> Recibir estadísticas </a></p>
 </div>
 
 </body>
