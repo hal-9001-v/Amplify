@@ -198,20 +198,8 @@ public class UserServices {
 
         String g = maxOccurs(genres);
 
-        switch (g) {
-            case "GAMING":
-                return "Gaming";
-            case "DRIVING":
-                return "Musica para conducir";
-            case "SPORT":
-                return "Deporte";
-            case "PODCAST":
-                return "Podcast";
-            case "INTIMATE":
-                return "Intimo";
-            case "CHILL":
-                return "Chill";
-        }
+        if(!g.isEmpty()) return g;
+
         return "No hay datos suficientes :(";
     }
 

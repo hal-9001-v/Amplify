@@ -1,6 +1,7 @@
 package com.example.amplify.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.*;
@@ -56,7 +57,7 @@ public class Artist {
         return albums;
     }
 
-    public void setAlbum(List<Album> albums) {
+    public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 
