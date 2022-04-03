@@ -57,7 +57,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
-    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
+    public String createPlaylist(Model model, @RequestParam String playlistName) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -98,7 +98,7 @@ public class PlaylistController {
         }
 
         User user = userServices.findByUsername(sessionUsername)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseGet(User::new);
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
