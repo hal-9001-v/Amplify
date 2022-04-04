@@ -45,6 +45,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/artista/**").permitAll();
         http.authorizeRequests().antMatchers("/playlist/**").permitAll();
 
+        http.authorizeRequests().antMatchers("/loadDatabase").permitAll();
+
         //Private pages
 
         //Admin pages
