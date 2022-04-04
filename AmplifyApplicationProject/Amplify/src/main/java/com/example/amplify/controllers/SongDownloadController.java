@@ -32,7 +32,7 @@ public class SongDownloadController {
     UserServices userServices;
 
     @GetMapping(value = "/song/descargar/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<ByteArrayResource> download(Model model, @PathVariable long id) throws SQLException, URISyntaxException {
+    public ResponseEntity<ByteArrayResource> downloadSong(Model model, @PathVariable long id) throws URISyntaxException {
 
         boolean logged = false;
         Object sessionUser = UserServices.checkLogged();
@@ -47,12 +47,9 @@ public class SongDownloadController {
         model.addAttribute("loggedIn", logged);
 
 
-
-
         return fds.downloadSong(id);
 
     }
-
 
 
 }

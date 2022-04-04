@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Blob;
+import java.sql.SQLException;
 
 
 @RestController
@@ -19,8 +19,7 @@ public class SongFIleController {
     private SongDownloadService sds;
 
     @GetMapping("/song/{id}")
-    public ResponseEntity<ByteArrayResource> getVideogame(@PathVariable long id) throws Exception {
-
+    public ResponseEntity<ByteArrayResource> downloadSongFile(@PathVariable long id) throws SQLException {
             return sds.downloadSong(id);
     }
 

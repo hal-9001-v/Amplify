@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class DatabaseLoader {
         int songTotal = 10;
         for (int i = 0; i < songTotal; i++) {
             InputStream input1 = getClass().getClassLoader().getResourceAsStream("songs/Cancion1.ogg");
-            sfs.add(new SongFile(BlobProxy.generateProxy(input1, input1.available()),null));
+            sfs.add(new SongFile(BlobProxy.generateProxy(input1, input1.available()), null));
         }
 
         for (int i = 0; i < songTotal; i++) {
@@ -148,17 +149,17 @@ public class DatabaseLoader {
         ArrayList<Song> album2songList = new ArrayList<>();
         ArrayList<Song> album3songList = new ArrayList<>();
 
-        for (int i = 0; i < songTotal/4; i++) {
+        for (int i = 0; i < songTotal / 4; i++) {
             playList0songList.add(songServices.findAll().get(i));
-            playlist1songList.add(songServices.findAll().get(i + songTotal/4));
-            playlist2songList.add(songServices.findAll().get(i + songTotal/4+songTotal/4));
+            playlist1songList.add(songServices.findAll().get(i + songTotal / 4));
+            playlist2songList.add(songServices.findAll().get(i + songTotal / 4 + songTotal / 4));
         }
 
-        for (int i = 0; i < songTotal/8; i++) {
+        for (int i = 0; i < songTotal / 8; i++) {
             album0songList.add(songServices.findAll().get(i));
-            album1songList.add(songServices.findAll().get(i + songTotal/4));
-            album2songList.add(songServices.findAll().get(i + songTotal/4 +songTotal/4));
-            album3songList.add(songServices.findAll().get(i + songTotal/4+songTotal/4+songTotal/4));
+            album1songList.add(songServices.findAll().get(i + songTotal / 4));
+            album2songList.add(songServices.findAll().get(i + songTotal / 4 + songTotal / 4));
+            album3songList.add(songServices.findAll().get(i + songTotal / 4 + songTotal / 4 + songTotal / 4));
         }
 
 

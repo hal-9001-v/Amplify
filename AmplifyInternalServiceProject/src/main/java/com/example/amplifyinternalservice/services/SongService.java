@@ -14,9 +14,6 @@ public class SongService {
     @Autowired
     private SongRepository songRepo;
 
-    public Optional<Song> findByTitle(String title) {
-        return songRepo.findByTitle(title);
-    }
 
     public Optional<Song> findById(long id){return songRepo.findById(id);}
 }
