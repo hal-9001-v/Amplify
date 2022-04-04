@@ -23,21 +23,25 @@
     <h2>
         - {{playlist.name}}
         {{#loggedIn}}
-        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{playlist.name}}/fav">
+        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{playlist.name}}/fav"
+              method="post">
             <button class="button add_song"><i class="fas fa-heart"></i></button>
         </form>
-        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{playlist.name}}/quitardefav">
+
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+        <form style=display:inline-block;
+              action="/bilbioteca/{{sessionusername}}/playlist/{{playlist.name}}/quitardefav">
             <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
         </form>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+
         <form style=display:inline-block; action="/playlist/{{playlist.name}}/eliminarPlaylist">
             <button class="button add_song"><i class="	fas fa-trash-alt"></i></button>
         </form>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
         {{/loggedIn}}
     </h2>
-
-
     {{>display_songs_from_playlist_template}}
 </div>
-
 </body>
 </html>

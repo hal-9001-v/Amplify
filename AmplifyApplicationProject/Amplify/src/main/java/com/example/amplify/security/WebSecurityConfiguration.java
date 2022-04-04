@@ -34,16 +34,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //Public pages
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/inicio").permitAll();
+
         http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers("/logout").permitAll();
+        http.authorizeRequests().antMatchers("/successLogout").permitAll();
+
         http.authorizeRequests().antMatchers("/register").permitAll();
         http.authorizeRequests().antMatchers("/registerUser").permitAll();
+
         http.authorizeRequests().antMatchers("/errorLogin").permitAll();
-        http.authorizeRequests().antMatchers("/errorRegister_template").permitAll();
+        http.authorizeRequests().antMatchers("/errorRegister").permitAll();
 
         http.authorizeRequests().antMatchers("/biblioteca/{username}/**").permitAll();
         http.authorizeRequests().antMatchers("/album/**").permitAll();
         http.authorizeRequests().antMatchers("/artista/**").permitAll();
         http.authorizeRequests().antMatchers("/playlist/**").permitAll();
+
 
         //Private pages
 
@@ -57,6 +63,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //User pages
         http.authorizeRequests().anyRequest().hasAnyRole("USER");
 
+
         //Login form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
@@ -66,9 +73,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //Logout
         http.logout().logoutUrl("/logout");
-        http.logout().logoutSuccessUrl("/");
-
-        http.csrf().disable();
+        http.logout().logoutSuccessUrl("/successLogout");
     }
 
     @Override

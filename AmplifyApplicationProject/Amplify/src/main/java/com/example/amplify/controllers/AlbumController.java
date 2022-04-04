@@ -50,7 +50,7 @@ public class AlbumController {
         }
 
         User user = userServices.findByUsername(sessionUsername)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseGet(User::new);
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
