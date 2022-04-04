@@ -5,15 +5,16 @@
     <ul>
         {{#albums}}
         <li>
-
             {{-index}} - <a href="/album/{{name}}">{{name}}</a> - <a href="/artista/{{artist.name}}">{{artist.name}}</a>
             {{#loggedIn}}
-
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/album/{{name}}/fav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/album/{{name}}/fav" method="post">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/album/{{name}}/quitardefav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/album/{{name}}/quitardefav"
+                  method="post">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
             {{/loggedIn}}
 
