@@ -117,7 +117,7 @@ public class MailService {
 
         //Add recommendation names
         for (int i = 0; i < stringList.size(); i++) {
-            body += "\n" + (i + 1) + ". " + stringList.get(i) + " - " + uriList.get(i);
+            body += "\n" + (i + 1) + ". " + stringList.get(i) + " " + uriList.get(i);
         }
 
         //add footer

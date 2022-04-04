@@ -30,7 +30,7 @@ public class SongServices {
 
         List<Song> allSongs = findAll();
         ArrayList<Song> requestedSongs = new ArrayList<Song>();
-        int listSize = 10;
+        int listSize = 5;
         for (int i = 0; i < listSize; i++) {
             double random = Math.random() * listSize;
             Song unitSong = allSongs.get((int) random);

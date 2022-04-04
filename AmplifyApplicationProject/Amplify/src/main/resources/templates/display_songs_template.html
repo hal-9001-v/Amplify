@@ -22,7 +22,7 @@
                 <button class="button add_song_pl"><i class="fas fa-edit"></i> Añadir a playlist</button>
                 <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-                <form style=display:inline-block; action="/song/descargar/{{id}}">
+            <form style=display:inline-block; action="/song/descargar/{{id}}">
                 <button class="button add_song"><i class="fas fa-download"></i></button>
             </form>
             {{/loggedIn}}

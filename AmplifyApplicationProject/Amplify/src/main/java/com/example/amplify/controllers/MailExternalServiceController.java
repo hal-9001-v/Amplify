@@ -81,11 +81,10 @@ public class MailExternalServiceController {
 
             String uriString = "";
             for (int i = 0; i < songList.size(); i++) {
-                String songName = songList.get(i).getTitle();
+                long songName = songList.get(i).getId();
                 uriString = "https://localhost:8443/song/descargar/"+songName;
-                uriString = uriString.replace(" ", "%20");
-                songName += " " + songServices.findByTitle(songName).get(0).getArtist().getName();
-                strList.add(songName);
+                String songStr = songServices.findById(songName).get().getTitle() +  ", de " + songServices.findById(songName).get().getArtist().getName() + ", descargar en: ";
+                strList.add(songStr);
                 URI properURI = new URI(uriString);
                 uriList.add(properURI);
             }
@@ -118,19 +117,14 @@ public class MailExternalServiceController {
             List<URI> uriList = new ArrayList<URI>();
             List<String> strList = new ArrayList<String>();
 
-            strList.add("El total de canciones descargadas de " + searchUser.getUsername() + " es igual a");
-            strList.add("El artista favorito de "+ searchUser.getUsername() + " es");
-            strList.add("El género favorito de "+ searchUser.getUsername() + " es");
+            strList.add("El total de canciones descargadas de " + searchUser.getUsername() + " es igual a " + searchUser.getTotalSongsDownloaded());
+            strList.add("El artista favorito de "+ searchUser.getUsername() + " es " + userServices.getFavouriteArtist(searchUser));
+            strList.add("El género favorito de "+ searchUser.getUsername() + " es " + userServices.getFavouriteGenre(searchUser));
 
-            String s = String.valueOf(searchUser.getTotalSongsDownloaded());
-            s = s.replace(" ", "%20");
-            uriList.add(new URI(s));
-            s = String.valueOf(userServices.getFavouriteArtist(searchUser));
-            s = s.replace(" ", "%20");
-            uriList.add(new URI(s));
-            s = String.valueOf(userServices.getFavouriteGenre(searchUser));
-            s = s.replace(" ", "%20");
-            uriList.add(new URI(s));
+            uriList.add(new URI(""));
+            uriList.add(new URI(""));
+            uriList.add(new URI(""));
+
 
             ms.sendStatisticsMail(searchUser.getUsername(), sesuser.getEmail(), strList, uriList);
         }
