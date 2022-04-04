@@ -1,8 +1,11 @@
 package com.example.amplify.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.List;
 
 
@@ -18,6 +21,11 @@ public class Song {
     private String title;
     private String genre;
 
+    @Lob
+    @JsonIgnore
+    private Blob songFile;
+
+
     //BD Relations
     @ManyToOne
     private Artist artist;
@@ -30,9 +38,10 @@ public class Song {
     public Song() {
     }
 
-    public Song(String title, String genre) {
+    public Song(String title, String genre, Blob songFile) {
         this.title = title;
         this.genre = genre;
+        this.songFile = songFile;
     }
 
     //Attrib Get&Set
@@ -47,6 +56,7 @@ public class Song {
     public long getId() {
         return this.id;
     }
+    public Blob getSongFile(){return songFile;}
 
     public String getGenre() {
         return genre;
@@ -64,6 +74,8 @@ public class Song {
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+    public void setSongFile(Blob songFile){this.songFile = songFile;}
 
     public Album getAlbum() {
         return album;

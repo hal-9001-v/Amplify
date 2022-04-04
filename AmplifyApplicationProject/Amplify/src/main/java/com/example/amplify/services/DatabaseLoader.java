@@ -3,11 +3,14 @@ package com.example.amplify.services;
 import com.example.amplify.model.*;
 import com.example.amplify.repositories.*;
 import com.example.amplify.services.*;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class DatabaseLoader {
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
 
         /*
         userRepo.deleteAll();
@@ -50,7 +53,6 @@ public class DatabaseLoader {
         albumRepository.deleteAll();
         playlistRepository.deleteAll();
          */
-/*
 
         User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com", "USER", "ADMIN");
         Artist artist0 = new Artist("Porta");
@@ -77,8 +79,9 @@ public class DatabaseLoader {
         genre[4] = "DRIVING";
         genre[5] = "PODCAST";
 
+        InputStream input1 = getClass().getClassLoader().getResourceAsStream("songs/Cancion1.ogg");
         for (int i = 0; i < 100; i++) {
-            Song s = new Song(GenerateSongName(), genre[(int)(Math.random()*6)]);
+            Song s = new Song(GenerateSongName(), genre[(int)(Math.random()*6)], null);
             switch ((int) (Math.random() * 4)) {
                 case 0:
                     s.setAlbum(album0);
@@ -97,8 +100,9 @@ public class DatabaseLoader {
                     s.setArtist(artist2);
 
                     break;
-            }
 
+            }
+            s.setSongFile(BlobProxy.generateProxy(input1,input1.available()));
             songRepo.save(s);
         }
 
@@ -213,7 +217,7 @@ public class DatabaseLoader {
         end.add("la vida vendra");//11
 
         return  start.get((int)(Math.random()*11)) + end.get((int)(Math.random()*11));
-*/
+
 
     }
 }
