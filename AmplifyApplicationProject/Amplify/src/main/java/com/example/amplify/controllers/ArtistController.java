@@ -27,7 +27,7 @@ public class ArtistController {
     @Autowired
     UserServices userServices;
 
-    @RequestMapping("/artista/{artistName}")
+    @RequestMapping(value = "/artista/{artistName}", produces = "application/zip")
     public String viewArtist(Model model, @PathVariable String artistName) {
 
         Artist artist = artistServices.findByName(artistName).get(0);

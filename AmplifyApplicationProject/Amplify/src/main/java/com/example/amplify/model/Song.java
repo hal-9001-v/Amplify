@@ -2,6 +2,8 @@ package com.example.amplify.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -21,9 +23,9 @@ public class Song {
     private String title;
     private String genre;
 
-    @Lob
-    @JsonIgnore
-    private Blob songFile;
+    @OneToOne (cascade = CascadeType.REMOVE, mappedBy = "song")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private SongFile songFile;
 
 
     //BD Relations
@@ -38,7 +40,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(String title, String genre, Blob songFile) {
+    public Song(String title, String genre, SongFile songFile) {
         this.title = title;
         this.genre = genre;
         this.songFile = songFile;
@@ -56,7 +58,7 @@ public class Song {
     public long getId() {
         return this.id;
     }
-    public Blob getSongFile(){return songFile;}
+    public SongFile getSongFile(){return songFile;}
 
     public String getGenre() {
         return genre;
@@ -75,7 +77,7 @@ public class Song {
         this.artist = artist;
     }
 
-    public void setSongFile(Blob songFile){this.songFile = songFile;}
+    public void setSongFile(SongFile songFile){this.songFile = songFile;}
 
     public Album getAlbum() {
         return album;

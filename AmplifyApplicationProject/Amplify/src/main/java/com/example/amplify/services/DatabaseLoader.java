@@ -28,7 +28,8 @@ public class DatabaseLoader {
     AlbumRepository albumRepository;
     @Autowired
     PlaylistRepository playlistRepository;
-
+    @Autowired
+    SongFileRepository songFileRepo;
     @Autowired
     SongServices songServices;
     @Autowired
@@ -79,9 +80,16 @@ public class DatabaseLoader {
         genre[4] = "DRIVING";
         genre[5] = "PODCAST";
 
-        InputStream input1 = getClass().getClassLoader().getResourceAsStream("songs/Cancion1.ogg");
-        for (int i = 0; i < 100; i++) {
-            Song s = new Song(GenerateSongName(), genre[(int)(Math.random()*6)], null);
+
+        ArrayList<SongFile> sfs = new ArrayList<SongFile>();
+        int songTotal = 10;
+        for (int i = 0; i < songTotal; i++) {
+            InputStream input1 = getClass().getClassLoader().getResourceAsStream("songs/Cancion1.ogg");
+            sfs.add(new SongFile(BlobProxy.generateProxy(input1, input1.available()),null));
+        }
+
+        for (int i = 0; i < songTotal; i++) {
+            Song s = new Song(GenerateSongName(), genre[(int) (Math.random() * 6)], null);
             switch ((int) (Math.random() * 4)) {
                 case 0:
                     s.setAlbum(album0);
@@ -102,11 +110,13 @@ public class DatabaseLoader {
                     break;
 
             }
-            s.setSongFile(BlobProxy.generateProxy(input1,input1.available()));
             songRepo.save(s);
         }
 
-        user.setSongs((ArrayList<Song>) songServices.findAll());
+        List<Song> allSongs = songServices.findAll();
+
+
+        user.setSongs(allSongs);
         userRepo.save(user);
 
         artist0 = artistServices.findByName("Porta").get(0);
@@ -138,17 +148,17 @@ public class DatabaseLoader {
         ArrayList<Song> album2songList = new ArrayList<>();
         ArrayList<Song> album3songList = new ArrayList<>();
 
-        for (int i = 0; i < songServices.findAll().size() / 4; i++) {
+        for (int i = 0; i < songTotal/4; i++) {
             playList0songList.add(songServices.findAll().get(i));
-            playlist1songList.add(songServices.findAll().get(i + 25));
-            playlist2songList.add(songServices.findAll().get(i + 50));
+            playlist1songList.add(songServices.findAll().get(i + songTotal/4));
+            playlist2songList.add(songServices.findAll().get(i + songTotal/4+songTotal/4));
         }
 
-        for (int i = 0; i < songServices.findAll().size() / 8; i++) {
+        for (int i = 0; i < songTotal/8; i++) {
             album0songList.add(songServices.findAll().get(i));
-            album1songList.add(songServices.findAll().get(i + 25));
-            album2songList.add(songServices.findAll().get(i + 50));
-            album3songList.add(songServices.findAll().get(i + 75));
+            album1songList.add(songServices.findAll().get(i + songTotal/4));
+            album2songList.add(songServices.findAll().get(i + songTotal/4 +songTotal/4));
+            album3songList.add(songServices.findAll().get(i + songTotal/4+songTotal/4+songTotal/4));
         }
 
 
@@ -186,9 +196,13 @@ public class DatabaseLoader {
         userRepo.save(user);
 
 
+        for (int i = 0; i < songTotal; i++) {
+            sfs.get(i).setSong(allSongs.get(i));
+            songFileRepo.save(sfs.get(i));
+        }
     }
 
-    private String GenerateSongName(){
+    private String GenerateSongName() {
 
         List<String> start = new ArrayList<>();
         List<String> end = new ArrayList<>();
@@ -216,8 +230,9 @@ public class DatabaseLoader {
         end.add("Kingslayer");//10
         end.add("la vida vendra");//11
 
-        return  start.get((int)(Math.random()*11)) + end.get((int)(Math.random()*11));
+        return start.get((int) (Math.random() * 11)) + end.get((int) (Math.random() * 11));
 
 
     }
+
 }

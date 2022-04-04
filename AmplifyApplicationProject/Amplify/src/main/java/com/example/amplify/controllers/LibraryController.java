@@ -1,6 +1,7 @@
 package com.example.amplify.controllers;
 
 
+import com.example.amplify.internalService.FileDownloadService;
 import com.example.amplify.model.*;
 import com.example.amplify.repositories.AlbumRepository;
 import com.example.amplify.services.*;
@@ -145,6 +146,9 @@ public class LibraryController {
 
         return "library_albums_template";
     }
+
+    @Autowired
+    FileDownloadService fds;
 
     @RequestMapping("/biblioteca/{username}/artistas")
     public String viewUserArtists(Model model, @PathVariable String username) {

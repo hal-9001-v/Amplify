@@ -82,9 +82,7 @@ public class MailExternalServiceController {
             String uriString = "";
             for (int i = 0; i < songList.size(); i++) {
                 String songName = songList.get(i).getTitle();
-                String albumName = songServices.findByTitle(songName).get(0).getAlbum().getName();
-                // uriS = "http://localhost:8443/cancion/" + songName; PROPER LINK WHEN WE ADD SONG REPRODUCTION/DOWNLOAD
-                uriString = "https://localhost:8443/album/"+albumName;
+                uriString = "https://localhost:8443/song/descargar/"+songName;
                 uriString = uriString.replace(" ", "%20");
                 songName += " " + songServices.findByTitle(songName).get(0).getArtist().getName();
                 strList.add(songName);
@@ -125,10 +123,13 @@ public class MailExternalServiceController {
             strList.add("El género favorito de "+ searchUser.getUsername() + " es");
 
             String s = String.valueOf(searchUser.getTotalSongsDownloaded());
+            s = s.replace(" ", "%20");
             uriList.add(new URI(s));
             s = String.valueOf(userServices.getFavouriteArtist(searchUser));
+            s = s.replace(" ", "%20");
             uriList.add(new URI(s));
             s = String.valueOf(userServices.getFavouriteGenre(searchUser));
+            s = s.replace(" ", "%20");
             uriList.add(new URI(s));
 
             ms.sendStatisticsMail(searchUser.getUsername(), sesuser.getEmail(), strList, uriList);

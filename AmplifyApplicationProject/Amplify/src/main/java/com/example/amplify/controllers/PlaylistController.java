@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PlaylistController {
@@ -184,6 +185,7 @@ public class PlaylistController {
         Song songToAdd = songServices.findByTitle(songtitle).get(0);
         Playlist playlistToAddTo = playlistServices.findByName(playlistname).get(0);
         playlistServices.addSong(songToAdd, playlistToAddTo);
+
         return "main_template";
     }
 
@@ -207,8 +209,9 @@ public class PlaylistController {
         model.addAttribute("sessionusername", user.getUsername());
 
         Song songToRemove = songServices.findByTitle(songtitle).get(0);
-        Playlist playlistToRemoveFrom = playlistServices.findByName(playlistname).get(0);
+          Playlist playlistToRemoveFrom = playlistServices.findByName(playlistname).get(0);
         playlistServices.removeSong(songToRemove, playlistToRemoveFrom);
+
 
         return "main_template";
     }
