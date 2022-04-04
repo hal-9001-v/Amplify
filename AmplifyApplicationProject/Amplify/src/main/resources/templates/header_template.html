@@ -5,28 +5,37 @@
     <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
 </div>
 <div style="text-align: center;">
-    <form style=display:inline-block; action="/inicio">
+
+    <form style=display:inline-block; action="/inicio" method="post">
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; {{#loggedIn}} action="/logout"> {{/loggedIn}} {{^loggedIn}} action="/login">
-        {{/loggedIn}}
+
+    <form style=display:inline-block; {{#loggedIn}} action="/logout" method="post"> {{/loggedIn}} {{^loggedIn}}
+        action="/login"> {{/loggedIn}}
         <button class="button user_button">
             {{#loggedIn}} Cerrar sesión {{/loggedIn}} {{^loggedIn}} Login / Registro {{/loggedIn}} <i
                 class="fas fa-user-circle"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; action="/crear-playlist">
+
+    <form style=display:inline-block; action="/crear-playlist" method="post">
         <button class="button user_button">
             Nueva playlist <i class="far fa-file-audio"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; action="/biblioteca">
+
+    <form style=display:inline-block; action="/biblioteca" method="post">
         <button class="button user_button">
             Mi biblioteca <i class="fas fa-archive"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
+
 </div>
 </body>
 </html>

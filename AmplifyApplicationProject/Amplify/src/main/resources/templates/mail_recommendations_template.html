@@ -24,7 +24,7 @@
 <div style="text-align: center;">
     <form style=display:inline-block; action="/">
         <button class="button main_button">
-             HOME <i class="fas fa-user-circle"></i>
+            Inicio <i class="fas fa-home"></i>
         </button>
     </form>
 </div>
@@ -38,6 +38,7 @@
     <div>
         <input class="button main_button" type='submit' name="login" value='Aceptar'/>
     </div>
+    <input type="hidden" name="_csrf" value="{{token}}"/>
 </form>
 <div>
     <p><a href="/statisticsMail"> Recibir estadísticas </a></p>

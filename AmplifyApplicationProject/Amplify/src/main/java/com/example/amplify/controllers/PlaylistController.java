@@ -57,7 +57,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
-    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
+    public String createPlaylist(Model model, @RequestParam String playlistName) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -98,7 +98,7 @@ public class PlaylistController {
         }
 
         User user = userServices.findByUsername(sessionUsername)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseGet(User::new);
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
@@ -110,7 +110,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/{playlistName}/eliminarPlaylist")
-    public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session) {
+    public String deletePlaylist(Model model, @PathVariable String playlistName) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -188,7 +188,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/{playlistname}/quitar/{songtitle}")
-    public String removeFromPlaylist(Model model, HttpSession session, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle) {
+    public String removeFromPlaylist(Model model, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle) {
 
         String sessionUsername = "";
         boolean logged = false;

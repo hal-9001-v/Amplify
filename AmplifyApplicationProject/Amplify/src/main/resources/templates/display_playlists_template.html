@@ -5,19 +5,19 @@
     <ul>
         {{#playlists}}
         <li>
-            {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.username}}" ,
-                                                                                 method="post">{{user.username}}</a>
+            {{-index}} - <a href="/playlist/{{name}}">{{name}}</a> - Creador: <a href="/biblioteca/{{user.username}}">{{user.username}}</a>
             {{#loggedIn}}
-
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/fav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/fav"
+                  method="post">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/quitardefav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/playlist/{{name}}/quitardefav"
+                  method="post">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-
             {{/loggedIn}}
-
         </li>
         {{/playlists}}
     </ul>

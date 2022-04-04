@@ -20,29 +20,38 @@
 <body>
 {{>header_template}}
 <h2>
-    {{username}}  -     Biblioteca / Favoritos
+    {{username}} - Biblioteca / Favoritos
 </h2>
 <div style="text-align: center;">
-    <form style=display:inline-block; action="/biblioteca/{{username}}/playlists">
+
+    <form style=display:inline-block; action="/biblioteca/{{username}}/playlists" method="post">
         <button class="button user_button">
             Playlists <i class="fas fa-file-audio"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; action="/biblioteca/{{username}}/canciones">
+
+    <form style=display:inline-block; action="/biblioteca/{{username}}/canciones" method="post">
         <button class="button user_button">
             Canciones <i class="fas fa-music"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; action="/biblioteca/{{username}}/albumes">
+
+    <form style=display:inline-block; action="/biblioteca/{{username}}/albumes" method="post">
         <button class="button user_button">
             Álbumes <i class="fas fa-clipboard-list"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
-    <form style=display:inline-block; action="/biblioteca/{{username}}/artistas">
+
+    <form style=display:inline-block; action="/biblioteca/{{username}}/artistas" method="post">
         <button class="button user_button">
             Artistas <i class="fas fa-grin-alt"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
+
 </div>
 </body>
 </html>

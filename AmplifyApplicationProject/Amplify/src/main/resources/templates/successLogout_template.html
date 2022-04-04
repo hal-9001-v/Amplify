@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
@@ -16,19 +16,23 @@
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 
 </head>
-
 <body>
-{{>header_basic_template}}
-<form action="/playlist/anadirNuevaPlaylist" method="post">
-    <h2>Nueva lista de reproducción:</h2>
-    <div>
-        <input type='text' name='playlistName' placeholder="Nombre de la playlist"/>
-    </div>
-    <br>
-    <div>
-        <input type='submit' value='Confirmar'/>
-    </div>
-    <input type="hidden" name="_csrf" value="{{token}}"/>
-</form>
+<div>
+    <h1> Amplify - <i class="fas fa-headphones-alt"></i> <i class="far fa-file-audio"></i></h1>
+</div>
+<div style="text-align: center;">
+    <p><i class="far fa-laugh-beam"></i> Sesión cerrada satisfactoriamente </p>
+</div>
+
+<div style="text-align: center;">
+    <form style=display:inline-block; {{#loggedIn}} action="/inicio/{{username}}" method="post"> {{/loggedIn}} {{^loggedIn}}
+        action="/inicio"  method="post"> {{/loggedIn}}
+        <button class="button main_button">
+            Inicio <i class="fas fa-home"></i>
+        </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+    </form>
+</div>
+
 </body>
 </html>

@@ -33,14 +33,17 @@
     <h2>
         - {{artist.name}}
         {{#loggedIn}}
-        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{artist.name}}/fav">
+        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{artist.name}}/fav"
+              method="post">
             <button class="button add_song"><i class="fas fa-heart"></i></button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
-        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{artist.name}}/quitardefav">
+        <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/artista/{{artist.name}}/quitardefav"
+              method="post">
             <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
         {{/loggedIn}}
-
     </h2>
 
     <div class="row">
