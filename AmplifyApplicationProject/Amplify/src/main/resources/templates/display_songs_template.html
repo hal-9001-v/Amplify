@@ -6,16 +6,24 @@
         {{#songs}}
         <li>
             {{-index}} - {{title}} - <a href="/album/{{album.name}}">{{album.name}}</a> - <a
-                href="/artista/{{artist.name}}">{{artist.name}}</a>
+                href="/artista/{{artist.name}}">{{artist.name}}</a> - {{genre}}
             {{#loggedIn}}
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/cancion/{{title}}/fav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/cancion/{{title}}/fav"
+                  method="post">
                 <button class="button add_song"><i class="fas fa-heart"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/cancion/{{title}}/quitardefav">
+            <form style=display:inline-block; action="/bilbioteca/{{sessionusername}}/cancion/{{title}}/quitardefav"
+                  method="post">
                 <button class="button add_song"><i class="fas fa-minus-circle"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
-            <form style=display:inline-block; action="/playlist/anadir/{{title}}">
+            <form style=display:inline-block; action="/playlist/anadir/{{title}}" method="post">
                 <button class="button add_song_pl"><i class="fas fa-edit"></i> Añadir a playlist</button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+            </form>
+            <form style=display:inline-block; action="/song/descargar/{{id}}">
+                <button class="button add_song"><i class="fas fa-download"></i></button>
             </form>
             {{/loggedIn}}
         </li>

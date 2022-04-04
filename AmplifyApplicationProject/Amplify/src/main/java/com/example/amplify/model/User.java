@@ -96,8 +96,8 @@ public class User {
         return totalSongsDownloaded;
     }
 
-    public void setTotalSongsDownloaded(int songsDowloaded) {
-        this.totalSongsDownloaded = songsDowloaded;
+    public void setTotalSongsDownloaded(int songsDownloaded) {
+        this.totalSongsDownloaded = songsDownloaded;
     }
 
     //FK Get&Set

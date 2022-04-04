@@ -4,12 +4,7 @@ package com.example.amplifyinternalservice.controllers;
 import com.example.amplifyinternalservice.objects.Mail;
 import com.example.amplifyinternalservice.services.MailServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

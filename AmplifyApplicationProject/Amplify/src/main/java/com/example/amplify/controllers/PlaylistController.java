@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PlaylistController {
@@ -57,7 +58,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/anadirNuevaPlaylist")
-    public String createPlaylist(Model model, @RequestParam String playlistName, HttpSession session) {
+    public String createPlaylist(Model model, @RequestParam String playlistName) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -98,7 +99,7 @@ public class PlaylistController {
         }
 
         User user = userServices.findByUsername(sessionUsername)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseGet(User::new);
 
         model.addAttribute("loggedIn", logged);
         model.addAttribute("sessionusername", user.getUsername());
@@ -110,7 +111,7 @@ public class PlaylistController {
     }
 
     @RequestMapping("/playlist/{playlistName}/eliminarPlaylist")
-    public String deletePlaylist(Model model, @PathVariable String playlistName, HttpSession session) {
+    public String deletePlaylist(Model model, @PathVariable String playlistName) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -184,11 +185,12 @@ public class PlaylistController {
         Song songToAdd = songServices.findByTitle(songtitle).get(0);
         Playlist playlistToAddTo = playlistServices.findByName(playlistname).get(0);
         playlistServices.addSong(songToAdd, playlistToAddTo);
+
         return "main_template";
     }
 
     @RequestMapping("/playlist/{playlistname}/quitar/{songtitle}")
-    public String removeFromPlaylist(Model model, HttpSession session, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle) {
+    public String removeFromPlaylist(Model model, @PathVariable("playlistname") String playlistname, @PathVariable("songtitle") String songtitle) {
 
         String sessionUsername = "";
         boolean logged = false;
@@ -207,8 +209,9 @@ public class PlaylistController {
         model.addAttribute("sessionusername", user.getUsername());
 
         Song songToRemove = songServices.findByTitle(songtitle).get(0);
-        Playlist playlistToRemoveFrom = playlistServices.findByName(playlistname).get(0);
+          Playlist playlistToRemoveFrom = playlistServices.findByName(playlistname).get(0);
         playlistServices.removeSong(songToRemove, playlistToRemoveFrom);
+
 
         return "main_template";
     }

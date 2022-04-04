@@ -33,15 +33,18 @@ public class LoginController {
         return "login_template";
     }
 
+    @GetMapping("/errorLogin")
+    public String errorLogInPage() {
+        return "errorLogin_template";
+    }
+
     @GetMapping("/register")
     public String signInPage() {
         return "login_register_template";
     }
 
-    @GetMapping("/errorLogin")
-    public String errorLogInPage() {
-        return "errorLogin_template";
-    }
+    @GetMapping("/successLogout")
+    public String successLogoutPage() {return "successLogout_template";}
 
     @PostMapping(value = "/registerUser")
     public String SignInUser(@RequestParam(value = "username", required = true) String username, @RequestParam(value = "password", required = true) String password,

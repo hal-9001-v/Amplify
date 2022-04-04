@@ -6,10 +6,11 @@
 </div>
 
 <div style="text-align: center;">
-    <form style=display:inline-block; action="/inicio">
+    <form style=display:inline-block; action="/inicio" method="post">
         <button class="button main_button">
             Inicio <i class="fas fa-home"></i>
         </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
 </div>
 </body>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SongServices {
@@ -17,20 +18,25 @@ public class SongServices {
         return songRepo.findByTitle(title);
     }
 
-    public List<Song> findAll(){return songRepo.findAll();}
+    public Optional<Song> findById(long id) {
+        return songRepo.findById(id);
+    }
 
-    public List<Song> requestRecommendedSongs(){
+    public List<Song> findAll() {
+        return songRepo.findAll();
+    }
+
+    public List<Song> requestRecommendedSongs() {
 
         List<Song> allSongs = findAll();
         ArrayList<Song> requestedSongs = new ArrayList<Song>();
-        int listSize = 10;
-        for (int i = 0; i <listSize; i++) {
-            double random =  Math.random() * listSize;
-            Song unitSong = allSongs.get((int)random);
+        int listSize = 5;
+        for (int i = 0; i < listSize; i++) {
+            double random = Math.random() * listSize;
+            Song unitSong = allSongs.get((int) random);
 
-            for (Song s:requestedSongs) {
-                if(s.getTitle().equals(unitSong.getTitle()))
-                {
+            for (Song s : requestedSongs) {
+                if (s.getTitle().equals(unitSong.getTitle())) {
                     break;
                 }
             }

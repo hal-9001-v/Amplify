@@ -198,20 +198,8 @@ public class UserServices {
 
         String g = maxOccurs(genres);
 
-        switch (g) {
-            case "GAMING":
-                return "Gaming";
-            case "DRIVING":
-                return "Musica para conducir";
-            case "SPORT":
-                return "Deporte";
-            case "PODCAST":
-                return "Podcast";
-            case "INTIMATE":
-                return "Intimo";
-            case "CHILL":
-                return "Chill";
-        }
+        if(!g.isEmpty()) return g;
+
         return "No hay datos suficientes :(";
     }
 
@@ -227,6 +215,12 @@ public class UserServices {
         }
 
         return maxOccurs(songArtists);
+    }
+
+    public void UpdateDownloads(User user){
+        User u = userRepo.findByUsername(user.getUsername()).get();
+        u.setTotalSongsDownloaded(u.getTotalSongsDownloaded()+1);
+        userRepo.save(u);
     }
 
     public static <T> T maxOccurs(List<T> list) {
@@ -245,6 +239,8 @@ public class UserServices {
         }
         return max.getKey();
     }
+
+
 
     public static Object checkLogged() {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal();

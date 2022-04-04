@@ -52,7 +52,8 @@ public class MailService {
 
        String body = composeMail(songRecommendationNames, recommendationURIs,
              header,  footer);
-        postMail(username, mailAddress, resttemp, url, mailContent, body);
+        String subject = "Recomendaciones para ";
+        postMail(username, mailAddress,subject, resttemp, url, mailContent, body);
 
     }
 
@@ -69,6 +70,8 @@ public class MailService {
                 "¡Estas son tus estadísticas de uso de Amplify! ¡Esperamos que nos sigas visitando frecuentemente!\n" +
                 "\n";
         String footer =
+                "\n" +
+                "\n" +
                 "¡Madre mía, menudos hitazos!\n" +
                 "\n" +
                 "\n" +
@@ -83,16 +86,17 @@ public class MailService {
 
         String body = composeMail(statisticsList, statisticsURIs,
                 header,  footer);
-
-        postMail(username, mailAddress, resttemp, url, mailContent, body);
+        String subject = "Estadísticas de ";
+        postMail(username, mailAddress,subject, resttemp, url, mailContent, body);
 
     }
 
-    private void postMail(String username, String mailAddress, RestTemplate resttemp, URI url, List<String> mailContent, String body) {
-        String subject = "Recommendations for " + username;
+
+    private void postMail(String username, String mailAddress, String subject, RestTemplate resttemp, URI url, List<String> mailContent, String body) {
+        String sub = subject + username;
         String addressee =mailAddress;
         mailContent.add(body);
-        mailContent.add(subject);
+        mailContent.add(sub);
         mailContent.add(addressee);
 
         HttpHeaders head = new HttpHeaders();
@@ -113,7 +117,7 @@ public class MailService {
 
         //Add recommendation names
         for (int i = 0; i < stringList.size(); i++) {
-            body += "\n" + (i + 1) + ". " + stringList.get(i) + " - " + uriList.get(i);
+            body += "\n" + (i + 1) + ". " + stringList.get(i) + " " + uriList.get(i);
         }
 
         //add footer
