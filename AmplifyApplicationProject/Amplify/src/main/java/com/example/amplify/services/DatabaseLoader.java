@@ -55,7 +55,7 @@ public class DatabaseLoader {
         albumRepository.deleteAll();
         playlistRepository.deleteAll();
          */
-
+        System.out.println("HACIENDO MOVIDAS DE LA BD JAJA");
         User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com", "USER", "ADMIN");
         Artist artist0 = new Artist("Porta");
         Artist artist1 = new Artist("Kiko Rivera");
