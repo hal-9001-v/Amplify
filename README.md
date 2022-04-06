@@ -116,3 +116,47 @@ Se han añadido y actualizado diferentes páginas asociadas al login y el regist
 De forma similar, se ha añadido un espacio para usuarios "ADMIN" en el cual es posible utilizar el servicio interno de correo para recibir estadísticas o enviar recomendaciones.
 
 ![image](https://user-images.githubusercontent.com/56352638/162078364-a1bfbc62-850c-4f2f-abd1-e14d430611e7.png)
+
+## Diagrama de clases
+Destacamos la adición de clases para controlar la seguridad y el propio servicio interno así como pequeñas adiciones en la estructura general de controladores para  manejar diferentes tipos de errores.
+
+![image](https://user-images.githubusercontent.com/56352638/162081770-c536ff36-0eed-40b6-9ec4-34447494fdef.png)
+
+![image](https://user-images.githubusercontent.com/56352638/162081659-a3c8701f-9222-4d37-94c9-5e40740c801c.png)
+
+### Diagrama completo (Aplicación y servicio interno)
+
+![java](https://user-images.githubusercontent.com/56352638/162081999-5ab91129-5f57-41cf-8240-d4122f5b8ffa.png)
+
+![java2](https://user-images.githubusercontent.com/56352638/162083112-cddb3c5d-7649-44c3-8149-02656fe0a3df.png)
+
+## Despliegue de aplicación
+
+### MySQL
+1. Sudo apt-get install mysql-server
+2. Mysql -u root -p cacapoop
+
+SQL
+  - Create database amplifydb;
+  - Use database amplifydb;
+  - Create user ‘root’@’localhost’ identified by ‘cacapoop’;
+  - Grant all privileges on amplify.* to ‘root’@’localhost’;
+  - Flush privileges;
+  - quit;
+  
+### Java
+1. Sudo apt-get install java default-jre
+2. Java -version # Solo para comprobar
+  
+### Maven
+En la carpeta del proyecto, por cada sub-proyecto:
+- Mvn dependency:resolve
+- Mvn compile
+- Maven package
+
+### Aplicación
+En la carpeta de proyecto:
+- Ir al proyecto del servicio / target
+- Java -jar “Aplicacion.jar”
+- Ir al proyecto de la aplicación / target en otro cmd(o ejecutar en segundo plano a partir de aquí con &)
+- Java -jar “Servicio.jar”
