@@ -6,13 +6,13 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para d
 
 ## Funcionalidades públicas
 - Buscar una canción, artista o albúm en concreto
-- Reproducir/Descargar cualquier canción
+- Descargar cualquier canción
 - Crear o iniciar sesión en una cuenta
 
 ## Funcionalidades privadas
 - Crear listas de reproducción personalizadas
 - Guardar canciones, álbumes, artistas y playlists favoritos
-- Modificar la cuenta de usuario
+- Recibir estadísticas de un usuario y enviar recomendaciones (Administrador)
 
 ## Entidades y relaciones
 - Usuario: recoge el perfil de un usuario, dejando registrado los artistas, álbumes y canciones favoritos. Tiene asociado las reviews y playlists que ha realizado
@@ -20,10 +20,11 @@ Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para d
 - Artista: recoge los álbumes que ha publicado un artista.
 - Album: engloba todas las canciones de un álbum y conoce al artista.
 - Playlist: conjunto determinado de canciones que puede haber creado un usuario.
+- Songfile: se utiliza de forma conjunta a "Canción" para agilizar el manejo de los archivos de audio.
 
 ## Servicio interno
-- Enviar una notificación cuando el servicio web suba una obra nueva que pueda resultar de interés. (Si el usuario tiene X canciones de X género valoradas o guardadas, recibirá un correo cuando se suba una canción de ese género concreto o similares. 
-- Al final de cada mes, el servicio web enviará por correo a los usuarios las estadísticas de escucha y descarga de ese mes, además de una lista de reproducción compuesta por algunas de sus canciones más esuchadas. 
+- Enviar correos de forma asíncrona (Tanto entregar a administradores de la aplicación datos de usuarios, como mandarles recomendaciones a los usuarios directamente).
+- Recibir peticiones de descargas de archivos para poder buscar estas canciones en la base de datos y poder permitir descargas.
   
 ## Trello
 > https://trello.com/b/dPt5uWWU/amplify
@@ -93,3 +94,25 @@ La navegación, aunque de forma esquemática puede ser algo confusa, es muy intu
 ![estructura_general](https://user-images.githubusercontent.com/56352638/155112509-16e41668-6151-4713-9716-b3b49a66e0e5.png)
 
 ![java](https://user-images.githubusercontent.com/56352638/155110781-5cf71c0d-3f85-43ae-9102-5903e2918566.png)
+
+# Desarrollo (Fase 3)
+## Navegación (Nuevos elementos)
+Se han incluido diversos elementos (templates nuevas y elementos de navegación) para poder visitar de forma correcta los diferentes espacios públicos y privados de la aplicación web:
+### Página principal
+La página principal no ha cambiado en demasía así como las páginas creadas en la anterior fase de desarrollo; simplemente se han actualizado los campos pertinentes (por ejemplo la adición de un botón de descarga para poder descargar las diferentes canciones mediante el servicio interno).
+
+![image](https://user-images.githubusercontent.com/56352638/162077330-9b1660ad-bf94-4249-88cf-d0c1a58c0ad3.png)
+
+### Login y registro
+Se han añadido y actualizado diferentes páginas asociadas al login y el registro (errores de login/registro y actualización de estos templates).
+
+![image](https://user-images.githubusercontent.com/56352638/162077508-f80a9d49-bb9b-4f58-8a28-2c86f1ee2190.png)
+
+![image](https://user-images.githubusercontent.com/56352638/162077661-4fb6a454-b3fb-4fff-a651-368a0c8d7390.png)
+
+![image](https://user-images.githubusercontent.com/56352638/162078114-9dc8d623-7b7c-487d-8fb7-3e55e8d9a8dc.png)
+
+### Servicio interno
+De forma similar, se ha añadido un espacio para usuarios "ADMIN" en el cual es posible utilizar el servicio interno de correo para recibir estadísticas o enviar recomendaciones.
+
+![image](https://user-images.githubusercontent.com/56352638/162078364-a1bfbc62-850c-4f2f-abd1-e14d430611e7.png)
