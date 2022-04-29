@@ -21,13 +21,13 @@ services:
     image: dexaxi/amplify-docker:latest
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      DATABASE_LOAD: true
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
     restart: always
     depends_on:
       - amplifydb
       - amplify-loadbalancer-internal
-  
   
   amplify-web-2:
     container_name: amplify-web-2
@@ -35,11 +35,13 @@ services:
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      DATABASE_LOAD: false
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
     restart: always
     depends_on:
       - amplifydb
       - amplify-loadbalancer-internal
+      - amplify-web-1
 
   amplify-internal-1:
     container_name: amplify-internal-1
@@ -76,3 +78,6 @@ services:
     depends_on:
       - amplify-internal-1
       - amplify-internal-2
+
+
+

@@ -5,6 +5,7 @@ import com.example.amplify.repositories.*;
 import com.example.amplify.services.*;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
@@ -45,8 +46,13 @@ public class DatabaseLoader {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${database.load}")
+    private boolean loadDB;
+
     @PostConstruct
-    public void init() throws IOException {
+    public void init() throws IOException, InterruptedException {
+
+
 
         /*
         userRepo.deleteAll();
@@ -55,8 +61,8 @@ public class DatabaseLoader {
         albumRepository.deleteAll();
         playlistRepository.deleteAll();
          */
+        if(loadDB) {
 
-        if(!userServices.findByUsername("dexaxi").isPresent()) {
             System.out.println("HACIENDO MOVIDAS DE LA BD ");
             User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com", "USER", "ADMIN");
             Artist artist0 = new Artist("Porta");
