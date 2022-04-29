@@ -1,7 +1,10 @@
 package com.example.amplify;
 
+
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.hazelcast.spring.cache.HazelcastCacheManager;
 
 import org.springframework.context.annotation.Bean;
 
@@ -10,7 +13,6 @@ import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.MapConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.spring.cache.HazelcastCacheManager;
 import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
 
 import org.springframework.cache.CacheManager;
