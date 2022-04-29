@@ -1,8 +1,5 @@
 version: '3'
 
-volumes:
-  dbdata:
-
 services:
 
   mysql-amp:
@@ -12,11 +9,9 @@ services:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: cacapoop
       MYSQL_DATABASE: amplifydb
-    volumes:
-      - dbdata:/var/lib/mysql
     restart: always
 
-  amplify1:
+  amplify-web-1:
     container_name: amplify-web-1
     image: dexaxi/amplify-docker:latest
     environment:
@@ -28,7 +23,7 @@ services:
       - amplify-loadbalancer-internal
   
   
-  amplify2:
+  amplify-web-2:
     container_name: amplify-web-2
     image: dexaxi/amplify-docker:latest
     environment:
@@ -39,7 +34,7 @@ services:
       - amplifydb
       - amplify-loadbalancer-internal
 
-  amplifyInternal1:
+  amplify-internal-1:
     container_name: amplify-internal-1
     image: dexaxi/amplify-internal:latest
     environment:
@@ -48,7 +43,7 @@ services:
     depends_on:
       - amplifydb
 
-  amplifyInternal2:
+  amplify-internal-2:
     container_name: amplify-internal-2
     image: dexaxi/amplify-internal:latest
     environment:
@@ -57,7 +52,7 @@ services:
     depends_on:
       - amplifydb
   
-  loadbalancer:
+  amplify-loadbalancer-web:
     container_name: amplify-loadbalancer-web
     build: ./haproxy-web
     restart: always
@@ -67,7 +62,7 @@ services:
     - amplify-web-1
     - amplify-web-2
 
-  internal-loadbalancer:
+  amplify-loadbalancer-internal:
     container_name: amplify-loadbalancer-internal
     build: ./haproxy-internal
     restart: always
