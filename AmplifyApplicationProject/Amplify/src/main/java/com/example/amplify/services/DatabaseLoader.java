@@ -56,7 +56,7 @@ public class DatabaseLoader {
         playlistRepository.deleteAll();
          */
 
-        if(artistServices.findByName("Porta").isEmpty()) {
+        if(!userServices.findByUsername("dexaxi").isPresent()) {
             System.out.println("HACIENDO MOVIDAS DE LA BD ");
             User user = new User("dexaxi", passwordEncoder.encode("123"), "dexaxi12@gmail.com", "USER", "ADMIN");
             Artist artist0 = new Artist("Porta");

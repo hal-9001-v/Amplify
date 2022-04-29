@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  dbdata:
+
 services:
 
   mysql-amp:
@@ -9,12 +12,15 @@ services:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: cacapoop
       MYSQL_DATABASE: amplifydb
+    volumes:
+      - dbdata:/var/lib/mysql
     restart: always
 
   amplify-web-1:
     container_name: amplify-web-1
     image: dexaxi/amplify-docker:latest
     environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
     restart: always
@@ -27,6 +33,7 @@ services:
     container_name: amplify-web-2
     image: dexaxi/amplify-docker:latest
     environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
     restart: always
@@ -57,7 +64,7 @@ services:
     build: ./haproxy-web
     restart: always
     ports: 
-      - 433:433
+      - 443:443
     depends_on: 
     - amplify-web-1
     - amplify-web-2
