@@ -1,0 +1,76 @@
+version: '3'
+
+volumes:
+  dbdata:
+
+services:
+
+  mysql-amp:
+    container_name: amplifydb
+    image: mysql:8.0.17
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: cacapoop
+      MYSQL_DATABASE: amplifydb
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+
+  amplify1:
+    container_name: amplify-web-1
+    image: dexaxi/amplify-docker:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+    restart: always
+    depends_on:
+      - amplifydb
+      - amplify-loadbalancer-internal
+  
+  
+  amplify2:
+    container_name: amplify-web-2
+    image: dexaxi/amplify-docker:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+    restart: always
+    depends_on:
+      - amplifydb
+      - amplify-loadbalancer-internal
+
+  amplifyInternal1:
+    container_name: amplify-internal-1
+    image: dexaxi/amplify-internal:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+    restart: always
+    depends_on:
+      - amplifydb
+
+  amplifyInternal2:
+    container_name: amplify-internal-2
+    image: dexaxi/amplify-internal:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+    restart: always
+    depends_on:
+      - amplifydb
+  
+  loadbalancer:
+    container_name: amplify-loadbalancer-web
+    build: ./haproxy-web
+    restart: always
+    ports: 
+      - 433:433
+    depends_on: 
+    - amplify-web-1
+    - amplify-web-2
+
+  internal-loadbalancer:
+    container_name: amplify-loadbalancer-internal
+    build: ./haproxy-internal
+    restart: always
+    depends_on:
+      - amplify-internal-1
+      - amplify-internal-2

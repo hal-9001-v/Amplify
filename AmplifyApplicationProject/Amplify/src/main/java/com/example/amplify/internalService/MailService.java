@@ -1,5 +1,6 @@
 package com.example.amplify.internalService;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
@@ -19,11 +20,14 @@ import java.util.List;
 @EnableAsync
 public class MailService {
 
+    @Value("${internalService.baseUri}")
+    private String intServiceURI;
+
     @Async
     public void sendRecommendationsMail(String username, String mailAddress, List<String> songRecommendationNames, List<URI> recommendationURIs) throws URISyntaxException, IOException {
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8080/email/recomendaciones");
+        URI url = new URI(intServiceURI + "/email/recomendaciones");
 
         List<String> mailContent = new ArrayList<String>();
 
@@ -61,7 +65,7 @@ public class MailService {
     public void sendStatisticsMail(String username, String mailAddress, List<String> statisticsList, List<URI> statisticsURIs )throws URISyntaxException, IOException{
 
         RestTemplate resttemp = new RestTemplate();
-        URI url = new URI("http://localhost:8080/email/estadisticas");
+        URI url = new URI(intServiceURI + "/email/estadisticas");
 
         List<String> mailContent = new ArrayList<String>(3);
 

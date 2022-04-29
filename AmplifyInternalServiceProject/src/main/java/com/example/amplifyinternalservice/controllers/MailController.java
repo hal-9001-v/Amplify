@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/email")
 public class MailController {
 
+
     @Autowired
     MailServices mailServices;
 
