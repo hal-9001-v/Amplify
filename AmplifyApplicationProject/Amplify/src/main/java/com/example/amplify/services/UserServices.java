@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -23,22 +24,27 @@ public class UserServices {
     @Autowired
     PlaylistServices playlistServices;
 
+    @Transactional(readOnly = true)
     public Optional<User> findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
 
+    @Transactional(readOnly = true)
     public List<User> findAllByUsername(String username, Pageable page) {
         return userRepo.findAllByUsername(username, page);
     }
 
+    @Transactional(readOnly = true)
     public List<User> findByEmail(String email) {
         return userRepo.findByEmail(email);
     }
 
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepo.findAll();
     }
 
+    @Transactional
     public void addSong(Song song, User user) {
 
         List<Song> allUserSongs = user.getSongs();
@@ -56,6 +62,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional
     public void addPlaylist(Playlist playlist, User user) {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
@@ -75,6 +82,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional
     public void addArtist(Artist artist, User user) {
         List<Artist> allUserArtists = user.getArtists();
 
@@ -91,6 +99,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional
     public void addAlbum(Album album, User user) {
         List<Album> allUserAlbums = user.getAlbums();
 
@@ -107,6 +116,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional
     public void removePlaylist(Playlist playlist, User user) {
 
         List<Playlist> allUserPlaylists = user.getPlaylists();
@@ -128,6 +138,7 @@ public class UserServices {
 
     }
 
+    @Transactional
     public void removeAlbum(Album album, User user) {
 
         List<Album> allUserAlbums = user.getAlbums();
@@ -146,6 +157,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional
     public void removeArtist(Artist artist, User user) {
 
         List<Artist> allUserArtists = user.getArtists();
@@ -166,6 +178,7 @@ public class UserServices {
 
     }
 
+    @Transactional
     public void removeSong(Song song, User user) {
 
         List<Song> allUserSongs = user.getSongs();
@@ -185,6 +198,7 @@ public class UserServices {
         userRepo.save(user);
     }
 
+    @Transactional(readOnly = true)
     public String getFavouriteGenre(User user) {
 
         List<Song> songList = findByUsername(user.getUsername())
@@ -203,6 +217,7 @@ public class UserServices {
         return "No hay datos suficientes :(";
     }
 
+    @Transactional(readOnly = true)
     public String getFavouriteArtist(User user) {
 
         List<Song> songList = findByUsername(user.getUsername())

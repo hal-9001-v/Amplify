@@ -8,6 +8,7 @@ import com.example.amplify.repositories.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,17 @@ public class PlaylistServices {
     @Autowired
     private PlaylistRepository playlistRepo;
 
+    @Transactional(readOnly = true)
     public List<Playlist> findByName(String name) {
         return playlistRepo.findByName(name);
     }
 
+    @Transactional(readOnly = true)
     public List<Playlist> findByLength(float length) {
         return playlistRepo.findByLength(length);
     }
 
+    @Transactional
     public Playlist createPlaylist(String name, User user){
 
         Playlist newPlaylist = new Playlist(name);
@@ -42,6 +46,7 @@ public class PlaylistServices {
         return newPlaylist;
     }
 
+    @Transactional
     public void addSong(Song song, Playlist playlist){
 
             List<Song>  playlistSongs = playlist.getSongs();
@@ -61,6 +66,7 @@ public class PlaylistServices {
 
     }
 
+    @Transactional
     public void removeSong(Song song, Playlist playlist){
 
         List<Song> allPlaylistSongs = playlist.getSongs();
