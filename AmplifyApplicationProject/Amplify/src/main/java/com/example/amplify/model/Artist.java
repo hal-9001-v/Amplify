@@ -22,7 +22,7 @@ public class Artist implements Serializable {
     private String name;
 
     //BD Relations
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<Song> songs;
 
