@@ -1,14 +1,17 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 
 @Entity
-public class Artist {
+public class Artist implements Serializable {
 
     //PK
     @Id
@@ -19,10 +22,12 @@ public class Artist {
     private String name;
 
     //BD Relations
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Song> songs;
 
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist")
+    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "artist", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Album> albums;
 
 

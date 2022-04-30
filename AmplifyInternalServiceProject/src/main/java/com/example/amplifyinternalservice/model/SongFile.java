@@ -1,10 +1,14 @@
 package com.example.amplifyinternalservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Blob;
 
 @Entity
-public class SongFile {
+public class SongFile implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +18,8 @@ public class SongFile {
     @JsonIgnore
     private Blob file;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private Song song;
 
 

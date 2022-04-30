@@ -1,14 +1,17 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-public class Album {
+public class Album implements Serializable {
 
 
     //PK
@@ -21,10 +24,12 @@ public class Album {
     private String name;
 
     //BD Relations
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "album", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Song> songs;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     Artist artist;
 
 

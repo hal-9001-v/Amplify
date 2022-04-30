@@ -2,17 +2,20 @@ package com.example.amplify.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
 
 @Entity
-public class Song {
+public class Song implements Serializable {
 
     //PK
     @Id
@@ -23,16 +26,19 @@ public class Song {
     private String title;
     private String genre;
 
-    @OneToOne (cascade = CascadeType.REMOVE, mappedBy = "song")
+    @OneToOne (cascade = CascadeType.REMOVE, mappedBy = "song", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SongFile songFile;
 
 
     //BD Relations
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private Artist artist;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private Album album;
 
 
