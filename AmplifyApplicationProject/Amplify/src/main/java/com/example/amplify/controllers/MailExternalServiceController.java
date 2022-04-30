@@ -82,7 +82,7 @@ public class MailExternalServiceController {
             String uriString = "";
             for (int i = 0; i < songList.size(); i++) {
                 long songName = songList.get(i).getId();
-                uriString = "https://localhost:8443/song/descargar/"+songName;
+                uriString = "https://localhost/song/descargar/"+songName;
                 String songStr = songServices.findById(songName).get().getTitle() +  ", de " + songServices.findById(songName).get().getArtist().getName() + ", descargar en: ";
                 strList.add(songStr);
                 URI properURI = new URI(uriString);

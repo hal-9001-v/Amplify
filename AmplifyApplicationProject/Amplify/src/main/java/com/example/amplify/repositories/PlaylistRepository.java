@@ -19,7 +19,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<Playlist> findByLength(float length);
 
-    @CacheEvict(value = "playlists")
+    @CacheEvict(value = "playlists", allEntries = true)
     Playlist save(Playlist newPlaylist);
 
 }

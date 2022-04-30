@@ -1,14 +1,17 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Playlist {
+public class Playlist implements Serializable {
 
     //PK
     @Id
@@ -20,14 +23,17 @@ public class Playlist {
     private float length;
 
     //BD Relations
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Song> songs;
 
-    @ManyToMany (cascade = CascadeType.PERSIST, mappedBy = "playlists")
+    @ManyToMany (cascade = CascadeType.PERSIST, mappedBy = "playlists", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> users;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private User user;
 
 

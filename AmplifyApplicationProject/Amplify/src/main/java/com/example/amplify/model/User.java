@@ -1,13 +1,16 @@
 package com.example.amplify.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     //PK
     @Id
@@ -22,24 +25,29 @@ public class User {
     private int totalSongsDownloaded;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<String> roles;
 
     //BD Relations
 
     //Fav Playlists
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Playlist> playlists;
     //Fav Artists
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Artist> artists;
     //Fav songs
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Song> songs;
     //Fav album
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 

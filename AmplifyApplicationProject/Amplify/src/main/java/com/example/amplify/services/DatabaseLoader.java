@@ -174,19 +174,29 @@ public class DatabaseLoader {
                 playlist.setSongs(playList0songList);
                 playlist1.setSongs(playlist1songList);
                 playlist2.setSongs(playlist2songList);
+
+                playlistRepository.save(playlist);
+                playlistRepository.save(playlist1);
+                playlistRepository.save(playlist2);
+
+
                 album0.setSongs(album0songList);
                 album0.setArtist(artist0);
+                albumRepository.save(album0);
+
                 album1.setSongs(album1songList);
                 album1.setArtist(artist0);
+                albumRepository.save(album1);
+
                 album2.setSongs(album2songList);
                 album2.setArtist(artist1);
+                albumRepository.save(album2);
+
                 album3.setSongs(album3songList);
                 album3.setArtist(artist2);
-
-                albumRepository.save(album0);
-                albumRepository.save(album1);
-                albumRepository.save(album2);
                 albumRepository.save(album3);
+
+
 
                 ArrayList<Album> albumList = new ArrayList<Album>();
                 ArrayList<Artist> artistList = new ArrayList<Artist>();
@@ -199,9 +209,7 @@ public class DatabaseLoader {
 
                 user.setAlbums(albumList);
                 user.setArtists(artistList);
-                playlistRepository.save(playlist);
-                playlistRepository.save(playlist1);
-                playlistRepository.save(playlist2);
+
                 userRepo.save(user);
 
 
