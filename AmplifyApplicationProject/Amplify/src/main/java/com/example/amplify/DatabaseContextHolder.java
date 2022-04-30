@@ -8,7 +8,7 @@ public class DatabaseContextHolder {
         CONTEXT.set(databaseEnviroment);
     }
 
-    public static DatabaseEnviroment getEnviroment() {
+    public static DatabaseEnviroment getEnvironment() {
         return CONTEXT.get();
     }
 
