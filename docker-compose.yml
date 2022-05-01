@@ -8,12 +8,41 @@ services:
   mysql-amp:
     container_name: amplifydb
     image: mysql:8.0.17
+    env_file: ./master/.env.master
+    cap_add: 
+      - all
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: cacapoop
       MYSQL_DATABASE: amplifydb
+    
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./master/data:/var/lib/mysql
+      # This doesn't work  ¯\_(ツ)_/¯
+      #- ./master/master_mysql_connector.sh:/tmp/master_mysql_connector.sh
+    #command: /bin/bash -x /tmp/master_mysql_connector.sh
+    networks:
+      default:
+        aliases:
+          - mysql
+    restart: always
+    
+  mysql-slave-amp:
+    container_name: amplifydb-slave
+    image: mysql:8.0.17
+    env_file: ./slave/.env.slave
+    cap_add: 
+     - all
+    environment:
+      MYSQL_ROOT_PASSWORD: cacapoop
+    volumes:
+      - ./slave/data:/var/lib/mysql
+      # ¯\_(ツ)_/¯
+      #- ./slave/slave_mysql_connector.sh:/tmp/slave_mysql_connector.sh
+      #command: /bin/bash -x /tmp/slave_mysql_connector.sh
+    networks:
+      default:
+        aliases:
+          - mysql
     restart: always
 
   amplify-web-1:
