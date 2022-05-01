@@ -1,4 +1,4 @@
-mysql -u root -p 'cacapoop' -e "Show databases"
+mysql -u root -p
 cacapoop
 
 create user 'ampSlave'@'%' identified by 'cacapoop';

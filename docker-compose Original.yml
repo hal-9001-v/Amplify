@@ -1,0 +1,94 @@
+version: '3'
+
+volumes:
+  dbdata:
+
+services:
+
+  mysql-amp:
+    container_name: amplifydb
+    image: mysql:8.0.17
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: cacapoop
+      MYSQL_DATABASE: amplifydb
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+ 
+  mysql-slave-amp:
+    container_name: amplifydb-slave
+    image: mysql:8.0.17
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: cacapoop
+      MYSQL_DATABASE: amplifydb
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+
+  amplify-web-1:
+    container_name: amplify-web-1
+    image: dexaxi/amplify-docker:latest
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      DATABASE_LOAD: true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+    restart: always
+    depends_on:
+      - amplifydb
+      - amplify-loadbalancer-internal
+  
+  amplify-web-2:
+    container_name: amplify-web-2
+    image: dexaxi/amplify-docker:latest
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      DATABASE_LOAD: false
+      INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+    restart: always
+    depends_on:
+      - amplifydb
+      - amplify-loadbalancer-internal
+      - amplify-web-1
+
+  amplify-internal-1:
+    container_name: amplify-internal-1
+    image: dexaxi/amplify-internal:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+    restart: always
+    depends_on:
+      - amplifydb
+
+  amplify-internal-2:
+    container_name: amplify-internal-2
+    image: dexaxi/amplify-internal:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+    restart: always
+    depends_on:
+      - amplifydb
+  
+  amplify-loadbalancer-web:
+    container_name: amplify-loadbalancer-web
+    build: ./haproxy-web
+    restart: always
+    ports: 
+      - 443:443
+    depends_on: 
+    - amplify-web-1
+    - amplify-web-2
+
+  amplify-loadbalancer-internal:
+    container_name: amplify-loadbalancer-internal
+    build: ./haproxy-internal
+    restart: always
+    depends_on:
+      - amplify-internal-1
+      - amplify-internal-2
+
+
+
