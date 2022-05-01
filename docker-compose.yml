@@ -8,7 +8,7 @@ services:
   mysql-amp:
     container_name: amplifydb
     image: mysql:8.0.17
-    env_file: ./master/.env.master
+    env_file: ./Docker/master/.env.master
     cap_add: 
       - all
     environment:
@@ -16,7 +16,7 @@ services:
       MYSQL_DATABASE: amplifydb
     
     volumes:
-      - ./master/data:/var/lib/mysql
+      - ./Docker/master/data:/var/lib/mysql
       # This doesn't work  ¯\_(ツ)_/¯
       #- ./master/master_mysql_connector.sh:/tmp/master_mysql_connector.sh
     #command: /bin/bash -x /tmp/master_mysql_connector.sh
@@ -29,13 +29,13 @@ services:
   mysql-slave-amp:
     container_name: amplifydb-slave
     image: mysql:8.0.17
-    env_file: ./slave/.env.slave
+    env_file: ./Docker/slave/.env.slave
     cap_add: 
      - all
     environment:
       MYSQL_ROOT_PASSWORD: cacapoop
     volumes:
-      - ./slave/data:/var/lib/mysql
+      - ./Docker/slave/data:/var/lib/mysql
       # ¯\_(ツ)_/¯
       #- ./slave/slave_mysql_connector.sh:/tmp/slave_mysql_connector.sh
       #command: /bin/bash -x /tmp/slave_mysql_connector.sh
