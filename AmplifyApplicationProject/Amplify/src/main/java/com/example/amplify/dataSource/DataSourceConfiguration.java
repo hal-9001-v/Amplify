@@ -1,5 +1,6 @@
-package com.example.amplify;
+package com.example.amplify.dataSource;
 
+import com.example.amplify.DatabaseEnviroment;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

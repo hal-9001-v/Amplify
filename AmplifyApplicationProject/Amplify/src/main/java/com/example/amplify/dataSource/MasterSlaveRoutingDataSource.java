@@ -1,4 +1,4 @@
-package com.example.amplify;
+package com.example.amplify.dataSource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
