@@ -160,3 +160,6 @@ En la carpeta de proyecto:
 - Java -jar “Aplicacion.jar”
 - Ir al proyecto de la aplicación / target en otro cmd(o ejecutar en segundo plano a partir de aquí con &)
 - Java -jar “Servicio.jar”
+
+# Desarrollo (Fase 4)
+## Despliegue de la aplicación en Docker
