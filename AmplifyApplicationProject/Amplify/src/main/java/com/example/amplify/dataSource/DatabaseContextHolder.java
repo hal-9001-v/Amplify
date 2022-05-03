@@ -1,6 +1,5 @@
 package com.example.amplify.dataSource;
 
-import com.example.amplify.DatabaseEnviroment;
 
 public class DatabaseContextHolder {
 

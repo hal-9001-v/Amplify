@@ -1,15 +1,12 @@
 package com.example.amplify.dataSource;
 
-import com.example.amplify.DatabaseEnviroment;
-import com.example.amplify.dataSource.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
-
+/*
 @Aspect
 @Component
 @Order(0)
@@ -30,3 +27,4 @@ public class TransactionReadonlyAspect {
 
     }
 }
+*/

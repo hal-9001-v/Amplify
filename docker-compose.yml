@@ -9,6 +9,8 @@ services:
     container_name: amplifydb
     image: mysql:8.0.17
     env_file: ./Docker/master/.env.master
+    ports:
+      - "3306:3306"
     cap_add: 
       - all
     environment:
@@ -16,7 +18,7 @@ services:
       MYSQL_DATABASE: amplifydb
     
     volumes:
-      - ./Docker/master/data:/var/lib/mysql
+      - dbdata:/var/lib/mysql
       # This doesn't work  ¯\_(ツ)_/¯
       #- ./master/master_mysql_connector.sh:/tmp/master_mysql_connector.sh
     #command: /bin/bash -x /tmp/master_mysql_connector.sh
@@ -30,12 +32,14 @@ services:
     container_name: amplifydb-slave
     image: mysql:8.0.17
     env_file: ./Docker/slave/.env.slave
+    ports:
+      - "3307:3306"
     cap_add: 
      - all
     environment:
       MYSQL_ROOT_PASSWORD: cacapoop
     volumes:
-      - ./Docker/slave/data:/var/lib/mysql
+      - .dbdata:/var/lib/mysql
       # ¯\_(ツ)_/¯
       #- ./slave/slave_mysql_connector.sh:/tmp/slave_mysql_connector.sh
       #command: /bin/bash -x /tmp/slave_mysql_connector.sh
@@ -44,6 +48,21 @@ services:
         aliases:
           - mysql
     restart: always
+
+  proxysql:
+    image: proxysql/proxysql
+    container_name: proxysql
+    ports:
+      - 6032:6032
+      - 6033:6033
+    volumes:
+      - ./prroxysql/proxysql.cnf:/etx/proxysql.cnf
+      - ./proxysql/data://var/lib/proxysql
+    networks:
+      - mysql_cluster_net
+    depends_on:
+      - mysql-amp
+      - mysql-slave-amp
 
   amplify-web-1:
     container_name: amplify-web-1
@@ -108,5 +127,8 @@ services:
       - amplify-internal-1
       - amplify-internal-2
 
+networks:
+  mysql_cluster_net:
+    driver: bridge
 
 

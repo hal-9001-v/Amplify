@@ -1,6 +1,5 @@
 package com.example.amplify.dataSource;
 
-import com.example.amplify.DatabaseEnviroment;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +9,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+
 public class DataSourceConfiguration {
 
     @Value("${jdbc.master.url}")
