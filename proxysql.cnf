@@ -48,8 +48,8 @@ mysql_replication_hostgroups =
 mysql_servers =
 (
     { address="mysql-amp", port=3306 , hostgroup=10, max_connections=100 , max_replication_lag = 5 },
-    { address="mysql-slave-amp" , port=3306 , hostgroup=20, max_connections=100 , max_replication_lag = 5 }
-
+    { address="mysql-slave-amp1" , port=3306 , hostgroup=20, max_connections=100 , max_replication_lag = 5 }
+    { address="mysql-slave-amp2" , port=3306 , hostgroup=20, max_connections=100 , max_replication_lag = 5 }
 )
 
 # The SQL Awareness Rules 
