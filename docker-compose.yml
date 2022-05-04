@@ -61,7 +61,8 @@ services:
       - ./proxysql.cnf:/etc/proxysql.cnf
     depends_on:
       - mysql-amp
-      - mysql-slave-amp
+      - mysql-slave-amp1
+      - mysql-slave-amp2
 
   amplify-web-1:
     container_name: amplify-web-1
