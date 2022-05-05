@@ -2,9 +2,6 @@ version: '3'
 
 volumes:
   dbdata: 
-  dbdata-slave1:
-  dbdata-slave2:
-  proxysql-data: 
 
 services:
 
@@ -18,51 +15,6 @@ services:
     restart: always
     volumes:
       - dbdata:/var/lib/mysql 
-      - ./sqlMaster1.sh:/sqlMasterInit.sh
-    ports:
-      - 3306:3306
-
-    
-  mysql-slave-amp1:
-    container_name: amplifydb-slave1
-    image: mysql:8.0.17
-    environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: cacapoop
-      MYSQL_DATABASE: amplifydb
-    restart: always
-    volumes:
-      - dbdata-slave1:/var/lib/mysql 
-      - ./sqlSlave1.sh:/sqlSlaveInit.sh
-    #command: sh "sqlSlaveInit.sh"
-    
-  mysql-slave-amp2:
-    container_name: amplifydb-slave2
-    image: mysql:8.0.17
-    environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: cacapoop
-      MYSQL_DATABASE: amplifydb
-    restart: always
-    volumes:
-      - dbdata-slave2:/var/lib/mysql 
-      - ./sqlSlave2.sh:/sqlSlaveInit.sh
-    #command: sh "sqlSlaveInit.sh"
-
-
-
-  proxysql:
-    image: proxysql/proxysql
-    container_name: proxysql
-    ports:
-      - 6032:6032
-      - 6033:6033
-    volumes:
-      - ./proxysql.cnf:/etc/proxysql.cnf
-    depends_on:
-      - mysql-amp
-      - mysql-slave-amp1
-      - mysql-slave-amp2
 
   amplify-web-1:
     container_name: amplify-web-1
@@ -75,7 +27,6 @@ services:
     restart: always
     depends_on:
       - amplifydb
-      - proxysql
       - amplify-loadbalancer-internal
   
   amplify-web-2:
@@ -89,7 +40,6 @@ services:
     restart: always
     depends_on:
       - amplifydb
-      - proxysql
       - amplify-loadbalancer-internal
 
   amplify-internal-1:
@@ -100,7 +50,6 @@ services:
     restart: always
     depends_on:
       - amplifydb
-      - proxysql
 
   amplify-internal-2:
     container_name: amplify-internal-2
@@ -110,7 +59,6 @@ services:
     restart: always
     depends_on:
       - amplifydb
-      - proxysql
   
   amplify-loadbalancer-web:
     container_name: amplify-loadbalancer-web
@@ -129,8 +77,3 @@ services:
     depends_on:
       - amplify-internal-1
       - amplify-internal-2
-
-
-networks:
-  mysql_cluster_net:
-    driver: bridge
