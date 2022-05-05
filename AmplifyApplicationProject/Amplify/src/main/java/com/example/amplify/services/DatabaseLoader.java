@@ -98,7 +98,7 @@ public class DatabaseLoader {
                 }
 
                 for (int i = 0; i < songTotal; i++) {
-                    Song s = new Song(GenerateSongName(), genre[(int) (Math.random() * 6)], null);
+                    Song s = new Song(GenerateSongName(), genre[(int) (Math.random() * genre.length], null);
                     switch ((int) (Math.random() * 4)) {
                         case 0:
                             s.setAlbum(album0);

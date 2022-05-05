@@ -1,9 +1,9 @@
 cd \
-cd .\Users ... \GitHub\Amplify\AmplifyInternalServiceProject\
+cd .\Users\Itachi\Documents\GitHub\Amplify\AmplifyInternalServiceProject\
 mvn compile jib:build -Dimage=dexaxi/amplify-internal -D"jib.to.auth.username= ... " -D"jib.to.auth.password= ... "
 cd \
-cd C:\Users ... \GitHub\Amplify\AmplifyApplicationProject\Amplify\
-mvn compile jib:build -Dimage=dexaxi/amplify-docker -D"jib.to.auth.username= ... " -D"jib.to.auth.password= ... "
+cd C:\Users\Itachi\Documents\GitHub\Amplify\AmplifyApplicationProject\Amplify\
+mvn compile jib:build -Dimage=dexaxi/amplify-docker -D"jib.to.auth.username= dexaxiToLol " -D"jib.to.auth.password= ... "
 docker-compose down
 docker volume rm $(docker volume ls -q)
 docker rmi $(docker images -q)
