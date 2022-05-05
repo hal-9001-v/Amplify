@@ -163,3 +163,43 @@ En la carpeta de proyecto:
 
 # Desarrollo (Fase 4)
 ## Despliegue de la aplicación en Docker
+Para la versión final de la aplicación, se ha desplegado haciendo uso de containers de https://www.docker.com/ aplicando técnicas de tolerancia a fallos y escalabilidad en general.
+
+![image](https://user-images.githubusercontent.com/56352638/166873051-f57cb686-53be-40c9-aac5-ab46f7a53576.png)
+
+Se ha hecho uso de la herramienta docker-compose para generar y arrancar los diferentes contenedores, siendo un total de 9 contenedores: 2 servicios web, 2 servicios internos, 2 bases de datos con un esquema master-slave y un balanceador para cada tupla de servicios (3 balanceadores en total, siendo el de la base de datos de tipo proxysql)
+
+![image](https://user-images.githubusercontent.com/56352638/166875956-1bb8033f-b798-49ba-b07c-51955c99fda2.png)
+
+Se ha utilizado Docker también para monitorizar el estado de la aplicación. A través de la consola y también con el uso de Docker Desktop podemos observar como funcionan los contenedores y las imágenes creadas entre sí. También podemos tirar servicios de forma manual para comprobar que los diferentes balanceadores funcionan bien redirigiendo el tráfico de la red.
+
+![image](https://user-images.githubusercontent.com/56352638/166875297-00dcc929-d78e-48b6-911b-3aee6665a9d8.png)
+
+![image](https://user-images.githubusercontent.com/56352638/166875757-7c7c3b89-f9b6-4c89-8c8c-a75601c34519.png)
+
+### Instrucciones de despliegue
+Para poder levantar los diferentes contenedores, se recomienda hacer uso de los diversos scripts que hemos creado para poder compilar, borrar y reiniciar los diferentes elementos de la aplicación (Imágenes, contenedores y volúmenes).
+
+![image](https://user-images.githubusercontent.com/56352638/166879641-7eb304a7-ead9-460a-a448-3f51a00666a9.png)
+
+En resumen, se hace uso de las instrucciones de docker-compose basándose obviamente en el archivo más importante del programa: docker-compose.yml
+
+Para la estructura master-slave se debe hacer uso de elementos adicionales (proxysql.cnf y los archivos de inicialización para maestro y esclavo)
+
+![image](https://user-images.githubusercontent.com/56352638/166880211-fa7a48d9-8862-47d0-bb9d-281ff40fbaac.png)
+
+## Diagrama de la infraestructura
+La infraestructura subyacente de la aplicación se puede resumir mediante el siguiente esquema:
+
+![image](https://user-images.githubusercontent.com/56352638/166878190-06fa4cad-b5d1-4f57-8838-9afcebc78be4.png)
+
+## Otros cambios
+Se han realizado pequeños cambios en el código principal para dar soporte a las diferentes herramientas implementadas (Caché, sesión dsitribuida, ...). Destacamos la creación de una nueva tabla asociada a las canciones del artista y la adición de dependencias y código de inicialización adicional:
+
+![image](https://user-images.githubusercontent.com/56352638/166878717-239c960d-6241-4a91-8139-95fe0d52a7ae.png)
+
+![image](https://user-images.githubusercontent.com/56352638/166878771-60f0f657-e892-44e0-8555-3f882b2d019a.png)
+
+![image](https://user-images.githubusercontent.com/56352638/166879036-cfd7c118-2b8a-437e-9e3f-4d65a0f492e8.png)
+
+La estructura de clases y templates se queda de la misma forma que en la anterior fase, sin cambios relevantes en el código.
