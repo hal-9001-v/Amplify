@@ -4,9 +4,6 @@ Aplicación web dedicada a la reproducción de música
 ## Descripción general
 Amplify sirve, como muchas de las diferentes aplicaciones web del estilo, para disfrutar de la música; aunque con algunas características adicionales, siendo las principales, basarse en contenido libre de derechos de autor (copyright) y tener las diferentes canciones clasificadas según su uso: Streaming, relajación, podcast, deporte...
 
-## Video-explicación del funcionamiento de la aplicación
-https://www.youtube.com/watch?v=hp9Pj-uQg_4
-
 ## Funcionalidades públicas
 - Buscar una canción, artista o albúm en concreto
 - Descargar cualquier canción
