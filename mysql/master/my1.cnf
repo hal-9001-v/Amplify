@@ -1,0 +1,36 @@
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+secure-file-priv= NULL
+symbolic-links=0
+default_authentication_plugin=mysql_native_password
+lower_case_table_names = 1
+slave_net_timeout=3600
+
+bind-address            = 0.0.0.0
+server-id               = 1
+log_bin                 = /var/run/mysqld/mysql-bin.log
+binlog_do_db            = amplifydb
+
+expire_logs_days        = 10
+max_binlog_size        = 100M
+binlog_format = mixed
+
+gtid_mode                = on
+enforce_gtid_consistency = on
+log_slave_updates        = on
+
+
+general_log=1
+general_log_file=/var/log/mysql/general.log
+
+# Slow query settings:
+slow_query_log=1
+slow_query_log_file=/var/log/mysql/slow.log
+long_query_time=0.5
+
+sync-binlog = 1
+sync-relay-log = 1
+sync-relay-log-info = 1
+sync-master-info = 1

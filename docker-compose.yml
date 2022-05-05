@@ -10,47 +10,36 @@ services:
 
   mysql-amp:
     container_name: amplifydb
-    image: mysql:8.0.17
+    image: mysql:5.7
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: cacapoop
       MYSQL_DATABASE: amplifydb
+      MYSQL_USER: amp
+      MYSQL_PASSWORD: cacapoop
+
     restart: always
     volumes:
-      - dbdata:/var/lib/mysql 
-      - ./sqlMaster1.sh:/sqlMasterInit.sh
-    ports:
-      - 3306:3306
+      - ./mysql/master/my1.cnf:/etc/mysql/my.cnf
+      - ./mysql/master/data:/var/lib/mysql
+      - ./mysql/master/init.sql:/docker-entrypoint-initdb.d/init.sql
+
 
     
   mysql-slave-amp1:
     container_name: amplifydb-slave1
-    image: mysql:8.0.17
+    image: mysql:5.7
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: cacapoop
       MYSQL_DATABASE: amplifydb
+      MYSQL_USER: amp
+      MYSQL_PASSWORD: cacapoop
     restart: always
     volumes:
-      - dbdata-slave1:/var/lib/mysql 
-      - ./sqlSlave1.sh:/sqlSlaveInit.sh
+      - ./mysql/slave/my1.cnf:/etc/mysql/my.cnf
+      - ./mysql/slave/data:/var/lib/mysql
+      - ./mysql/slave/init.sql:/docker-entrypoint-initdb.d/init.sql
     #command: sh "sqlSlaveInit.sh"
     
-  mysql-slave-amp2:
-    container_name: amplifydb-slave2
-    image: mysql:8.0.17
-    environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: cacapoop
-      MYSQL_DATABASE: amplifydb
-    restart: always
-    volumes:
-      - dbdata-slave2:/var/lib/mysql 
-      - ./sqlSlave2.sh:/sqlSlaveInit.sh
-    #command: sh "sqlSlaveInit.sh"
-
-
-
   proxysql:
     image: proxysql/proxysql
     container_name: proxysql
@@ -69,9 +58,14 @@ services:
     image: dexaxi/amplify-docker:latest
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      DATABASE_LOAD: true
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+      DATABASE_LOAD: "true"
+      
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+
+      SPRING_DATASOURCE_USERNAME: amp
+      SPRING_DATASOURCE_PASSWORD: cacapoop
+      SPRING_DATASOURCE_URL: jdbc:mysql://proxysql:6033/amplifydb
+
     restart: always
     depends_on:
       - amplifydb
@@ -83,9 +77,13 @@ services:
     image: dexaxi/amplify-docker:latest
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
-      DATABASE_LOAD: false
+      
+      DATABASE_LOAD: "false"
       INTERNALSERVICE_BASEURI: http://amplify-loadbalancer-internal:80
+
+      SPRING_DATASOURCE_USERNAME: amp
+      SPRING_DATASOURCE_PASSWORD: cacapoop
+      SPRING_DATASOURCE_URL: jdbc:mysql://proxysql:6033/amplifydb
     restart: always
     depends_on:
       - amplifydb
@@ -96,7 +94,10 @@ services:
     container_name: amplify-internal-1
     image: dexaxi/amplify-internal:latest
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+
+      SPRING_DATASOURCE_USERNAME: amp
+      SPRING_DATASOURCE_PASSWORD: cacapoop
+      SPRING_DATASOURCE_URL: jdbc:mysql://proxysql:6033/amplifydb
     restart: always
     depends_on:
       - amplifydb
@@ -106,7 +107,10 @@ services:
     container_name: amplify-internal-2
     image: dexaxi/amplify-internal:latest
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-amp:3306/amplifydb
+
+      SPRING_DATASOURCE_USERNAME: amp
+      SPRING_DATASOURCE_PASSWORD: cacapoop
+      SPRING_DATASOURCE_URL: jdbc:mysql://proxysql:6033/amplifydb
     restart: always
     depends_on:
       - amplifydb
@@ -129,8 +133,3 @@ services:
     depends_on:
       - amplify-internal-1
       - amplify-internal-2
-
-
-networks:
-  mysql_cluster_net:
-    driver: bridge
